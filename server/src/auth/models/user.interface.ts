@@ -1,10 +1,11 @@
 import { Role } from './role.enum';
+import { ApiProperty } from '@nestjs/swagger';
 
-export interface User {
+export interface IUser {
   id?: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  role: Role;
+  firstName?: string;
+  secondName?: string;
+  email?: string;
+  password?: string;
+  role?: Role;
 }

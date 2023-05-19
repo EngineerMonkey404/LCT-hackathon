@@ -10,7 +10,6 @@ import {
 } from 'sequelize-typescript';
 
 import { Role } from './role.enum';
-import { ENUM } from 'sequelize';
 
 @Table({})
 export class User extends Model {
@@ -24,9 +23,12 @@ export class User extends Model {
   firstName: string;
 
   @Column
-  lastName: string;
+  secondName: string;
 
-  @Default(Role.FRAME)
+  @Column
+  thirdName: string;
+
+  @Default(Role.CANDIDATE)
   @Column(DataType.ENUM(...Object.values(Role)))
   role: Role;
 
