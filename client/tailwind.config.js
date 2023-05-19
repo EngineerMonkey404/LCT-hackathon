@@ -2,7 +2,11 @@
 export default {
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        purple: "#b390ec",
+      },
+    },
   },
   plugins: [],
 };
