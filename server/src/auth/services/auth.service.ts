@@ -17,12 +17,13 @@ export class AuthService {
     return await bcrypt.hash(password, 12);
   }
   async registerAccount(user: IUser) {
-    const { firstName, secondName, email, password } = user;
+    const { firstName, secondName, thirdName, email, password } = user;
+    console.log('user', user);
     return await this.userModel.create({
       firstName,
       secondName,
+      thirdName,
       email,
-
       pwd_hash: await this.hashPassword(password),
     });
   }
