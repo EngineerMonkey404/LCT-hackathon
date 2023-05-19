@@ -8,7 +8,7 @@
         <button class="form-auth-input bg-black text-white font-semibold mb-8 black-btn-hover">Войти</button>
         <div class="flex justify-around max-sm:flex-col max-sm:items-center">
             <NuxtLink class="hover:cursor-pointer" to=""><span>Забыли пароль?</span></NuxtLink>
-            <span>Нет аккаунта? <NuxtLink to="" class="font-semibold underline hover:cursor-pointer">Зарегистрироваться</NuxtLink></span>
+            <span>Нет аккаунта? <NuxtLink to="/registration" class="font-semibold underline hover:cursor-pointer">Зарегистрироваться</NuxtLink></span>
         </div>
         
     </form>

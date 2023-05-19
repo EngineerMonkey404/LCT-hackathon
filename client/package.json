@@ -21,8 +21,10 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.13.0",
     "nuxt": "^3.5.0",
+    "nuxt-headlessui": "^1.1.4",
     "postcss": "^8.4.23",
     "prettier": "^2.8.8",
+    "tailwind": "^4.0.0",
     "tailwindcss": "^3.3.2",
     "vue-eslint-parser": "^9.3.0"
   },
