@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   css: ["~/layouts/global.css"],
-  modules: ["@nuxtjs/eslint-module", "@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-headlessui"],
+  modules: ["@nuxtjs/eslint-module", "@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-headlessui", '@nuxt/image-edge'],
   eslint: {
     emitWarning: false,
     emitError: false,

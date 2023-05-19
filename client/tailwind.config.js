@@ -6,6 +6,7 @@ export default {
       colors: {
         purple: "#b390ec",
         "dark-purple": "#9068C0",
+        "ultra-dark-purple": "#663399",
       },
     },
   },

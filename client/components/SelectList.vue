@@ -1,6 +1,6 @@
 <template>
     <div class="w-72">
-        <Listbox @click="$emit('update:selectedItem', $event.target.value)" :value="selectedItem" v-model="selectedItem">
+        <Listbox @input="$emit('update:selectedItem', $event.target.value)" :value="selectedItem" v-model="selectedItem" name="assignee">
             <div class="relative mt-1">
                 <ListboxButton
                 @change="$emit('update:selectedItem', $event.target.value)" :value="selectedItem" v-model="selectedItem"

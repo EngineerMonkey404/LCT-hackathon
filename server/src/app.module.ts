@@ -16,7 +16,7 @@ import { User } from './auth/models/user.model';
       port: Number(process.env.MYSQL_PORT),
       username: process.env.MYSQL_USERNAME,
       password: process.env.MYSQL_PASSWORD,
-      database: 'lct',
+      database: 'new_schema1',
       models: [User],
       autoLoadModels: true,
       define: {
