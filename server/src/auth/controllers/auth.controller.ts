@@ -15,6 +15,9 @@ import { UserDto } from '../models/userDto';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 import { JwtGuard } from '../guards/jwt.guard';
+import { RolesGuard } from '../guards/roles.guard';
+import { RequireRoles } from '../guards/roles.decorator';
+import { Role } from '../models/role.enum';
 
 @ApiTags('Авторизация')
 @Controller('auth')
@@ -32,12 +35,9 @@ export class AuthController {
   @ApiOperation({ summary: 'Логин пользователя' })
   @UseGuards(AuthGuard('local'))
   @Post('login')
-  async login(
-    @Req() req,
-    @Body() user: IUser,
-    @Res({ passthrough: true }) res: Response,
-  ) {
+  async login(@Req() req, @Res({ passthrough: true }) res: Response) {
     await this.authService.giveToken(req.user, res);
+    console.log('token otdan');
     return req.user;
   }
 
@@ -51,5 +51,13 @@ export class AuthController {
   @Delete('login')
   async logout(@Res({ passthrough: true }) res: Response) {
     await this.authService.deleteToken(res);
+  }
+
+  @RequireRoles(Role.CURATOR)
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtGuard)
+  @Get('broker')
+  getSomething() {
+    return 'curator role';
   }
 }
