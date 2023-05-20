@@ -1,9 +1,9 @@
 <template>
-    <div class="w-72">
-        <Listbox @input="$emit('update:selectedItem', $event.target.value)" :value="selectedItem" v-model="selectedItem" name="assignee">
+    <div @click="$emit('updates', selectedItem)" class="w-72"> <!--оценить реализацию-->
+        <Listbox :value="selectedItem" v-model="selectedItem">
             <div class="relative mt-1">
                 <ListboxButton
-                @change="$emit('update:selectedItem', $event.target.value)" :value="selectedItem" v-model="selectedItem"
+                 :value="selectedItem" v-model="selectedItem"
                     class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                     <span class="block truncate">{{ selectedItem }}</span>
                     <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

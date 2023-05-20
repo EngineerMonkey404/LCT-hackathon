@@ -15,6 +15,6 @@
     }
 
     .candidate-radio-btn {
-        @apply px-8 pt-3 text-lg font-bold mr-10 rounded-t-3xl pb-0.5
+        @apply px-8 pt-3 text-xl font-bold mr-10 rounded-t-3xl pb-0.5 /*pb может быть плохо*/
     }
 }
