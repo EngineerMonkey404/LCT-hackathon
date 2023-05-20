@@ -8,6 +8,7 @@ import { JwtGuard } from './guards/jwt.guard';
 import { JwtStrategy } from './guards/jwt.strategy';
 import { LocalStrategy } from './guards/local.strategy';
 import { AuthGuard, PassportModule } from '@nestjs/passport';
+import { RolesGuard } from './guards/roles.guard';
 
 export const expire = 3600;
 export const tokenKey = 'token';
@@ -23,6 +24,7 @@ export const tokenKey = 'token';
     SequelizeModule.forFeature([User]),
   ],
   providers: [
+    RolesGuard,
     AuthService,
     JwtGuard,
     JwtStrategy,

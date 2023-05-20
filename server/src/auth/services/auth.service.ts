@@ -17,13 +17,14 @@ export class AuthService {
     return await bcrypt.hash(password, 12);
   }
   async registerAccount(user: IUser) {
-    const { firstName, secondName, thirdName, email, password } = user;
+    const { firstName, secondName, thirdName, email, password, role } = user;
     console.log('user', user);
     return await this.userModel.create({
       firstName,
       secondName,
       thirdName,
       email,
+      role,
       pwd_hash: await this.hashPassword(password),
     });
   }
@@ -40,7 +41,7 @@ export class AuthService {
   }
 
   async giveToken(user: IUser, res: Response) {
-    const token = this.jwtService.sign({ user });
+    const token = await this.jwtService.signAsync({ user });
     res.cookie(tokenKey, token, {
       maxAge: expire,
       httpOnly: true,
