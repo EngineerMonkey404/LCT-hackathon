@@ -1,9 +1,9 @@
 import {
   AllowNull,
   AutoIncrement,
-  BelongsTo,
   BelongsToMany,
   Column,
+  DataType,
   Default,
   ForeignKey,
   HasMany,
@@ -14,8 +14,9 @@ import {
   Unique,
 } from 'sequelize-typescript';
 import { WorkExperience } from './workExperience.model';
-import { User } from '../../auth/models/user.model';
+import { User } from '../../../auth/models/user.model';
 import { TraineeOnFrameApplication } from './traineeOnFrameApplication.model';
+import { FrameApplicationStatus } from './frameApplicationStatus.enum';
 
 @Table({})
 export class FrameApplication extends Model {
@@ -28,6 +29,10 @@ export class FrameApplication extends Model {
   @Column
   position: string;
 
+  @Default(FrameApplicationStatus.PENDING)
+  @Column(DataType.ENUM(...Object.values(FrameApplicationStatus)))
+  status: FrameApplicationStatus;
+
   @Column
   organization: string;
 
@@ -36,9 +41,10 @@ export class FrameApplication extends Model {
 
   @Column
   description: string;
-
-  @HasMany(() => WorkExperience, 'applicationId')
-  workExperience: WorkExperience[];
+  @HasOne(() => WorkExperience)
+  workExperience: WorkExperience;
+  // @HasMany(() => WorkExperience)
+  // workExperience: WorkExperience[];
 
   @ForeignKey(() => User)
   @Column

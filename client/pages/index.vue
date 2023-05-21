@@ -8,8 +8,8 @@
   </div>
 
   <Candidate v-if="userStore.user.role === Role.CANDIDATE" />
-  <Curators v-if="userStore.user.role === Role.CURATOR" />
-  <Interns v-if="userStore.user.role === Role.TRAINEE" />
+  <!--  <Curators v-if="userStore.user.role === Role.CURATOR" />-->
+  <!--  <Interns v-if="userStore.user.role === Role.TRAINEE" />-->
   <Frames v-if="userStore.user.role == Role.FRAME" />
 </template>
 
@@ -17,10 +17,12 @@
 import { useUserStore } from "~/stores/userStore";
 import { Role } from "~/types/types";
 import Candidate from "~/pages/candidate.vue";
-import Curators from "~/pages/curators.vue";
+import Curators from "~/pages/curator.vue";
 import Interns from "~/pages/interns.vue";
-import Frames from "~/pages/frames.vue";
-
+import Frames from "~/pages/frame.vue";
+const cookie = useCookie("token");
+console.log(cookie);
+console.log();
 const userStore = useUserStore();
 </script>
 

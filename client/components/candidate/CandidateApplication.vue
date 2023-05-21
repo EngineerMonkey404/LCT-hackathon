@@ -132,8 +132,6 @@
 </template>
 
 <script setup lang="ts">
-import { useApplicationStore } from "~/stores/applicationStore";
-
 const day = ref<string>();
 const month = ref<string>();
 const year = ref<string>();
@@ -150,18 +148,18 @@ const expirence = ref<string>();
 const jobs = ref<string[]>([]);
 const numberJobs = ref(1);
 
-const create = () => {
-  const store = useApplicationStore();
-  store.createApplication({
-    birthday: `${day}:${month}:${year}`,
-    citizenship: citizenship.value,
-    education: selectedEducation.value,
-    course: selectedCourse.value,
-    workExpirence: expirence.value,
-    jobs: jobs.value,
-  });
-  console.log(store.application);
-};
+// const create = () => {
+//   const store = useApplicationStore();
+//   store.createApplication({
+//     birthday: `${day}:${month}:${year}`,
+//     citizenship: citizenship.value,
+//     education: selectedEducation.value,
+//     course: selectedCourse.value,
+//     workExpirence: expirence.value,
+//     jobs: jobs.value,
+//   });
+//   console.log(store.application);
+// };
 </script>
 
 <style scoped>

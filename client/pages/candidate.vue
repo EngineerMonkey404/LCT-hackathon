@@ -88,13 +88,13 @@
 
 <script setup lang="ts">
 import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
-import { useApplicationStore } from "~/stores/applicationStore";
+// import { useApplicationStore } from "~/stores/applicationStore";
 import StatusApplication from "~/components/candidate/StatusApplication.vue";
 
 const radioToggler = ref("application");
 
-const store = useApplicationStore();
-const status = computed(() => store.getStatusById(1));
+// const store = useApplicationStore();
+// const status = computed(() => store.getStatusById(1));
 </script>
 
 <style scoped></style>

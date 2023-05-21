@@ -1,70 +1,44 @@
 <template>
   <header class="flex justify-center items-end bg-purple w-full h-44">
     <RadioGroup v-model="radioToggler" class="flex">
-      <RadioGroupOption value="invites">
+      <RadioGroupOption value="application">
         <div
           class="candidate-radio-btn bg-white hover:opacity-50 duration-300 ease-out"
         >
-          <NuxtImg class="inline-block" type="svg" src="/interns/mail.svg" />
-          Приглашения
+          <NuxtImg class="inline-block" type="svg" src="/frames/invites.svg" />
+          Заявки на стажировку
         </div>
       </RadioGroupOption>
-      <RadioGroupOption v-model="radioToggler" value="map">
-        <div
-          class="candidate-radio-btn bg-ultra-dark-purple text-white hover:opacity-50 duration-300 ease-out"
-        >
-          <NuxtImg class="inline-block" type="svg" src="/interns/earth.svg" />
-          Карта
-        </div>
-      </RadioGroupOption>
-      <RadioGroupOption v-model="radioToggler" value="overview">
+      <RadioGroupOption v-model="radioToggler" value="statistic">
         <div
           class="candidate-radio-btn bg-ultra-dark-purple text-white hover:opacity-50 duration-300 ease-out"
         >
           <NuxtImg
             class="inline-block"
             type="svg"
-            src="/interns/overview.svg"
+            src="/curators/leaderboard.svg"
           />
-          Расписание
+          Статистика
         </div>
       </RadioGroupOption>
-      <RadioGroupOption v-model="radioToggler" value="feedback">
+      <RadioGroupOption v-model="radioToggler" value="need">
         <div
           class="candidate-radio-btn bg-ultra-dark-purple text-white hover:opacity-50 duration-300 ease-out"
         >
-          <NuxtImg
-            class="inline-block"
-            type="svg"
-            src="/interns/overview.svg"
-          />
-          Обратная связь о работе наставника
+          <NuxtImg class="inline-block" type="svg" src="/curators/badge.svg" />
+          Потребность в стажерах
         </div>
       </RadioGroupOption>
     </RadioGroup>
   </header>
 
-  <div v-if="radioToggler === 'invites'">
+  <div v-if="radioToggler === 'need'">
     <NuxtLink to="/createVacancie">qwe</NuxtLink>
+    <h1 class="text-center text-3xl mt-8">
+      <strong>От кадров</strong>
+      | От стажеров
+    </h1>
     <div class="flex w-full">
-      <div class="w-1/5 ml-44 mt-20">
-        <button class="block mb-5 text-2xl font-bold">
-          <NuxtImg
-            type="svg"
-            src="/interns/markunread_mailbox.svg"
-            class="inline"
-          />
-          Ваши приглашения
-        </button>
-        <button class="block mb-5 text-2xl font-semibold">
-          <NuxtImg
-            type="svg"
-            src="/interns/approval_delegation.svg"
-            class="inline"
-          />
-          Доступные места
-        </button>
-      </div>
       <div class="grid grid-cols-1 mt-20 mx-10 w-full">
         <div
           v-if="listVacancie"
@@ -74,7 +48,7 @@
         </div>
         <template v-for="vacancie in listVacancie">
           <div
-            v-if="vacancie.status === 'checked'"
+            v-if="vacancie.status === 'unchecked'"
             class="shadow-slate-500 shadow-xl rounded-3xl w-full mb-10"
           >
             <Vacancie>
@@ -101,10 +75,10 @@
 </template>
 
 <script setup lang="ts">
-// import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
-// import { useVacancieStore } from "~/stores/frameApplicationsStore";
-//
-// const radioToggler = ref("invites");
-// const store = useVacancieStore();
-// const listVacancie = ref(store.getVacancieList());
+import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
+import { useVacancieStore } from "~/stores/frameApplicationsStore";
+
+const radioToggler = ref("need");
+const store = useVacancieStore();
+const listVacancie = ref(store.getVacancieList());
 </script>

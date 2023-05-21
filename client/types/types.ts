@@ -6,13 +6,20 @@ export enum Role {
   FRAME = "frame",
 }
 
+export enum FrameApplicationStatus {
+  APPROVED = "approved",
+  DECLINED = "declined",
+  PENDING = "pending",
+}
+
 export interface IFrameApplication {
   applicationId?: number;
-  job: string;
+  status?: FrameApplicationStatus;
+  position?: string;
   organization: string;
   address: string;
   workExperience: string[];
-  description: string[];
+  description: string;
   frameId: number;
   curatorId?: number;
 }
