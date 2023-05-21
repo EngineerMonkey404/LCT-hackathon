@@ -1,5 +1,5 @@
 <template>
-    <div @click="$emit('updates', selectedItem)" class="w-72"> <!--оценить реализацию-->
+    <div @click="$emit('updates', selectedItem)" class="w-72"> <!--onChange-->
         <Listbox :value="selectedItem" v-model="selectedItem">
             <div class="relative mt-1">
                 <ListboxButton

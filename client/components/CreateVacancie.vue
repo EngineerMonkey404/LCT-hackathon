@@ -4,24 +4,24 @@
         <div class="flex justify-between row-inputs">
             <div>
                 <label class="block mb-2 font-semibold" for="job">Должность</label>
-                <input class="form-auth-input mb-5" v-model="job" id="job">
+                <input class="form-auth-input mb-5" v-model="vacancie.job" id="job">
             </div>
             <div>
                 <label class="block mb-2 font-semibold" for="organiztion">Организация</label>
-                <input class="form-auth-input mb-5" v-model="organiztion" id="organization">
+                <input class="form-auth-input mb-5" v-model="vacancie.organization" id="organization">
             </div>
             <div>
                 <label class="block mb-2 font-semibold" for="adrees">Адрес организации</label>
-                <input class="form-auth-input mb-5" v-model="adress" id="adress">
+                <input class="form-auth-input mb-5" v-model="vacancie.adress" id="adress">
             </div>
         </div>
         <hr class="w-full">
         <label class="block mb-2 font-semibold" for="description">Описание</label>
-        <textarea class="form-auth-input rounded-3xl text-2xl w-full" v-model="description" id="description"
+        <textarea class="form-auth-input rounded-3xl text-2xl w-full" v-model="vacancie.description" id="description"
             rows="5"></textarea>
         <label class="block mb-2 font-semibold mt-10" for="workExpirience">Опыт работы</label>
-        <input v-for="(n, i) in numberWork" v-model="workExpirience[i]" :key="n" class="form-auth-input mb-5 w-full">
-        <button class="mb-5 block" @click="() => { if (workExpirience[numberWork - 1]) numberWork += 1 }">
+        <input v-for="(n, i) in numberWork" v-model="vacancie.workExpirience[i]" :key="n" class="form-auth-input mb-5 w-full">
+        <button class="mb-5 block" @click="() => { if (vacancie.workExpirience[numberWork - 1]) numberWork += 1 }">
             <NuxtImg class="inline-block" format="svg" src="/candidate/add_circle.svg" style="height: 15px;" />
             <span class="ml-3">Добавить требуемый опыт работы</span>
         </button>
@@ -33,24 +33,14 @@
 
 <script setup lang="ts">
 import { useVacancieStore } from '~/stores/vacancieStore'
-const job = ref('');
-const organiztion = ref('');
-const adress = ref('');
-const description = ref('');
+import { IVacancie } from '~/stores/vacancieStore';
 const numberWork = ref(1)
-const workExpirience = ref([])
 const store = useVacancieStore()
-
+const vacancie: IVacancie = reactive({job: '', organization: '', adress: '', workExpirience: [], description: ''})
 const create = () => {
-    store.createVacancie({
-        job: job.value,
-        organization: organiztion.value,
-        adress: adress.value,
-        workExpirience: workExpirience.value,
-        description: description.value,
-    })
+    store.createVacancie(vacancie)
     console.log(store.getVacancieList())
-    //return navigateTo('/frames')
+    return navigateTo('/frames')
 }
 </script>
 
