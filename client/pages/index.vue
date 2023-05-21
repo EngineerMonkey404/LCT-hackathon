@@ -8,18 +8,18 @@
   </div>
 
   <Candidate v-if="userStore.user.role === Role.CANDIDATE" />
-  <Curators v-if="userStore.user.role === Role.CURATOR" />
-  <Interns v-if="userStore.user.role === Role.TRAINEE" />
-  <Frames v-if="userStore.user.role == Role.FRAME" />
+  <Curator v-if="userStore.user.role === Role.CURATOR" />
+  <Intern v-if="userStore.user.role === Role.TRAINEE" />
+  <Frame v-if="userStore.user.role == Role.FRAME" />
 </template>
 
 <script setup lang="ts">
 import { useUserStore } from "~/stores/userStore";
 import { Role } from "~/types/types";
 import Candidate from "~/pages/candidate.vue";
-import Curators from "~/pages/curators.vue";
-import Interns from "~/pages/interns.vue";
-import Frames from "~/pages/frames.vue";
+import Curator from "~/pages/curator.vue";
+import Intern from "~/pages/intern.vue";
+import Frame from "~/pages/frame.vue";
 
 const userStore = useUserStore();
 </script>
