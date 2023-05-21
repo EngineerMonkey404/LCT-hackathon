@@ -45,7 +45,7 @@ export class FrameApplicationsController {
     return await this.applicationService.getFrameApplications();
   }
 
-  @Delete('deteteFrameApplication/:id')
+  @Delete('deleteFrameApplication/:id')
   async deleteFrameApplication(@Param('id') applicationId: number) {
     await this.applicationService.deleteFrameApplication(applicationId);
   }

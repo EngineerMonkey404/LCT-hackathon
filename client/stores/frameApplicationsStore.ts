@@ -56,7 +56,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       Error,
       string,
       "post" | "get"
-    >(`applications/createApplication`, {
+    >(`applications/createFrameApplication`, {
       method: "POST",
       body: application,
     });
