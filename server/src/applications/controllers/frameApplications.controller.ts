@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { FrameApplicationsService } from '../services/frameApplications.service';
 import { ApiOperation, ApiTags, ApiBody } from '@nestjs/swagger';
-import { CreateFrameApplicationDto } from '../models/CreateFrameApplicationDto';
+import { CreateFrameApplicationDto } from '../models/frame/CreateFrameApplicationDto';
 import { JwtGuard } from '../../auth/guards/jwt.guard';
 import { Role } from '../../auth/models/role.enum';
 import { RequireRoles } from '../../auth/guards/roles.decorator';

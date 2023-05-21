@@ -3,6 +3,7 @@ import {
   BelongsTo,
   Column,
   ForeignKey,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
@@ -21,8 +22,8 @@ export class WorkExperience extends Model {
   @Column
   applicationId: number;
 
-  @BelongsTo(() => FrameApplication)
-  application: FrameApplication;
+  // @BelongsTo(() => FrameApplication)
+  // application: FrameApplication;
 
   @Column
   value: string;

@@ -37,7 +37,6 @@ export class AuthController {
   @Post('login')
   async login(@Req() req, @Res({ passthrough: true }) res: Response) {
     await this.authService.giveToken(req.user, res);
-    console.log('token otdan');
     return req.user;
   }
 

@@ -1,10 +1,10 @@
 export interface IFrameApplication {
   applicationId: number;
-  job: string;
+  position: string;
   organization: string;
   address: string;
   workExperience: string[];
-  description: string[];
+  description: string;
   frameId: number;
   curatorId?: number;
 }

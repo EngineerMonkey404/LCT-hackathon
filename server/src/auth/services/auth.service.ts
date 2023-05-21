@@ -35,6 +35,7 @@ export class AuthService {
     });
     const valid = await bcrypt.compare(password, user.pwd_hash);
     if (user && valid) {
+      delete user.dataValues.pwd_hash;
       return user;
     }
     return null;

@@ -5,7 +5,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { User } from '../../auth/models/user.model';
+import { User } from '../../../auth/models/user.model';
 import { FrameApplication } from './frameApplication.model';
 
 @Table({})

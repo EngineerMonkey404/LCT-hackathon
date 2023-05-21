@@ -13,8 +13,8 @@ import {
 } from 'sequelize-typescript';
 
 import { Role } from './role.enum';
-import { FrameApplication } from '../../applications/models/frameApplication.model';
-import { TraineeOnFrameApplication } from '../../applications/models/traineeOnFrameApplication.model';
+import { FrameApplication } from '../../applications/models/frame/frameApplication.model';
+import { TraineeOnFrameApplication } from '../../applications/models/frame/traineeOnFrameApplication.model';
 
 @Table({})
 export class User extends Model {
