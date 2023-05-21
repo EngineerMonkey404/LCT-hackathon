@@ -69,7 +69,7 @@
       </template>
     </StatusApplication>
     <StatusApplication
-      v-else-if="status === 'reject'"
+      v-else-if="status === 'decline'"
       class="mt-10"
       img="/candidate/reject.svg"
     >
@@ -88,13 +88,15 @@
 
 <script setup lang="ts">
 import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
-import { useApplicationStore } from "~/stores/applicationStore";
+import { useApplicationStore } from "~/stores/candidateApplicationStore";
 import StatusApplication from "~/components/candidate/StatusApplication.vue";
 
 const radioToggler = ref("application");
 
 const store = useApplicationStore();
-const status = computed(() => store.getStatusById(1));
+const status = computed(() => {
+  if (store.getStatusById(0)) return store.getStatusById(0)
+});
 </script>
 
 <style scoped></style>

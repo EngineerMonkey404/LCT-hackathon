@@ -34,5 +34,5 @@ export const useUserStore = defineStore("counter", () => {
       console.log("УСПЕХ");
     } catch {}
   }
-  return { user: readonly(user), login, getUser };
+  return { user: (user), login, getUser };
 });

@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { useVacancieStore } from '~/stores/vacancieStore'
+import { useVacancieStore } from '~/stores/frameApplicationStore'
 const job = ref('');
 const organiztion = ref('');
 const adress = ref('');

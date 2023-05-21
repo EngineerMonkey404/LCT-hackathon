@@ -70,7 +70,7 @@ import {
     RadioGroup,
     RadioGroupOption,
 } from '@headlessui/vue'
-import { useVacancieStore } from '~/stores/vacancieStore';
+import { useVacancieStore } from '~/stores/frameApplicationStore';
 
 const radioToggler = ref("invites");
 const store = useVacancieStore();

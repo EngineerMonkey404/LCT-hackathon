@@ -1,25 +1,29 @@
 export const useApplicationStore = defineStore("application", () => {
   const application = ref<IApplication>({});
+  const listCandidatesApplications = ref<IApplication[]>([]);
 
   const getStatusById = (id: number) => {
     //по id кандидата ищем заявку в базе и возвращаем статус
-    application.value.status = "confirm";
     //status.value = 'reject'
     //status.value = 'wait'
-    if (application.value) return application.value.status;
+    if (listCandidatesApplications.value[id]) return listCandidatesApplications.value[id].status
+    
   };
+
+
 
   const createApplication = (newApplication: IApplication) => {
     //по id кандидата создаем заявку и задаем статус ждать
-    application.value = newApplication;
-    application.value.status = "confirm";
+    newApplication.status = "wait";
+    listCandidatesApplications.value.push(newApplication)
   };
-  return { application, getStatusById, createApplication };
+  return { application, listCandidatesApplications, getStatusById, createApplication };
 });
 
-interface IApplication {
+export interface IApplication {
   birthday?: string;
   citizenship?: string;
+  town?: string;
   education?: string;
   course?: string;
   workExpirence?: string;
