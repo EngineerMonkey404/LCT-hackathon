@@ -43,6 +43,7 @@ export class AuthController {
   @UseGuards(JwtGuard)
   @Get('login')
   loginCheck(@Req() req) {
+    console.log(req.user);
     return req.user;
   }
 

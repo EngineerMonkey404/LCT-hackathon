@@ -5,9 +5,10 @@ import {
 } from "~/types/types";
 
 export const useFrameApplicationsStore = defineStore("applications", () => {
-  const applications = ref<IFrameApplication[]>([]);
+  const personalFrameApplications = ref<IFrameApplication[]>([]);
+  const allFrameApplications = ref<IFrameApplication[]>([]);
 
-  async function getApplications(id: number) {
+  async function getApplicationsByFrameId(id: number) {
     const { data: fetchedApplications, error } = await useApiFetch<
       IFrameApplication[],
       Error,
@@ -17,9 +18,37 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       method: "GET",
     });
     if (fetchedApplications.value) {
-      applications.value = fetchedApplications.value;
+      personalFrameApplications.value = fetchedApplications.value;
     }
   }
+
+  async function getFrameApplications() {
+    const { data: fetchedApplications, error } = await useApiFetch<
+      IFrameApplication[],
+      Error,
+      string,
+      "post" | "get"
+    >(`applications/getFrameApplications/`, {
+      method: "GET",
+    });
+    if (fetchedApplications.value) {
+      allFrameApplications.value = fetchedApplications.value;
+    }
+  }
+
+  // async function getCuratorApplications(id: number) {
+  //   const { data: fetchedApplications, error } = await useApiFetch<
+  //     IFrameApplication[],
+  //     Error,
+  //     string,
+  //     "post" | "get"
+  //   >(`applications/getFrameApplications/${id}`, {
+  //     method: "GET",
+  //   });
+  //   if (fetchedApplications.value) {
+  //     applications.value = fetchedApplications.value;
+  //   }
+  // }
 
   async function createApplication(application: IFrameApplication) {
     const { data: newApplication } = await useApiFetch<
@@ -33,8 +62,14 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     });
     if (newApplication.value) {
       newApplication.value.status = FrameApplicationStatus.PENDING;
-      applications.value.push(newApplication.value);
+      personalFrameApplications.value.push(newApplication.value);
     }
   }
-  return { createApplication, applications, getApplications };
+  return {
+    createApplication,
+    personalFrameApplications,
+    getApplicationsByFrameId,
+    allFrameApplications,
+    getFrameApplications,
+  };
 });

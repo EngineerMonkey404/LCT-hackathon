@@ -50,6 +50,9 @@ export class User extends Model {
   @HasMany(() => FrameApplication, 'curatorId')
   curatorApplications: FrameApplication;
 
+  @HasMany(() => FrameApplication, 'traineeId')
+  traineApplications: FrameApplication;
+
   @BelongsToMany(() => FrameApplication, () => TraineeOnFrameApplication)
   applications: FrameApplication[];
 }

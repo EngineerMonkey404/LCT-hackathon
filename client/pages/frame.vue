@@ -1,5 +1,6 @@
 <template>
   <header class="flex justify-center items-end bg-purple w-full h-44">
+    <div @click="handle">click me</div>
     <RadioGroup v-model="radioToggler" class="flex">
       <RadioGroupOption value="application">
         <div
@@ -54,12 +55,13 @@
     </h1>
     <div class="flex w-full">
       <div class="w-1/5 ml-44">
-        <button
-          class="block mb-5 form-auth-input text-white bg-black text-2xl font-semibold black-btn-hover"
-          @click="createVacancie"
-        >
-          Создать заявку на стажера
-        </button>
+        <NuxtLink to="/create-frame-application">
+          <button
+            class="block mb-5 form-auth-input text-white bg-black text-2xl font-semibold black-btn-hover"
+          >
+            Создать заявку на стажера
+          </button>
+        </NuxtLink>
         <button class="block mb-5 text-2xl font-bold">
           <NuxtImg type="svg" src="/frames/cases.svg" class="inline" />
           Ваши заявки
@@ -74,11 +76,11 @@
         </button>
       </div>
       <div
-        v-if="frameApplicationsStore.applications.length"
+        v-if="frameApplicationsStore.personalFrameApplications.length"
         class="grid grid-cols-1 mt-20 mr-10 w-full"
       >
         <ApplicationCard
-          v-for="application in frameApplicationsStore.applications"
+          v-for="application in frameApplicationsStore.personalFrameApplications"
           :application="application"
         ></ApplicationCard>
       </div>
@@ -96,11 +98,12 @@ const frameApplicationsStore = useFrameApplicationsStore();
 const userStore = useUserStore();
 
 onMounted(async () => {
-  await frameApplicationsStore.getApplications(userStore.user.userId!);
-  console.log(frameApplicationsStore.applications);
+  await frameApplicationsStore.getApplicationsByFrameId(
+    userStore.user!.userId!
+  );
 });
 
-const createVacancie = () => {
-  return navigateTo("/createVacancie");
-};
+function handle() {
+  console.log(userStore.getUser());
+}
 </script>

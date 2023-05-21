@@ -1,7 +1,7 @@
 import { IUser } from "~/types/types";
 
 export const useUserStore = defineStore("counter", () => {
-  const user = ref<IUser>({});
+  const user = ref<IUser | null>(null);
 
   async function login(loginData: { email: string; password: string }) {
     const { data: fetchedUser } = await useApiFetch<
@@ -27,7 +27,7 @@ export const useUserStore = defineStore("counter", () => {
         user.value = fetchedUser.value;
       }
 
-      console.log("УСПЕХ");
+      console.log("fetchedUser", fetchedUser.value);
     } catch {}
   }
   return { user: (user), login, getUser };

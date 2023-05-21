@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center h-screen bg-purple">
-    <AuthForm />
+    <!--        <CandidateApplication />-->
   </div>
 </template>
 

@@ -55,6 +55,10 @@ export class FrameApplication extends Model {
   @Column
   curatorId: number;
 
+  @ForeignKey(() => User)
+  @Column
+  traineeId: number;
+
   @BelongsToMany(() => User, () => TraineeOnFrameApplication)
   user: User[];
 }

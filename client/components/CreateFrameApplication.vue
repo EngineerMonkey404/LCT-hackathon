@@ -90,7 +90,7 @@ const application = ref<IFrameApplication>({
   address: "",
   description: "",
   workExperience: [],
-  frameId: userStore.user.userId!,
+  frameId: userStore.user!.userId!,
 });
 
 const createApplication = async () => {
