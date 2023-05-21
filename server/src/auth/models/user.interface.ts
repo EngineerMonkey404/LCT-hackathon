@@ -2,8 +2,9 @@ import { Role } from './role.enum';
 import { ApiProperty } from '@nestjs/swagger';
 
 export interface IUser {
-  id?: number;
+  userId?: number;
   firstName?: string;
+
   secondName?: string;
   thirdName?: string;
   email?: string;

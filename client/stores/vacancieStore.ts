@@ -8,13 +8,13 @@ export const useVacancieStore = defineStore("vacancie", () => {
     }
 
     const createVacancie = (newVacancie: IVacancie) => {
-        newVacancie.status = 'unchecked'
+        newVacancie.status = 'checked'
         vacancieList.value.push(newVacancie);
     }
     return { vacancieList, getVacancieList, createVacancie };
   });
 
-export interface IVacancie {
+interface IVacancie {
     job: string,
     organization: string,
     adress: string,

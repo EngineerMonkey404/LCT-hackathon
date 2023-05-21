@@ -1,8 +1,11 @@
 import {
   AutoIncrement,
+  BelongsTo,
+  BelongsToMany,
   Column,
   DataType,
   Default,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
@@ -10,6 +13,8 @@ import {
 } from 'sequelize-typescript';
 
 import { Role } from './role.enum';
+import { FrameApplication } from '../../applications/models/frameApplication.model';
+import { TraineeOnFrameApplication } from '../../applications/models/traineeOnFrameApplication.model';
 
 @Table({})
 export class User extends Model {
@@ -17,7 +22,7 @@ export class User extends Model {
   @PrimaryKey
   @Unique
   @Column
-  user_id: number;
+  userId: number;
 
   @Column
   firstName: string;
@@ -38,4 +43,13 @@ export class User extends Model {
 
   @Column
   pwd_hash: string;
+
+  @HasMany(() => FrameApplication, 'frameId')
+  frameApplications: FrameApplication;
+
+  @HasMany(() => FrameApplication, 'curatorId')
+  curatorApplications: FrameApplication;
+
+  @BelongsToMany(() => FrameApplication, () => TraineeOnFrameApplication)
+  applications: FrameApplication[];
 }

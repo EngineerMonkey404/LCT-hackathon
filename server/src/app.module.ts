@@ -3,6 +3,10 @@ import { AuthModule } from './auth/auth.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { User } from './auth/models/user.model';
+import { ApplicationsModule } from './applications/applications.module';
+import { FrameApplication } from './applications/models/frameApplication.model';
+import { WorkExperience } from './applications/models/workExperience.model';
+import { TraineeOnFrameApplication } from './applications/models/traineeOnFrameApplication.model';
 
 @Module({
   imports: [
@@ -16,14 +20,20 @@ import { User } from './auth/models/user.model';
       port: Number(process.env.MYSQL_PORT),
       username: process.env.MYSQL_USERNAME,
       password: process.env.MYSQL_PASSWORD,
-      database: 'db1',
-      models: [User],
+      database: 'lct',
+      models: [
+        User,
+        FrameApplication,
+        WorkExperience,
+        TraineeOnFrameApplication,
+      ],
       autoLoadModels: true,
       define: {
         timestamps: false,
       },
     }),
     AuthModule,
+    ApplicationsModule,
   ],
   controllers: [],
   providers: [],

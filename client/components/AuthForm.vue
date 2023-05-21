@@ -21,7 +21,7 @@
     <NuxtLink to="/">
       <button
         class="form-auth-input bg-black text-white font-semibold mb-8 black-btn-hover"
-        @click="handleLogin($event)"
+        @click="handleLogin"
       >
         Войти
       </button>
@@ -62,24 +62,9 @@ const loginData: { email: string; password: string } = reactive({
   email: "",
   password: "",
 });
-async function handleLogin(e: any) {
+async function handleLogin() {
   try {
-    const { data: user } = await useApiFetch<
-      RegisterData,
-      Error,
-      string,
-      "post" | "get"
-    >("auth/login", {
-      method: "POST",
-      body: loginData,
-    });
-    if (user.value) {
-      userStore.firstName = user.value.firstName;
-      userStore.secondName = user.value.secondName;
-      userStore.role = user.value.role;
-    }
-
-    console.log("УСПЕХ");
+    await userStore.login(loginData);
   } catch {
     error.value = true;
   }

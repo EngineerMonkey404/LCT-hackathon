@@ -7,7 +7,8 @@ async function bootstrap() {
   const PORT = process.env.PORT || 5000;
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
-  app.enableCors({ credentials: true });
+  console.log(process.env.CLIENT);
+  app.enableCors({ credentials: true, origin: process.env.CLIENT });
   app.use(cookieParser(process.env.SECRET));
   const swagger_config = new DocumentBuilder()
     .setTitle('Хакатон')

@@ -1,11 +1,11 @@
 <template>
-    <div class="flex items-center h-screen bg-purple">
-        <AuthForm />
-    </div>
+  <div class="flex items-center h-screen bg-purple">
+    <AuthForm />
+  </div>
 </template>
 
-<script setup lang="ts">
+:w
 
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>
