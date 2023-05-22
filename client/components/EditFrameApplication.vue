@@ -27,15 +27,15 @@
         <label class="block mb-2 font-semibold mt-10" for="workExpirience">
             Опыт работы
         </label>
-        <!-- <input v-for="(n, i) in numberWork" :key="n" v-model="application.workExperience[i]"
+        <input v-for="(n, i) in numberWork" :key="n" v-model="application.workExperience[i]"
             class="form-auth-input mb-5 w-full" />
         <button class="mb-5 block" @click="() => {
                 if (application!.workExperience[numberWork - 1]) numberWork += 1;
             }
-            "> -->
-            <!-- <NuxtImg class="inline-block" format="svg" src="/candidate/add_circle.svg" style="height: 15px" />
+            ">
+            <NuxtImg class="inline-block" format="svg" src="/candidate/add_circle.svg" style="height: 15px" />
             <span class="ml-3">Добавить требуемый опыт работы</span>
-        </button> -->
+        </button>
         <button class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover"
                 @click="frameApplicationStore.updateFrameApplication(application)">
             Обновить данные
@@ -50,10 +50,12 @@ import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 
 const route = useRoute();
 const frameApplicationStore = useFrameApplicationsStore();
-const numberWork = ref(1);
 const application = await frameApplicationStore.getFrameApplicationById(+route.query.application_id!)
-console.log(+route.query.application_id!)
 console.log(application)
+console.log(application?.workExperience)
+const numberWork = ref(application?.workExperience.length ?? 1);
+console.log(+route.query.application_id!)
+
 
 </script>
   
