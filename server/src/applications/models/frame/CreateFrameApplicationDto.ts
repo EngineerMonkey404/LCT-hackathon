@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { WorkExperience } from './workExperience.model';
 
 export class CreateFrameApplicationDto {
   @ApiProperty()
@@ -17,5 +18,5 @@ export class CreateFrameApplicationDto {
   description: string;
 
   @ApiProperty()
-  workExperience: string[];
+  workExperience: WorkExperience[];
 }

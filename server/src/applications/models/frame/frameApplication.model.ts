@@ -42,10 +42,10 @@ export class FrameApplication extends Model {
   @Column
   description: string;
 
-  @HasOne(() => WorkExperience)
-  workExperience: WorkExperience;
   // @HasMany(() => WorkExperience)
   // workExperience: WorkExperience[];
+  @HasMany(() => WorkExperience)
+  workExperience: WorkExperience[];
 
   @ForeignKey(() => User)
   @Column

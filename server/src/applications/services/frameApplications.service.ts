@@ -48,6 +48,7 @@ export class FrameApplicationsService {
   async getFrameApplicationById(applicationId: number) {
     return await this.frameApplicationModel.findOne({
       where: { applicationId: applicationId },
+      include: [WorkExperience],
     });
   }
 
@@ -91,7 +92,7 @@ export class FrameApplicationsService {
     application.workExperience.map(
       async (exp) =>
         await this.workExperienceModel.update(
-          { value: exp },
+          { value: exp.value },
           {
             where: { applicationId: application.applicationId },
           },

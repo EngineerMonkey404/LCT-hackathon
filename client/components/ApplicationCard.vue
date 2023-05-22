@@ -12,8 +12,14 @@
     >
       <div class="flex justify-between text-3xl font-bold">
         <div v-if="props.application.position">
-          <span v-if="application.status === FrameApplicationStatus.APPROVED">
-            <NuxtImg class="bg-lime-400 rounded-full inline py-3 px-5 mr-5" type="svg" src="/curators/check.svg" />
+          <span
+            v-if="props.application.status === FrameApplicationStatus.APPROVED"
+          >
+            <NuxtImg
+              class="bg-lime-400 rounded-full inline py-3 px-5 mr-5"
+              type="svg"
+              src="/curators/check.svg"
+            />
           </span>
           {{ props.application.position }}
         </div>
@@ -24,13 +30,13 @@
       <p class="text-2xl">{{ props.application.description }}</p>
       <div class="font-semibold text-3xl mt-10 mb-5">Опыт работы</div>
       <div class="mb-10 flex gap-x-5">
-        <!-- <div
+        <div
           v-for="(exp, index) of props.application.workExperience"
           :key="index"
           class="mb-8"
         >
           <span class="form-auth-input text-xl">{{ exp.value }}</span>
-        </div> -->
+        </div>
       </div>
     </div>
     <div
@@ -39,11 +45,21 @@
     >
       <div class="mb-10 text-5xl font-bold">Заявка проверяется</div>
       <div class="text-center flex">
-        <div @click="navigateTo(`/edit-frame-application?application_id=${application.applicationId}`)"
-             class="form-auth-input border bg-black text-white me-5 black-btn-hover">
-          Редактировать
+        <NuxtLink :to="`/edit/${application.applicationId}`">
+          <div
+            class="form-auth-input border bg-black text-white me-5 black-btn-hover"
+          >
+            Редактировать
+          </div>
+        </NuxtLink>
+        <div
+          class="form-auth-input border bg-black text-white black-btn-hover"
+          @click="
+            frameApplicationsStore.deleteApplication(application.applicationId!)
+          "
+        >
+          Удалить
         </div>
-        <div @click="frameApplicationsStore.deleteApplication(application.applicationId!)" class="form-auth-input border bg-black text-white black-btn-hover">Удалить</div>
       </div>
     </div>
     <div
@@ -56,7 +72,15 @@
         <div class="form-auth-input border bg-black text-white me-5">
           Просмотр
         </div>
-        <div @click="frameApplicationsStore.deleteApplication(application.applicationId!)" class="form-auth-input border bg-black text-white black-btn-hover">Удалить</div>
+
+        <div
+          class="form-auth-input border bg-black text-white black-btn-hover"
+          @click="
+            frameApplicationsStore.deleteApplication(application.applicationId!)
+          "
+        >
+          Удалить
+        </div>
       </div>
     </div>
   </div>
