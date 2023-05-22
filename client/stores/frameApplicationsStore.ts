@@ -26,18 +26,30 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     }
   }
 
-  async function getFrameApplications() { //not working 404
+  async function getFrameApplications() { 
     const { data: fetchedApplications, error } = await useApiFetch<
       IFrameApplication[],
       Error,
       string,
       "post" | "get"
-    >(`applications/getFrameApplications/`, {
+    >(`applications/getFrameApplications`, {
       method: "GET",
     });
     if (fetchedApplications.value) {
       allFrameApplications.value = fetchedApplications.value;
     }
+  }
+
+  async function getFrameApplicationById(id: number) {
+    const { data: fetchedApplication, error } = await useApiFetch<
+      IFrameApplication,
+      Error,
+      string,
+      "post" | "get"
+    >(`applications/getFrameApplicationById/${id}`, {
+      method: "GET",
+    });
+    return fetchedApplication.value
   }
 
   // async function getCuratorApplications(id: number) {
@@ -94,6 +106,18 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     
   }
 
+  async function updateFrameApplication(application: IFrameApplication) {
+    const { data: newApplication } = await useApiFetch<
+      IFrameApplication,
+      Error,
+      string,
+      "put"
+    >(`applications/updateFrameApplication/${application.applicationId}`, {
+      method: "PUT",
+      body: application,
+    });
+  }
+
   return {
     createApplication,
     personalFrameApplications,
@@ -102,6 +126,8 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     getFrameApplications,
     deleteApplication,
     submitCuratorRespond,
-    approvedFrameApplications
+    approvedFrameApplications,
+    getFrameApplicationById,
+    updateFrameApplication,
   };
 });
