@@ -1,4 +1,4 @@
-export interface CandidateApplication {
+export interface ICandidateApplication {
   applicationId?: number;
 
   candidateId?: number;

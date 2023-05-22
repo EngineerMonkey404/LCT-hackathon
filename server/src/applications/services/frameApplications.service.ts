@@ -34,7 +34,7 @@ export class FrameApplicationsService {
 
   async getFrameApplications() {
     return await this.frameApplicationModel.findAll({
-      include: [WorkExperience],
+      include: [{ model: WorkExperience }],
     });
   }
 
