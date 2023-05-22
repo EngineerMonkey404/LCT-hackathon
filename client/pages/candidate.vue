@@ -24,7 +24,7 @@
   </header>
   <div v-if="radioToggler === 'application'" class="flex justify-center items-stretch w-full">
     <CandidateApplication class="mt-10 mr-10" />
-    <StatusApplication v-if="status === 'confirm'" class="mt-10" img="/candidate/confirm.svg">
+    <!-- <StatusApplication v-if="status === 'confirm'" class="mt-10" img="/candidate/confirm.svg">
       <template #content>Вы прошли на следующий этап отбора</template>
       <template #link>
         <button class="form-auth-input black-btn-hover bg-black text-white text-xl font-semibold"
@@ -42,21 +42,21 @@
         <div class="mb-20">Ожидайте</div>
       </template>
       <template #content>Ваша заявка рассматривается</template>
-    </StatusApplication>
+    </StatusApplication> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
-import { useApplicationStore } from "~/stores/candidateApplicationStore";
+import { useCandidateApplicationStore } from "~/stores/candidateApplicationStore";
 import StatusApplication from "~/components/candidate/StatusApplication.vue";
 
 const radioToggler = ref("application");
 
-const store = useApplicationStore();
-const status = computed(() => {
+const store = useCandidateApplicationStore();
+/* const status = computed(() => {
   if (store.getStatusById(0)) return store.getStatusById(0);
-});
+}); */
 </script>
 
 <style scoped></style>

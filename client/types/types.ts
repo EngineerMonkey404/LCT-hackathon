@@ -40,3 +40,13 @@ export interface IUser {
   password?: string;
   role?: Role;
 }
+
+export interface ICandidateApplication {
+  candidateId?: number,
+  direction?: string,
+  date?: Date,
+  nationality?: string,
+  city?: string,
+  experience?: boolean,
+  position?: string[],
+}

@@ -1,12 +1,12 @@
 <template>
-  <div class="w-72" @click="$emit('updates', selectedItem)">
+  <div class="w-full shadow-lg border border-slate-200 text-xl mb-5" @click="$emit('updates', selectedItem)">
     <!--оценить реализацию-->
     <Listbox v-model="selectedItem" :value="selectedItem">
       <div class="relative mt-1">
         <ListboxButton
           v-model="selectedItem"
           :value="selectedItem"
-          class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+          class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 "
         >
           <span class="block truncate">{{ selectedItem }}</span>
 
@@ -21,7 +21,7 @@
           leave-to-class="opacity-0"
         >
           <ListboxOptions
-            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+            class=" mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           >
             <ListboxOption
               v-for="(item, index) of $props.contentArray"

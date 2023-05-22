@@ -1,5 +1,7 @@
-export const useApplicationStore = defineStore("application", () => {
-  const application = ref<IApplication>({});
+import { ICandidateApplication } from "~/types/types";
+
+export const useCandidateApplicationStore = defineStore("CandidateApplicationStore", () => {
+  
   const listCandidatesApplications = ref<IApplication[]>([]);
 
   const getStatusById = (id: number) => {
@@ -12,12 +14,22 @@ export const useApplicationStore = defineStore("application", () => {
 
 
 
-  const createApplication = (newApplication: IApplication) => {
-    //по id кандидата создаем заявку и задаем статус ждать
-    newApplication.status = "wait";
-    listCandidatesApplications.value.push(newApplication)
-  };
-  return { application, listCandidatesApplications, getStatusById, createApplication };
+  async function createCandidateApplication(application: ICandidateApplication) {
+    const { data: newApplication } = await useApiFetch<
+      ICandidateApplication,
+      Error,
+      string,
+      "post" | "get"
+    >(`applications/createCandidateApplication`, {
+      method: "POST",
+      body: application,
+    });
+    console.log(newApplication.value);
+  }
+
+  return {
+    createCandidateApplication,
+  }
 });
 
 export interface IApplication {
