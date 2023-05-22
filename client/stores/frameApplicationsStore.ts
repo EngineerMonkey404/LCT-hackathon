@@ -8,6 +8,10 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
   const personalFrameApplications = ref<IFrameApplication[]>([]);
   const allFrameApplications = ref<IFrameApplication[]>([]);
 
+  const approvedFrameApplications = computed(() =>{
+    return personalFrameApplications.value.filter((app) => app.status === FrameApplicationStatus.APPROVED)
+  })
+
   async function getApplicationsByFrameId(id: number) {
     const { data: fetchedApplications, error } = await useApiFetch<
       IFrameApplication[],
@@ -75,6 +79,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     >(`/applications/deleteFrameApplication/${id}`, {
       method: "DELETE",
     });
+    personalFrameApplications.value.splice(personalFrameApplications.value.findIndex((elem) => elem.applicationId === id), 1)
   }
 
   async function submitCuratorRespond(application_id: number, curator_id: number, status: FrameApplicationStatus) {
@@ -97,5 +102,6 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     getFrameApplications,
     deleteApplication,
     submitCuratorRespond,
+    approvedFrameApplications
   };
 });

@@ -43,7 +43,7 @@
              class="form-auth-input border bg-black text-white me-5 black-btn-hover">
           Редактировать
         </div>
-        <div @click="$emit('delete')" class="form-auth-input border bg-black text-white black-btn-hover">Удалить</div>
+        <div @click="frameApplicationsStore.deleteApplication(application.applicationId!)" class="form-auth-input border bg-black text-white black-btn-hover">Удалить</div>
       </div>
     </div>
     <div
@@ -56,7 +56,7 @@
         <div class="form-auth-input border bg-black text-white me-5">
           Просмотр
         </div>
-        <div @click="$emit('delete')" class="form-auth-input border bg-black text-white black-btn-hover">Удалить</div>
+        <div @click="frameApplicationsStore.deleteApplication(application.applicationId!)" class="form-auth-input border bg-black text-white black-btn-hover">Удалить</div>
       </div>
     </div>
   </div>
@@ -64,6 +64,9 @@
 
 <script setup lang="ts">
 import { FrameApplicationStatus, IFrameApplication } from "~/types/types";
+import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
+
+const frameApplicationsStore = useFrameApplicationsStore();
 
 const props = defineProps<{ application: IFrameApplication }>();
 </script>
