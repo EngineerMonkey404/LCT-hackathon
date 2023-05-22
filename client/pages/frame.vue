@@ -41,41 +41,33 @@
           </button>
         </NuxtLink>
         <RadioGroup v-model="filterApplications">
-          <RadioGroupOption class="mb-5" v-slot="{ checked }" value="all">
+          <RadioGroupOption class="mb-5" v-slot="{ checked }" :value="FilterApplications.ALL">
             <div :class="checked ? 'radio-btn font-bold' : 'radio-btn'">
               <NuxtImg type="svg" src="/frames/cases.svg" class="inline" />
               Ваши заявки
             </div>
           </RadioGroupOption>
-          <RadioGroupOption v-slot="{ checked }" v-model="radioToggler" value="approved">
+          <RadioGroupOption v-slot="{ checked }" :value="FilterApplications.APPROVED">
             <div :class="checked ? 'radio-btn font-bold' : 'radio-btn'">
               <NuxtImg type="svg" src="/frames/library_add_check.svg" class="inline" />
               Проверенные заявки
             </div>
           </RadioGroupOption>
         </RadioGroup>
-        <button class="block mb-5 text-2xl font-bold">
-
-        </button>
-        <button class="block mb-5 text-2xl font-semibold">
-
-        </button>
       </div>
       <div class="relative mt-20 mr-10 w-full">
         <Transition>
-          <div v-if="filterApplications === 'all'" class="grid grid-cols-1 absolute w-full">
+          <div v-if="filterApplications === FilterApplications.ALL" class="grid grid-cols-1 absolute w-full">
             <ApplicationCard v-for="application in frameApplicationsStore.personalFrameApplications"
-              :application="application" @delete="frameApplicationsStore.deleteApplication(application.applicationId!)"
+              :application="application"
               :key="application.applicationId">
             </ApplicationCard>
           </div>
-          <div v-else-if="filterApplications === 'approved'" class="grid grid-cols-1 absolute w-full">
-            <template v-for="application in frameApplicationsStore.personalFrameApplications">
-              <ApplicationCard v-if="application.status === FrameApplicationStatus.APPROVED"
-                :application="application"
-                :key="application.applicationId">
-              </ApplicationCard>
-            </template>
+          <div v-else-if="filterApplications === FilterApplications.APPROVED" class="grid grid-cols-1 absolute w-full">
+            <ApplicationCard v-for="application of frameApplicationsStore.approvedFrameApplications"
+              :application="application"
+              :key="application.applicationId">
+            </ApplicationCard>
           </div>
         </Transition>
       </div>
@@ -84,13 +76,18 @@
 </template>
 
 <script setup lang="ts">
+//не обновляется список на странице (в базе норм)
 import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 import { useUserStore } from "~/stores/userStore";
-import { FrameApplicationStatus } from "~/types/types";
 
 const radioToggler = ref("application");
-const filterApplications = ref("all")
+
+enum FilterApplications {
+  ALL = 'all',
+  APPROVED = 'approved',
+}
+const filterApplications = ref<FilterApplications>(FilterApplications.ALL)
 const frameApplicationsStore = useFrameApplicationsStore();
 const userStore = useUserStore();
 
