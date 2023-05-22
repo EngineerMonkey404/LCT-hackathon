@@ -6,6 +6,7 @@ import { FrameApplication } from './models/frame/frameApplication.model';
 import { WorkExperience } from './models/frame/workExperience.model';
 import { TraineeOnFrameApplication } from './models/frame/traineeOnFrameApplication.model';
 import { AuthModule } from '../auth/auth.module';
+import { TraineeApplicationsController } from './controllers/traineeApplications.controller';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { AuthModule } from '../auth/auth.module';
       TraineeOnFrameApplication,
     ]),
   ],
-  controllers: [FrameApplicationsController],
+  controllers: [FrameApplicationsController, TraineeApplicationsController],
   providers: [FrameApplicationsService],
 })
 export class ApplicationsModule {}

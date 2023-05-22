@@ -5,6 +5,7 @@ import { WorkExperience } from '../models/frame/workExperience.model';
 import { CreateFrameApplicationDto } from '../models/frame/CreateFrameApplicationDto';
 import { IFrameApplication } from '../models/frame/frameApplication.interface';
 import { FrameApplicationStatus } from '../models/frame/frameApplicationStatus.enum';
+import { TraineeOnFrameApplication } from '../models/frame/traineeOnFrameApplication.model';
 
 @Injectable()
 export class FrameApplicationsService {
@@ -13,6 +14,8 @@ export class FrameApplicationsService {
     private frameApplicationModel: typeof FrameApplication,
     @InjectModel(WorkExperience)
     private workExperienceModel: typeof WorkExperience,
+    @InjectModel(TraineeOnFrameApplication)
+    private traineeOnFrameApplication: typeof TraineeOnFrameApplication,
   ) {}
   async createApplication(application: CreateFrameApplicationDto) {
     const app = await this.frameApplicationModel.create({
@@ -30,20 +33,29 @@ export class FrameApplicationsService {
   }
 
   async getFrameApplications() {
-    return await this.frameApplicationModel.findAll({});
+    return await this.frameApplicationModel.findAll({
+      include: [WorkExperience],
+    });
   }
 
-  async getFrameApplicationsById(id: number) {
+  async getFrameApplicationsByFrameId(id: number) {
     return await this.frameApplicationModel.findAll({
       where: { frameId: id },
+      include: [WorkExperience],
+    });
+  }
+
+  async getFrameApplicationById(applicationId: number) {
+    return await this.frameApplicationModel.findOne({
+      where: { applicationId: applicationId },
     });
   }
 
   async submitTraineeRespond(applicationId: number, traineeId: number) {
-    await this.frameApplicationModel.update(
-      { traineeId: traineeId },
-      { where: { applicationId: applicationId } },
-    );
+    await this.traineeOnFrameApplication.create({
+      traineeId: traineeId,
+      applicationId: applicationId,
+    });
   }
 
   async submitCuratorRespond(

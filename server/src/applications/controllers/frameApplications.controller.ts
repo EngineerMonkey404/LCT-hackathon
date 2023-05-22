@@ -35,14 +35,23 @@ export class FrameApplicationsController {
 
   @RequireRoles(Role.FRAME)
   @UseGuards(JwtGuard)
-  @ApiOperation({ summary: 'Получение заявок кадра/кадров' })
-  @ApiBody({ type: CreateFrameApplicationDto })
+  @ApiOperation({ summary: 'Получение заявок кадра' })
   @Get('getFrameApplications/:id')
-  async getFrameApplications(@Param('id') frameId: number) {
-    if (frameId) {
-      return await this.applicationService.getFrameApplicationsById(frameId);
-    }
+  async getFrameApplicationsByFrameId(@Param('id') frameId: number) {
+    return await this.applicationService.getFrameApplicationsByFrameId(frameId);
+  }
+
+  @RequireRoles(Role.FRAME)
+  @UseGuards(JwtGuard)
+  @ApiOperation({ summary: 'Получение заявок кадра' })
+  @Get('getFrameApplications')
+  async getFrameApplications() {
     return await this.applicationService.getFrameApplications();
+  }
+
+  @Get('getFrameApplicationById/:id')
+  async getFrameApplicationById(@Param('id') applicationId: number) {
+    return await this.applicationService.getFrameApplicationById(applicationId);
   }
 
   @Delete('deleteFrameApplication/:id')

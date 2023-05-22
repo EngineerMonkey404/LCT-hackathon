@@ -10,7 +10,7 @@ import { LocalStrategy } from './guards/local.strategy';
 import { AuthGuard, PassportModule } from '@nestjs/passport';
 import { RolesGuard } from './guards/roles.guard';
 
-export const expire = 36000;
+export const expire = 3600 * 1000;
 export const tokenKey = 'token';
 
 @Module({
