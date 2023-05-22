@@ -1,6 +1,10 @@
 import {
+  AllowNull,
   AutoIncrement,
   Column,
+  DataType,
+  Default,
+  ForeignKey,
   HasMany,
   Model,
   PrimaryKey,
@@ -8,6 +12,8 @@ import {
   Unique,
 } from 'sequelize-typescript';
 import { Position } from './positionModel';
+import { CandidateApplicationStatus } from './candidateApplicationStatus.enum';
+import { User } from '../../../auth/models/user.model';
 
 @Table({})
 export class CandidateApplication extends Model {
@@ -19,6 +25,10 @@ export class CandidateApplication extends Model {
 
   @Column
   direction: string;
+
+  @Default(CandidateApplicationStatus.PENDING)
+  @Column(DataType.ENUM(...Object.values(CandidateApplicationStatus)))
+  status: CandidateApplicationStatus;
 
   @Column
   date: Date;
@@ -34,4 +44,9 @@ export class CandidateApplication extends Model {
 
   @HasMany(() => Position)
   position: Position[];
+
+  @AllowNull
+  @ForeignKey(() => User)
+  @Column
+  candidateId: number;
 }

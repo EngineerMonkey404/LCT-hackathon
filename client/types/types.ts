@@ -12,13 +12,19 @@ export enum FrameApplicationStatus {
   PENDING = "pending",
 }
 
+export interface WorkExperience {
+  workExperienceId: number;
+  applicationId: number;
+  value: string;
+}
+
 export interface IFrameApplication {
   applicationId?: number;
   status?: FrameApplicationStatus;
   position?: string;
   organization: string;
   address: string;
-  workExperience: string[];
+  workExperience: WorkExperience[];
   description: string;
   frameId: number;
   curatorId?: number;

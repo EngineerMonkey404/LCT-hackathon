@@ -48,16 +48,16 @@
     </label>
     <input
       v-for="(n, i) in numberWork"
-      :key="n"
-      v-model="application.workExperience[i]"
+      :key="i"
+      v-model="workExperience[n - 1]"
       class="form-auth-input mb-5 w-full"
     />
     <button
       class="mb-5 block"
       @click="() => {
-                if (application!.workExperience[numberWork - 1]) numberWork += 1;
-            }
-            "
+                    if (application!.workExperience[numberWork - 1]) numberWork += 1;
+                }
+                "
     >
       <NuxtImg
         class="inline-block"
@@ -69,7 +69,7 @@
     </button>
     <button
       class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover"
-      @click="frameApplicationStore.updateFrameApplication(application)"
+      @click="handleApplicationUpdate"
     >
       Обновить данные
     </button>
@@ -77,20 +77,31 @@
 </template>
 
 <script setup lang="ts">
-import { IFrameApplication } from "~/types/types";
+import { IFrameApplication, WorkExperience } from "~/types/types";
 import { useUserStore } from "~/stores/userStore";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 
 const route = useRoute();
 const frameApplicationStore = useFrameApplicationsStore();
 const application: IFrameApplication | null =
-  await frameApplicationStore.getFrameApplicationById(
-    +route.query.application_id!
-  );
+  await frameApplicationStore.getFrameApplicationById(+route.params.id);
 
-const numberWork = ref(application?.workExperience?.length ?? 1);
+const numberWork = ref(application?.workExperience.length || 1);
+const workExperience = ref<string[]>(
+  application?.workExperience.map((element) => element.value) || []
+);
 console.log(+route.query.application_id!);
 console.log(application);
+
+async function handleApplicationUpdate() {
+  if (application) {
+    application.workExperience.forEach(
+      (el, index) => (el.value = workExperience.value[index])
+    );
+    await frameApplicationStore.updateFrameApplication(application);
+    navigateTo("/");
+  }
+}
 </script>
 
 <style scoped>

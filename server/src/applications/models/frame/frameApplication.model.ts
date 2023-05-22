@@ -42,10 +42,8 @@ export class FrameApplication extends Model {
   @Column
   description: string;
 
-  @HasOne(() => WorkExperience)
-  workExperience: WorkExperience;
-  // @HasMany(() => WorkExperience)
-  // workExperience: WorkExperience[];
+  @HasMany(() => WorkExperience)
+  workExperience: WorkExperience[];
 
   @ForeignKey(() => User)
   @Column
@@ -55,10 +53,6 @@ export class FrameApplication extends Model {
   @ForeignKey(() => User)
   @Column
   curatorId: number;
-
-  // @ForeignKey(() => User)
-  // @Column
-  // traineeId: number;
 
   @BelongsToMany(() => User, () => TraineeOnFrameApplication)
   user: User[];

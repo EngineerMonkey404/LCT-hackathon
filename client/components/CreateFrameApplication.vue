@@ -86,28 +86,26 @@ const frameApplicationStore = useFrameApplicationsStore();
 const userStore = useUserStore();
 const numberWork = ref(1);
 const application = ref<IFrameApplication>({
-    organization: "",
-    position: "",
-    address: "",
-    description: "",
-    workExperience: [],
-    frameId: userStore.user!.userId!,
-  });
-if (route.query?.['frame_id']) {
-  frameApplicationStore.getApplicationsByFrameId(+route.query?.['frame_id'])
-  for (let app of frameApplicationStore.personalFrameApplications) {
-      if (app.applicationId === +route.query?.['application_id']!) {
-        application.value = app
-      }
+  organization: "",
+  position: "",
+  address: "",
+  description: "",
+  workExperience: [],
+  frameId: userStore.user!.userId!,
+});
+if (route.query?.["frame_id"]) {
+  frameApplicationStore.getApplicationsByFrameId(+route.query?.["frame_id"]);
+  for (const app of frameApplicationStore.personalFrameApplications) {
+    if (app.applicationId === +route.query?.["application_id"]!) {
+      application.value = app;
+    }
   }
-} 
+}
 
-
-
-
-const createApplication = async () => {//
+const createApplication = async () => {
+  //
   await frameApplicationStore.createApplication(application.value);
-  return navigateTo('/')
+  return navigateTo("/");
 };
 </script>
 

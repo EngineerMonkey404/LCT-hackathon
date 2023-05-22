@@ -3,8 +3,14 @@ export interface IFrameApplication {
   position: string;
   organization: string;
   address: string;
-  workExperience: string[];
+  workExperience: WorkExperience[];
   description: string;
   frameId: number;
   curatorId?: number;
+}
+
+export interface WorkExperience {
+  workExperienceId: number;
+  applicationId: number;
+  value: string;
 }

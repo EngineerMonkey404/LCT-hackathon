@@ -15,6 +15,7 @@ import {
 import { Role } from './role.enum';
 import { FrameApplication } from '../../applications/models/frame/frameApplication.model';
 import { TraineeOnFrameApplication } from '../../applications/models/frame/traineeOnFrameApplication.model';
+import { CandidateApplication } from '../../applications/models/trainee/candidateApplication.model';
 
 @Table({})
 export class User extends Model {
@@ -44,14 +45,14 @@ export class User extends Model {
   @Column
   pwd_hash: string;
 
+  @HasMany(() => CandidateApplication, 'candidateId')
+  candidateApplication: CandidateApplication;
+
   @HasMany(() => FrameApplication, 'frameId')
   frameApplications: FrameApplication;
 
   @HasMany(() => FrameApplication, 'curatorId')
   curatorApplications: FrameApplication;
-
-  // @HasMany(() => FrameApplication, 'traineeId')
-  // traineApplications: FrameApplication;
 
   @BelongsToMany(() => FrameApplication, () => TraineeOnFrameApplication)
   applications: FrameApplication[];
