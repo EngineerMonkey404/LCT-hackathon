@@ -42,8 +42,8 @@ export class FrameApplication extends Model {
   @Column
   description: string;
 
-  @HasMany(() => WorkExperience)
-  workExperience: WorkExperience[];
+  @HasOne(() => WorkExperience)
+  workExperience: WorkExperience;
   // @HasMany(() => WorkExperience)
   // workExperience: WorkExperience[];
 

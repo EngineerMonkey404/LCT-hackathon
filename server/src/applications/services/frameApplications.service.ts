@@ -15,7 +15,7 @@ export class FrameApplicationsService {
     @InjectModel(WorkExperience)
     private workExperienceModel: typeof WorkExperience,
     @InjectModel(TraineeOnFrameApplication)
-    private traineeOnFrameApplication: typeof TraineeOnFrameApplication,
+    private traineeOnFrameApplicationModel: typeof TraineeOnFrameApplication,
   ) {}
   async createApplication(application: CreateFrameApplicationDto) {
     const app = await this.frameApplicationModel.create({
@@ -52,7 +52,7 @@ export class FrameApplicationsService {
   }
 
   async submitTraineeRespond(applicationId: number, traineeId: number) {
-    await this.traineeOnFrameApplication.create({
+    await this.traineeOnFrameApplicationModel.create({
       traineeId: traineeId,
       applicationId: applicationId,
     });
@@ -87,5 +87,15 @@ export class FrameApplicationsService {
     await this.frameApplicationModel.update(application, {
       where: { applicationId: application.applicationId },
     });
+
+    application.workExperience.map(
+      async (exp) =>
+        await this.workExperienceModel.update(
+          { value: exp },
+          {
+            where: { applicationId: application.applicationId },
+          },
+        ),
+    );
   }
 }

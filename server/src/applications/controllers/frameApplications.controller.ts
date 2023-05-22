@@ -19,7 +19,7 @@ import { RequireRoles } from '../../auth/guards/roles.decorator';
 import { IFrameApplication } from '../models/frame/frameApplication.interface';
 import { FrameApplicationStatus } from '../models/frame/frameApplicationStatus.enum';
 
-@ApiTags('Заявки')
+@ApiTags('Заявки кадра')
 @Controller('applications')
 export class FrameApplicationsController {
   constructor(private readonly applicationService: FrameApplicationsService) {}
