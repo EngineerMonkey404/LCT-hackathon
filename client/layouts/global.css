@@ -18,4 +18,8 @@
         @apply px-8 pt-3 text-xl font-bold mr-10 rounded-t-3xl pb-0.5 /*pb может быть плохо*/
     }
 
+    .radio-btn {
+        @apply hover:opacity-50 duration-150 ease-out text-2xl
+    }
+
 }

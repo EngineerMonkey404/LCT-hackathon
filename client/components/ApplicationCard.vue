@@ -12,10 +12,10 @@
     >
       <div class="flex justify-between text-3xl font-bold">
         <div v-if="props.application.position">
-          {{ props.application.position }}
           <span v-if="application.status === FrameApplicationStatus.APPROVED">
-            ПРИНЯТА ПЕРЕДЕЛАТЬ ЛЕХА
+            <NuxtImg class="bg-lime-400 rounded-full inline py-3 px-5 mr-5" type="svg" src="/curators/check.svg" />
           </span>
+          {{ props.application.position }}
         </div>
         <div>{{ props.application.organization }}</div>
       </div>
@@ -39,10 +39,11 @@
     >
       <div class="mb-10 text-5xl font-bold">Заявка проверяется</div>
       <div class="text-center flex">
-        <div class="form-auth-input border bg-black text-white me-5">
+        <div @click="navigateTo(`/create-frame-application?frame_id=${application.frameId}&application_id=${application.applicationId}`)"
+             class="form-auth-input border bg-black text-white me-5 black-btn-hover">
           Редактировать
         </div>
-        <div class="form-auth-input border bg-black text-white">Удалить</div>
+        <div @click="$emit('delete')" class="form-auth-input border bg-black text-white black-btn-hover">Удалить</div>
       </div>
     </div>
     <div
@@ -55,7 +56,7 @@
         <div class="form-auth-input border bg-black text-white me-5">
           Просмотр
         </div>
-        <div class="form-auth-input border bg-black text-white">Удалить</div>
+        <div @click="$emit('delete')" class="form-auth-input border bg-black text-white black-btn-hover">Удалить</div>
       </div>
     </div>
   </div>

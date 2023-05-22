@@ -1,5 +1,4 @@
 <template>
-  <NuxtLink to="/createVacancie">qwe</NuxtLink>
   <h1 class="text-center text-3xl mt-8">
     <strong>От кадров</strong>
     | От стажеров
@@ -12,36 +11,35 @@
       >
         Пока нет заявок
       </div>
-      <template v-for="vacancie in frameApplicationsStore.allFrameApplications">
-        <div
-          v-if="vacancie.status === 'unchecked'"
-          class="shadow-slate-500 shadow-xl rounded-3xl w-full mb-10"
-        >
-          <Vacancie>
-            <template #job>{{ vacancie.position }}</template>
-            <template #organization>{{ vacancie.organization }}</template>
-            <template #description>{{ vacancie.description }}</template>
-            <template #workExpirience>
-              <div v-for="exp of vacancie.workExpirience" class="mb-8">
-                <span class="form-auth-input text-xl">{{ exp }}</span>
-              </div>
-            </template>
-          </Vacancie>
-          <button
-            class="m-10 rounded-full px-10 py-3 text-xl text-white font-semibold bg-green-500"
-            @click="vacancie.status = 'checked'"
-          >
-            Подтвердить
-          </button>
-        </div>
+      <div
+        class="grid grid-cols-1 mt-20 mr-10 w-full"
+      >
+      <template v-for="application in frameApplicationsStore.personalFrameApplications">
+        <CuratorApplicationCard
+          v-if="application.status === FrameApplicationStatus.PENDING"
+          :application="application"
+        ></CuratorApplicationCard>
       </template>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
+import { FrameApplicationStatus } from "~/types/types";
+import CuratorApplicationCard from "./CuratorApplicationCard.vue";
 
 const frameApplicationsStore = useFrameApplicationsStore();
-await frameApplicationsStore.getFrameApplications();
+onMounted(async () => {
+  await frameApplicationsStore.getApplicationsByFrameId(
+    3
+  );
+});
+
+onUpdated(async () => {
+  await frameApplicationsStore.getApplicationsByFrameId(
+    3
+  );
+});
 </script>

@@ -81,20 +81,33 @@ import { IFrameApplication } from "~/types/types";
 import { useUserStore } from "~/stores/userStore";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 
-const applicationStore = useFrameApplicationsStore();
+const route = useRoute();
+const frameApplicationStore = useFrameApplicationsStore();
 const userStore = useUserStore();
 const numberWork = ref(1);
 const application = ref<IFrameApplication>({
-  organization: "",
-  position: "",
-  address: "",
-  description: "",
-  workExperience: [],
-  frameId: userStore.user!.userId!,
-});
+    organization: "",
+    position: "",
+    address: "",
+    description: "",
+    workExperience: [],
+    frameId: userStore.user!.userId!,
+  });
+if (route.query?.['frame_id']) {
+  frameApplicationStore.getApplicationsByFrameId(+route.query?.['frame_id'])
+  for (let app of frameApplicationStore.personalFrameApplications) {
+      if (app.applicationId === +route.query?.['application_id']!) {
+        application.value = app
+      }
+  }
+} 
 
-const createApplication = async () => {
-  await applicationStore.createApplication(application.value);
+
+
+
+const createApplication = async () => {//
+  await frameApplicationStore.createApplication(application.value);
+  return navigateTo('/')
 };
 </script>
 
