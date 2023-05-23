@@ -90,12 +90,15 @@ const selectedCourse = ref('1 курс')
 const numberJobs = ref(1);
 
 //function converter date
+//mnogo zapisey
+//rabota int
 function create() {
-  application.value.candidateId = 123; //no id in db
+  application.value.candidateId = userStore.user?.userId; //no id in db
   application.value.date = new Date();
   application.value.date.setFullYear(+date.value[2], +date.value[1] - 1, +date.value[0]);
   application.value.date.setHours(application.value.date.getHours() + 3);
   candidateApplicationStore.createCandidateApplication(application.value);
+  return navigateTo('/');
 }
 
 

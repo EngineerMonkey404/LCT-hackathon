@@ -24,7 +24,8 @@
   </header>
   <div v-if="radioToggler === 'application'" class=" flex justify-center items-stretch w-full">
     <div class="relative mt-10 mr-10 w-1/2">
-      <EditCandidateApplication v-if="application.city" :application="application" class="w-full"
+      <EditCandidateApplication v-if="candidateApplicationStore.personalCandidateApplication"
+       class="w-full"
       :class="{
         'blur-sm':
           status === FrameApplicationStatus.PENDING ||
@@ -42,7 +43,7 @@
       </div>
     </div>
     <component class="mt-10" @careerSchool="radioToggler = 'careerSchool'"
-      :is="listStatus[application.status as keyof typeof listStatus]" />
+      :is="listStatus[candidateApplicationStore.personalCandidateApplication?.status as keyof typeof listStatus]" />
   </div>
 </template>
 
@@ -50,27 +51,25 @@
 import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
 import { FrameApplicationStatus, ICandidateApplication } from "~/types/types";
 import DeclinedStatus from "~/components/candidate/DeclinedStatus.vue";
+import { useCandidateApplicationStore } from "~/stores/candidateApplicationStore";
+import { useUserStore } from "~/stores/userStore";
 import ApprovedStatus from "~/components/candidate/ApprovedStatus.vue";
 import PendingStatus from "~/components/candidate/PendingStatus.vue";
 import EditCandidateApplication from "~/components/candidate/EditCandidateApplication.vue";
 
+const candidateApplicationStore = useCandidateApplicationStore();
+const userStore = useUserStore();
 const radioToggler = ref("application");
-const application: ICandidateApplication = {
-  candidateId: 1,
-  direction: '123',
-  date: new Date(),
-  nationality: '123',
-  city: '123',
-  experience: true,
-  position: ['qwe', 'qwe'],
-  status: FrameApplicationStatus.PENDING,
-}
 const listStatus = {
   [FrameApplicationStatus.APPROVED]: ApprovedStatus,
   [FrameApplicationStatus.DECLINED]: DeclinedStatus,
   [FrameApplicationStatus.PENDING]: PendingStatus,
 }
-const status = ref(application.status)
+const status = computed(() => candidateApplicationStore.personalCandidateApplication?.status)
+
+
+candidateApplicationStore.getCandidateApplicationById(userStore.user!.userId!)
+
 </script>
 
 <style scoped></style>

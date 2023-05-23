@@ -2,7 +2,8 @@ import { FrameApplicationStatus, ICandidateApplication } from "~/types/types";
 
 export const useCandidateApplicationStore = defineStore("CandidateApplicationStore", () => {
   
-  const allCandidateApplications = ref<ICandidateApplication[]>()
+  const allCandidateApplications = ref<ICandidateApplication[]>();
+  const personalCandidateApplication = ref<ICandidateApplication>();
 
   const getStatusById = (id: number) => {
     //по id кандидата ищем заявку в базе и возвращаем статус
@@ -11,6 +12,21 @@ export const useCandidateApplicationStore = defineStore("CandidateApplicationSto
     //if (listCandidatesApplications.value[id]) return listCandidatesApplications.value[id].status
     
   };
+
+  async function getCandidateApplicationById(id: number) {
+    const { data: fetchedApplications, error } = await useApiFetch<
+      ICandidateApplication,
+      Error,
+      string,
+      "post" | "get"
+    >(`applications/getCandidateApplicationById/${id}`, {
+      method: "GET",
+    });
+    if (fetchedApplications.value) {
+      personalCandidateApplication.value = fetchedApplications.value;
+    }
+    console.log(personalCandidateApplication.value)
+  }
 
   async function getAllCandidateApplications() {
     const { data: fetchedApplications, error } = await useApiFetch<
@@ -58,16 +74,8 @@ export const useCandidateApplicationStore = defineStore("CandidateApplicationSto
     submitCandidateApplication,
     allCandidateApplications,
     getAllCandidateApplications,
+    getCandidateApplicationById,
+    personalCandidateApplication,
   }
 });
 
-export interface IApplication {
-  birthday?: string;
-  citizenship?: string;
-  town?: string;
-  education?: string;
-  course?: string;
-  workExpirence?: string;
-  jobs?: string[];
-  status?: string;
-}

@@ -97,11 +97,6 @@ onMounted(async () => {
   );
 });
 
-onUpdated(async () => {
-  await frameApplicationsStore.getApplicationsByFrameId(
-    userStore.user!.userId!
-  );
-});
 
 function handle() {
   console.log(userStore.getUser());

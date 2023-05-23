@@ -26,7 +26,6 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     if (fetchedApplications.value) {
       personalFrameApplications.value = fetchedApplications.value;
     }
-    console.log(personalFrameApplications.value);
   }
 
   async function getFrameApplications() {

@@ -1,5 +1,5 @@
 <template>
-    <form
+    <form v-if="application"
       class="text-xl flex flex-col w-1/3 bg-white py-5 px-10 rounded-3xl shadow-slate-950 shadow-2xl max-lg:w-full max-sm font-semibold:mx-2"
       @submit.prevent>
       <h2 class="text-2xl font-semibold mb-5">Создание заявки</h2>
@@ -37,7 +37,8 @@
           </HeadlessRadioGroupOption>
         </div>
       </HeadlessRadioGroup>
-      <input v-if="application.nationality !== 'Российское'" id="day" v-model="application.nationality"
+      <input v-if="application.nationality !== 'Российское'" id="day"
+      v-model="application.nationality"
         class="form-auth-input mb-5" placeholder="Введите страну" />
       <p class="font-semibold mt-4 mb-2 text-xl">Образование</p>
       <SelectList :content-array="education" @updates="selectedEducation = $event" /><!--need education in db-->
@@ -52,12 +53,12 @@
           :value="true" />
         <label for="noExpirience">У меня есть опыт работы</label>
       </div>
-      <div v-if="application?.experience">
+      <div v-if="application.experience">
         <p class="mb-5 font-semibold text-xl">Должность</p>
         <input v-for="(n, i) in numberJobs" :key="n" v-model="application.position![i]"
           class="form-auth-input mb-5 w-full" />
         <button class="mb-5" @click="() => {
-          if (application.position![numberJobs - 1]) numberJobs += 1;
+          if (application?.position![numberJobs - 1]) numberJobs += 1;
         }
           ">
           <NuxtImg class="inline-block" format="svg" src="/candidate/add_circle.svg" style="height: 15px" />
@@ -65,9 +66,9 @@
         </button>
       </div>
       <button class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover" @click="update">
-        Обновоить данные
+        Обновить данные
       </button>
-      {{ application }}
+      {{ application! }}
     </form>
   </template>
   
@@ -79,8 +80,11 @@
   const userStore = useUserStore();
   const candidateApplicationStore = useCandidateApplicationStore();
   const date = ref<string[]>([]);
-  const props = defineProps<{ application: ICandidateApplication}>()
-  
+  const application = ref(candidateApplicationStore.personalCandidateApplication)
+
+  onMounted(() => {
+    candidateApplicationStore.getCandidateApplicationById(userStore.user?.userId!);
+  })
   const education = ["Нет высшего", "Неоконченное высшее", "Высшее"];
   const selectedEducation = ref('Нет высшего')
   
@@ -89,8 +93,8 @@
   const numberJobs = ref(1);
   
   function update() {
-    props.application.date = new Date();
-    props.application.date.setFullYear(+date.value[2], +date.value[1], +date.value[0])
+    candidateApplicationStore.personalCandidateApplication!.date = new Date();
+    candidateApplicationStore.personalCandidateApplication!.date.setFullYear(+date.value[2], +date.value[1], +date.value[0])
     //candidateApplicationStore.createCandidateApplication(props.application); need updateByCandidateId (naverno)
   }
   

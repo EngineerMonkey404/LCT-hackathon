@@ -1,6 +1,6 @@
 <template>
     <div class="grid grid-cols-3 gap-10 mt-20">
-        <CandidateCard v-for="application in candidateApplicationStore.allCandidateApplications" :application="application"
+        <CandidateCard v-for="application of candidateApplicationStore.allCandidateApplications" :application="application"
             :key="application.applicationId" />
     </div>
 </template>
@@ -16,7 +16,7 @@ onMounted(() => {
 })
 
 /* onUpdated(() => {
-    candidateApplicationStore.getAllCandidateApplications(); nado?
+    candidateApplicationStore.getAllCandidateApplications(); 
 }) */
 
 </script>

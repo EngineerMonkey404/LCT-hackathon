@@ -7,7 +7,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     await userStore.getUser();
     console.log(userStore.user);
     if (!userStore.user) {
-      if (to.path === "/auth") return abortNavigation();
+      if (to.path === "/auth") return ;
       else return navigateTo("/auth");
     }
   }
