@@ -1,4 +1,5 @@
 import { IUser } from "~/types/types";
+import { defineStore } from "pinia";
 
 export const useUserStore = defineStore("counter", () => {
   const user = ref<IUser | null>(null);
@@ -30,5 +31,5 @@ export const useUserStore = defineStore("counter", () => {
       console.log("fetchedUser", fetchedUser.value);
     } catch {}
   }
-  return { user: (user), login, getUser };
+  return { user: user, login, getUser };
 });
