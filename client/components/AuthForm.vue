@@ -74,7 +74,7 @@ async function handleLogin() {
       else if (userStore.user.role === Role.CURATOR)
         return navigateTo("/curator/applications");
       else if (userStore.user.role === Role.TRAINEE)
-        return navigateTo("/trainee/applications");
+        return navigateTo("/trainee/invites");
       else return navigateTo("/mentor/application");
     }
   } catch {

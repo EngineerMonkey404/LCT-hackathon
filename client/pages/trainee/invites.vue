@@ -1,4 +1,22 @@
 <template>
+  <div class="container mx-auto flex justify-between mt-10">
+    <div class="text-xl font-medium mr-20" >
+      <RadioGroup v-model="radioToggler">
+        <RadioGroupOption class="mb-5" v-slot="{ checked }" :value="CurrentComponents.AVIABLE">
+          <span :class="checked ? 'font-bold' : ''">Доступные места</span>
+        </RadioGroupOption>
+        <RadioGroupOption class="mb-5" v-slot="{ checked }" :value="CurrentComponents.INVITES">
+          <span :class="checked ? 'font-bold' : ''">Ваши приглашения</span>
+        </RadioGroupOption>
+        <RadioGroupOption class="mb-5" v-slot="{ checked }" :value="CurrentComponents.SENDED">
+          <span :class="checked ? 'font-bold' : ''">Отправленные заявки</span>
+        </RadioGroupOption>
+      </RadioGroup>
+    </div>
+    <div class="w-full grid grid-cols-2 gap-10">
+      <component :is="listComponets[radioToggler as keyof typeof listComponets]" />
+    </div>
+  </div>
   <!-- <div>
     <NuxtLink to="/createVacancie">qwe</NuxtLink>
     <div class="flex w-full">
@@ -55,6 +73,28 @@
   </div> -->
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AviableInvites from '~/components/trainee/AviableInvites.vue';
+import SendedInvites from '~/components/trainee/SendedInvites.vue';
+import {
+  RadioGroup,
+  RadioGroupOption,
+} from '@headlessui/vue'
 
-<style scoped></style>
+enum CurrentComponents {
+  AVIABLE = "aviable",
+  INVITES = 'invites',
+  SENDED = 'sended'
+}
+
+const listComponets = { [CurrentComponents.AVIABLE]: AviableInvites, [CurrentComponents.SENDED]: SendedInvites }
+
+const radioToggler = ref(CurrentComponents.AVIABLE);
+
+</script>
+
+<style scoped>
+span {
+  @apply pb-10
+}
+</style>
