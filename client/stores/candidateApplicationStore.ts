@@ -1,18 +1,30 @@
-import { ICandidateApplication } from "~/types/types";
+import { FrameApplicationStatus, ICandidateApplication } from "~/types/types";
 
 export const useCandidateApplicationStore = defineStore("CandidateApplicationStore", () => {
   
-  const listCandidatesApplications = ref<IApplication[]>([]);
+  const allCandidateApplications = ref<ICandidateApplication[]>()
 
   const getStatusById = (id: number) => {
     //по id кандидата ищем заявку в базе и возвращаем статус
     //status.value = 'reject'
     //status.value = 'wait'
-    if (listCandidatesApplications.value[id]) return listCandidatesApplications.value[id].status
+    //if (listCandidatesApplications.value[id]) return listCandidatesApplications.value[id].status
     
   };
 
-
+  async function getAllCandidateApplications() {
+    const { data: fetchedApplications, error } = await useApiFetch<
+      ICandidateApplication[],
+      Error,
+      string,
+      "post" | "get"
+    >(`applications/getAllCandidateApplications`, {
+      method: "GET",
+    });
+    if (fetchedApplications.value) {
+      allCandidateApplications.value = fetchedApplications.value;
+    }
+  }
 
   async function createCandidateApplication(application: ICandidateApplication) {
     const { data: newApplication } = await useApiFetch<
@@ -27,8 +39,25 @@ export const useCandidateApplicationStore = defineStore("CandidateApplicationSto
     console.log(newApplication.value);
   }
 
+  async function submitCandidateApplication(applicationId: number, status: FrameApplicationStatus) {
+    const { data: newApplication } = await useApiFetch<
+      ICandidateApplication,
+      Error,
+      string,
+      "put"
+    >(
+      `applications/submitCandidateApplication/${applicationId}?status=${status}`,
+      {
+        method: "PUT",
+      }
+    );
+  }
+
   return {
     createCandidateApplication,
+    submitCandidateApplication,
+    allCandidateApplications,
+    getAllCandidateApplications,
   }
 });
 

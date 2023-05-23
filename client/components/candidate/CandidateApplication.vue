@@ -67,20 +67,18 @@
     <button class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover" @click="create">
       Создать
     </button>
-    {{ application }}
   </form>
 </template>
 
 <script setup lang="ts">
 import { useCandidateApplicationStore } from "~/stores/candidateApplicationStore";
 import { useUserStore } from "~/stores/userStore";
-import { ICandidateApplication } from "~/types/types";
+import { ICandidateApplication, FrameApplicationStatus } from "~/types/types";
 
 const userStore = useUserStore();
 const candidateApplicationStore = useCandidateApplicationStore();
 const date = ref<string[]>([]);
 const application = ref<ICandidateApplication>({
-  candidateId: userStore.user?.userId,
   position: [],
 });
 
@@ -91,8 +89,12 @@ const courses = ["1 курс", "2 курс", "3 курс", "4 курс"];
 const selectedCourse = ref('1 курс')
 const numberJobs = ref(1);
 
+//function converter date
 function create() {
-  application.value.date = new Date(+date.value[2]), +date.value[1], +date.value[0];
+  application.value.candidateId = 123; //no id in db
+  application.value.date = new Date();
+  application.value.date.setFullYear(+date.value[2], +date.value[1] - 1, +date.value[0]);
+  application.value.date.setHours(application.value.date.getHours() + 3);
   candidateApplicationStore.createCandidateApplication(application.value);
 }
 
