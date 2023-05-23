@@ -24,17 +24,14 @@ export class CandidateApplicationsController {
     private readonly candidateApplicationService: CandidateApplicationsService,
   ) {}
 
-  @RequireRoles(Role.CANDIDATE)
-  @UseGuards(JwtGuard)
   @ApiOperation({ summary: 'Получение заявок кандидатов' })
   @Get('getAllCandidateApplications')
-  async getAllTraineeApplications() {
+  async getAllCandidateApplications() {
     return await this.candidateApplicationService.getAllCandidateApplications();
   }
 
-  @RequireRoles(Role.CANDIDATE)
-  @UseGuards(JwtGuard)
   @ApiOperation({ summary: 'Создание заявки' })
+  @ApiBody({ type: CreateCandidateApplicationDto })
   @Post('createCandidateApplication')
   async createCandidateApplication(
     @Body() application: CreateCandidateApplicationDto,
@@ -53,6 +50,13 @@ export class CandidateApplicationsController {
     await this.candidateApplicationService.submitCandidateApplication(
       applicationId,
       status,
+    );
+  }
+
+  @Get('getCandidateApplicationById/:id')
+  async getCandidateApplicationsById(@Param('id', ParseIntPipe) id: number) {
+    return await this.candidateApplicationService.getCandidateApplicationsById(
+      id,
     );
   }
 }

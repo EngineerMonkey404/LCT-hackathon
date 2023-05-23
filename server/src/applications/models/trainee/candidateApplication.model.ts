@@ -45,7 +45,6 @@ export class CandidateApplication extends Model {
   @HasMany(() => Position)
   position: Position[];
 
-  @AllowNull
   @ForeignKey(() => User)
   @Column
   candidateId: number;

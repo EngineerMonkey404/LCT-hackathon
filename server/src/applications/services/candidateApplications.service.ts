@@ -15,19 +15,14 @@ export class CandidateApplicationsService {
   ) {}
 
   async getAllCandidateApplications() {
-    const applications = await this.candidateApplicationModel.findAll({
+    return await this.candidateApplicationModel.findAll({
       include: [{ model: Position, attributes: ['value'] }],
-    });
-    return applications.map((application) => {
-      return {
-        ...application,
-        position: application.position.map((position) => position.value),
-      };
     });
   }
 
   async createCandidateApplication(application: CreateCandidateApplicationDto) {
     const app = await this.candidateApplicationModel.create({
+      candidateId: application.candidateId,
       direction: application.direction,
       date: application.date,
       nationality: application.nationality,
@@ -35,8 +30,9 @@ export class CandidateApplicationsService {
       experience: application.experience,
     });
     const position = application.position.map((pos) => {
-      return { applicationId: app.applicationId };
+      return { applicationId: app.applicationId, value: pos };
     });
+    console.log(position);
     await this.positionModel.bulkCreate(position);
     return app.applicationId;
   }
@@ -49,5 +45,12 @@ export class CandidateApplicationsService {
       { status: status },
       { where: { applicationId: applicationId } },
     );
+  }
+
+  async getCandidateApplicationsById(id: number) {
+    return await this.candidateApplicationModel.findAll({
+      where: { candidateId: id },
+      include: [Position],
+    });
   }
 }

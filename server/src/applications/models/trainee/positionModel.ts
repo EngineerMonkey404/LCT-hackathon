@@ -22,5 +22,5 @@ export class Position extends Model {
   applicationId: number;
 
   @Column
-  value: number;
+  value: string;
 }
