@@ -14,7 +14,7 @@
       <div
         class="grid grid-cols-1 mt-20 mr-10 w-full"
       >
-      <template v-for="application in frameApplicationsStore.personalFrameApplications">
+      <template v-for="application in frameApplicationsStore.allFrameApplications">
         <CuratorApplicationCard
           v-if="application.status === FrameApplicationStatus.PENDING"
           :application="application"
@@ -32,14 +32,10 @@ import CuratorApplicationCard from "./CuratorApplicationCard.vue";
 
 const frameApplicationsStore = useFrameApplicationsStore();
 onMounted(async () => {
-  await frameApplicationsStore.getApplicationsByFrameId(
-    3
-  );
+  await frameApplicationsStore.getFrameApplications();
 });
 
 onUpdated(async () => {
-  await frameApplicationsStore.getApplicationsByFrameId(
-    3
-  );
+  await frameApplicationsStore.getFrameApplications();
 });
 </script>

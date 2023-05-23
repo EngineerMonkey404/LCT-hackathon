@@ -22,41 +22,55 @@
       </RadioGroupOption>
     </RadioGroup>
   </header>
-  <div v-if="radioToggler === 'application'" class="flex justify-center items-stretch w-full">
-    <CandidateApplication class="mt-10 mr-10" />
-    <StatusApplication v-if="status === 'confirm'" class="mt-10" img="/candidate/confirm.svg">
-      <template #content>Вы прошли на следующий этап отбора</template>
-      <template #link>
-        <button class="form-auth-input black-btn-hover bg-black text-white text-xl font-semibold"
-          @click="radioToggler = 'careerSchool'">
-          Карьерная школа
-          <NuxtImg class="inline" type="svg" src="/candidate/arrow_right_alt.svg" />
-        </button>
-      </template>
-    </StatusApplication>
-    <StatusApplication v-else-if="status === 'decline'" class="mt-10" img="/candidate/reject.svg">
-      <template #content>Вы не прошли на следующий этап отбора</template>
-    </StatusApplication>
-    <StatusApplication v-else-if="status === 'wait'" class="mt-10" img="/candidate/wait.svg">
-      <template #title>
-        <div class="mb-20">Ожидайте</div>
-      </template>
-      <template #content>Ваша заявка рассматривается</template>
-    </StatusApplication>
+  <div v-if="radioToggler === 'application'" class=" flex justify-center items-stretch w-full">
+    <div class="relative mt-10 mr-10 w-1/2">
+      <EditCandidateApplication v-if="application.city" :application="application" class="w-full"
+      :class="{
+        'blur-sm':
+          status === FrameApplicationStatus.PENDING ||
+          status === FrameApplicationStatus.DECLINED,
+      }" />
+      <CandidateApplication v-else class="w-full"/>
+      <div v-if="status === FrameApplicationStatus.PENDING"
+        class="absolute w-full  h-full bg-black/20 rounded-3xl top-0 flex flex-col justify-center items-center">
+        <div class="mb-10 text-5xl font-bold">Заявка проверяется</div>
+        <div class="text-center flex">
+          <button @click="status = FrameApplicationStatus.EDIT" class="form-auth-input border bg-black text-white me-5 black-btn-hover">
+            Редактировать
+          </button>
+        </div>
+      </div>
+    </div>
+    <component class="mt-10" @careerSchool="radioToggler = 'careerSchool'"
+      :is="listStatus[application.status as keyof typeof listStatus]" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
-import { useApplicationStore } from "~/stores/candidateApplicationStore";
-import StatusApplication from "~/components/candidate/StatusApplication.vue";
+import { FrameApplicationStatus, ICandidateApplication } from "~/types/types";
+import DeclinedStatus from "~/components/candidate/DeclinedStatus.vue";
+import ApprovedStatus from "~/components/candidate/ApprovedStatus.vue";
+import PendingStatus from "~/components/candidate/PendingStatus.vue";
+import EditCandidateApplication from "~/components/candidate/EditCandidateApplication.vue";
 
 const radioToggler = ref("application");
-
-const store = useApplicationStore();
-const status = computed(() => {
-  if (store.getStatusById(0)) return store.getStatusById(0);
-});
+const application: ICandidateApplication = {
+  candidateId: 1,
+  direction: '123',
+  date: new Date(),
+  nationality: '123',
+  city: '123',
+  experience: true,
+  position: ['qwe', 'qwe'],
+  status: FrameApplicationStatus.PENDING,
+}
+const listStatus = {
+  [FrameApplicationStatus.APPROVED]: ApprovedStatus,
+  [FrameApplicationStatus.DECLINED]: DeclinedStatus,
+  [FrameApplicationStatus.PENDING]: PendingStatus,
+}
+const status = ref(application.status)
 </script>
 
 <style scoped></style>

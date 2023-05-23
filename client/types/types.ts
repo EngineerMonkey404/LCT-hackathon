@@ -10,6 +10,7 @@ export enum FrameApplicationStatus {
   APPROVED = "approved",
   DECLINED = "declined",
   PENDING = "pending",
+  EDIT = "edit",
 }
 
 export interface WorkExperience {
@@ -39,4 +40,16 @@ export interface IUser {
   email?: string;
   password?: string;
   role?: Role;
+}
+
+export interface ICandidateApplication {
+  applicationId?: number,
+  candidateId?: number,
+  direction?: string,
+  date?: Date,
+  nationality?: string,
+  city?: string,
+  experience?: boolean,
+  position?: string[],
+  status?: FrameApplicationStatus,
 }
