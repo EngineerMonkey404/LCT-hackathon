@@ -46,6 +46,7 @@
 
 <script setup lang="ts">
 import { useUserStore } from "~/stores/userStore";
+import { Role } from "~/types/types";
 
 interface RegisterData {
   firstName: string;
@@ -65,6 +66,17 @@ const loginData: { email: string; password: string } = reactive({
 async function handleLogin() {
   try {
     await userStore.login(loginData);
+    if (userStore.user) {
+      if (userStore.user.role === Role.FRAME)
+        return navigateTo("/frame/applications");
+      else if (userStore.user.role === Role.CANDIDATE)
+        return navigateTo("/candidate/application");
+      else if (userStore.user.role === Role.CURATOR)
+        return navigateTo("/curator/applications");
+      else if (userStore.user.role === Role.TRAINEE)
+        return navigateTo("/trainee/applications");
+      else return navigateTo("/mentor/application");
+    }
   } catch {
     error.value = true;
   }

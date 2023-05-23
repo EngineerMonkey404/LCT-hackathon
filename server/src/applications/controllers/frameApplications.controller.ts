@@ -94,4 +94,13 @@ export class FrameApplicationsController {
       status,
     );
   }
+
+  @Get('getTraineesByApplicationId/:id')
+  async getTraineesByApplicationId(
+    @Param('id', ParseIntPipe) applicationId: number,
+  ) {
+    return await this.applicationService.getTraineesByApplicationId(
+      applicationId,
+    );
+  }
 }

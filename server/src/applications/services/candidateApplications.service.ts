@@ -5,6 +5,8 @@ import { ICandidateApplication } from '../models/trainee/candidateApplication.in
 import { CreateCandidateApplicationDto } from '../models/trainee/CreateCandidateApplicationDto';
 import { CandidateApplicationStatus } from '../models/trainee/candidateApplicationStatus.enum';
 import { Position } from '../models/trainee/positionModel';
+import { IFrameApplication } from '../models/frame/frameApplication.interface';
+import { TraineeOnFrameApplication } from '../models/frame/traineeOnFrameApplication.model';
 
 @Injectable()
 export class CandidateApplicationsService {
@@ -30,7 +32,7 @@ export class CandidateApplicationsService {
       experience: application.experience,
     });
     const position = application.position.map((pos) => {
-      return { applicationId: app.applicationId, value: pos };
+      return { applicationId: app.applicationId, value: pos.value };
     });
     console.log(position);
     await this.positionModel.bulkCreate(position);
@@ -47,10 +49,49 @@ export class CandidateApplicationsService {
     );
   }
 
-  async getCandidateApplicationsById(id: number) {
-    return await this.candidateApplicationModel.findAll({
+  async getCandidateApplicationById(id: number) {
+    return await this.candidateApplicationModel.findOne({
       where: { candidateId: id },
       include: [Position],
     });
+  }
+
+  async updateCandidateApplication(
+    id: number,
+    application: ICandidateApplication,
+  ) {
+    await this.candidateApplicationModel.update(application, {
+      where: { candidateId: id },
+    });
+    application.position.map(
+      async (pos) =>
+        await this.positionModel.update(
+          { value: pos.value },
+          {
+            where: { applicationId: application.applicationId },
+          },
+        ),
+    );
+  }
+
+  async updateRussianLanguageTestResult(result: number, id: number) {
+    await this.candidateApplicationModel.update(
+      { russianLanguageTestResult: result },
+      { where: { applicationId: id } },
+    );
+  }
+
+  async updateInformationAnalysisTestResult(result: number, id: number) {
+    await this.candidateApplicationModel.update(
+      { informationAnalysisTestResult: result },
+      { where: { applicationId: id } },
+    );
+  }
+
+  async updateComputerLiteracyTestResult(result: number, id: number) {
+    await this.candidateApplicationModel.update(
+      { computerLiteracyTestResult: result },
+      { where: { applicationId: id } },
+    );
   }
 }

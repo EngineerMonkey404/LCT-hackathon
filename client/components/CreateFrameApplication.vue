@@ -105,7 +105,7 @@ if (route.query?.["frame_id"]) {
 const createApplication = async () => {
   //
   await frameApplicationStore.createApplication(application.value);
-  return navigateTo("/");
+  return navigateTo("/frame/applications");
 };
 </script>
 

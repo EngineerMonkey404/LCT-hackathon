@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Position } from './candidateApplication.interface';
 
 export class CreateCandidateApplicationDto {
   @ApiProperty()
@@ -20,5 +21,5 @@ export class CreateCandidateApplicationDto {
   experience: boolean;
 
   @ApiProperty()
-  position: string[];
+  position: Position[];
 }

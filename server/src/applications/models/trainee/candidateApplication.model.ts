@@ -14,6 +14,7 @@ import {
 import { Position } from './positionModel';
 import { CandidateApplicationStatus } from './candidateApplicationStatus.enum';
 import { User } from '../../../auth/models/user.model';
+import { All } from '@nestjs/common';
 
 @Table({})
 export class CandidateApplication extends Model {
@@ -45,7 +46,18 @@ export class CandidateApplication extends Model {
   @HasMany(() => Position)
   position: Position[];
 
-  @ForeignKey(() => User)
   @Column
   candidateId: number;
+
+  @AllowNull
+  @Column
+  russianLanguageTestResult: number;
+
+  @AllowNull
+  @Column
+  informationAnalysisTestResult: number;
+
+  @AllowNull
+  @Column
+  computerLiteracyTestResult: number;
 }

@@ -99,7 +99,7 @@ async function handleApplicationUpdate() {
       (el, index) => (el.value = workExperience.value[index])
     );
     await frameApplicationStore.updateFrameApplication(application);
-    navigateTo("/");
+    navigateTo("/frame/applications");
   }
 }
 </script>
