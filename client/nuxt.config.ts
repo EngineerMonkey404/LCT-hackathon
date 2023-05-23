@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   css: ["~/layouts/global.css"],
 
+  ssr: false,
   modules: [
     "@nuxtjs/eslint-module",
     "@nuxtjs/tailwindcss",

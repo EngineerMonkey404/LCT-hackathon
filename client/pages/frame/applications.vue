@@ -76,6 +76,7 @@
 import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 import { useUserStore } from "~/stores/userStore";
+import { definePageMeta } from "#imports";
 
 const radioToggler = ref("application");
 
