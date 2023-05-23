@@ -13,5 +13,11 @@ export interface ICandidateApplication {
 
   experience: boolean;
 
-  position: string[];
+  position: Position[];
+}
+
+export interface Position {
+  applicationId: number;
+  candidateId: number;
+  value: string;
 }

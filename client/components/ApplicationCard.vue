@@ -45,7 +45,7 @@
     >
       <div class="mb-10 text-5xl font-bold">Заявка проверяется</div>
       <div class="text-center flex">
-        <NuxtLink :to="`/edit/${application.applicationId}`">
+        <NuxtLink :to="`/frame/edit/${application.applicationId}`">
           <div
             class="form-auth-input border bg-black text-white me-5 black-btn-hover"
           >

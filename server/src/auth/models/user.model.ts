@@ -45,15 +45,6 @@ export class User extends Model {
   @Column
   pwd_hash: string;
 
-  @HasMany(() => CandidateApplication, 'candidateId')
-  candidateApplication: CandidateApplication;
-
-  @HasMany(() => FrameApplication, 'frameId')
-  frameApplications: FrameApplication;
-
-  @HasMany(() => FrameApplication, 'curatorId')
-  curatorApplications: FrameApplication;
-
   @BelongsToMany(() => FrameApplication, () => TraineeOnFrameApplication)
   applications: FrameApplication[];
 }

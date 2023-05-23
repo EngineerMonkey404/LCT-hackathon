@@ -1,13 +1,7 @@
-<template>
-  $END$
-</template>
+<template></template>
 
-<script setup lang="ts">
+<script setup lang="ts"></script>
 
-</script>
-
-
-
-<style scoped>
+<style scoped></style>
 
 </style>

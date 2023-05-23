@@ -16,8 +16,10 @@ import { RequireRoles } from '../../auth/guards/roles.decorator';
 import { Role } from 'src/auth/models/role.enum';
 import { JwtGuard } from '../../auth/guards/jwt.guard';
 import { CandidateApplicationStatus } from '../models/trainee/candidateApplicationStatus.enum';
+import { ICandidateApplication } from '../models/trainee/candidateApplication.interface';
+import { application } from 'express';
 
-@ApiTags('Заявки стажера')
+@ApiTags('Заявки кандидатов')
 @Controller('applications')
 export class CandidateApplicationsController {
   constructor(
@@ -55,7 +57,51 @@ export class CandidateApplicationsController {
 
   @Get('getCandidateApplicationById/:id')
   async getCandidateApplicationsById(@Param('id', ParseIntPipe) id: number) {
-    return await this.candidateApplicationService.getCandidateApplicationsById(
+    return await this.candidateApplicationService.getCandidateApplicationById(
+      id,
+    );
+  }
+
+  @Put('updateCandidateApplication/:id')
+  async updateCandidateApplication(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() application: ICandidateApplication,
+  ) {
+    await this.candidateApplicationService.updateCandidateApplication(
+      id,
+      application,
+    );
+  }
+
+  @Put('updateRussianLanguageTestResult/:id')
+  async updateRussianLanguageTestResult(
+    @Query('result', ParseIntPipe) result: number,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    await this.candidateApplicationService.updateRussianLanguageTestResult(
+      result,
+      id,
+    );
+  }
+
+  @Put('updateComputerLiteracyTestResult/:id')
+  async updateComputerLiteracyTestResult(
+    @Query('result', ParseIntPipe) result: number,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    await this.candidateApplicationService.updateComputerLiteracyTestResult(
+      result,
+      id,
+    );
+  }
+
+  @Put('updateInformationAnalysisTestResult/:id')
+  async updateInformationAnalysisTestResult(
+    @Query('result', ParseIntPipe) result: number,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    await this.candidateApplicationService.updateInformationAnalysisTestResult(
+      result,
       id,
     );
   }
