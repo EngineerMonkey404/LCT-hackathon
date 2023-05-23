@@ -14,7 +14,7 @@
           Карьерная школа
         </div>
       </RadioGroupOption>
-      <RadioGroupOption v-model="radioToggler" value="test" :disabled="true">
+      <RadioGroupOption v-model="radioToggler" value="test" >
         <div class="candidate-radio-btn bg-ultra-dark-purple text-white hover:opacity-50 duration-300 ease-out">
           <NuxtImg class="inline-block" type="svg" src="/candidate/glyphs.svg" />
           Тестирование
