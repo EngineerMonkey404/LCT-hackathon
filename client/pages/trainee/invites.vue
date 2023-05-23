@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
     <NuxtLink to="/createVacancie">qwe</NuxtLink>
     <div class="flex w-full">
       <div class="w-1/5 ml-44 mt-20">
@@ -52,7 +52,7 @@
         </template>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts"></script>

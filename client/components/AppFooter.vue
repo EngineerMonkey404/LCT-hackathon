@@ -4,4 +4,3 @@
 
 <style scoped></style>
 
-</style>
