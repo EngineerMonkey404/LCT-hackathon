@@ -11,6 +11,7 @@ import { Position } from './applications/models/candidate/positionModel';
 import { CandidateApplication } from './applications/models/candidate/candidateApplication.model';
 import { Image } from './files/models/image.model';
 import { FilesModule } from './files/files.module';
+import { InvitesModule } from './invites/invites.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { FilesModule } from './files/files.module';
     AuthModule,
     ApplicationsModule,
     FilesModule,
+    InvitesModule,
   ],
   controllers: [],
   providers: [],

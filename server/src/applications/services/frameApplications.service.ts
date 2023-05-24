@@ -77,14 +77,6 @@ export class FrameApplicationsService {
     );
   }
 
-  async getTraineesByFrameApplicationId(applicationId: number) {
-    return await this.frameApplicationModel.findAll({
-      where: {
-        applicationId: applicationId,
-      },
-    });
-  }
-
   async deleteFrameApplication(applicationId: number) {
     await this.frameApplicationModel.destroy({
       where: { applicationId: applicationId },

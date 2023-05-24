@@ -27,14 +27,14 @@ export class CandidateApplicationsController {
   ) {}
 
   @ApiOperation({ summary: 'Получение заявок кандидатов' })
-  @Get('getAllCandidateApplications')
+  @Get('candidate-applications')
   async getAllCandidateApplications() {
     return await this.candidateApplicationService.getAllCandidateApplications();
   }
 
   @ApiOperation({ summary: 'Создание заявки' })
   @ApiBody({ type: CreateCandidateApplicationDto })
-  @Post('createCandidateApplication')
+  @Post('candidate-application')
   async createCandidateApplication(
     @Body() application: CreateCandidateApplicationDto,
   ) {
@@ -44,7 +44,7 @@ export class CandidateApplicationsController {
   }
 
   @ApiOperation({ summary: 'Обновление статуса заявки' })
-  @Put('submitCandidateApplication/:application_id')
+  @Put('candidate-application/submit/:application_id')
   async submitCuratorRespond(
     @Param('application_id', ParseIntPipe) applicationId: number,
     @Query('status') status: CandidateApplicationStatus,
@@ -55,14 +55,14 @@ export class CandidateApplicationsController {
     );
   }
 
-  @Get('getCandidateApplicationById/:id')
+  @Get('candidate-application/:id')
   async getCandidateApplicationsById(@Param('id', ParseIntPipe) id: number) {
     return await this.candidateApplicationService.getCandidateApplicationById(
       id,
     );
   }
 
-  @Put('updateCandidateApplication/:id')
+  @Put('candidate-application/:id')
   async updateCandidateApplication(
     @Param('id', ParseIntPipe) id: number,
     @Body() application: ICandidateApplication,
@@ -73,7 +73,7 @@ export class CandidateApplicationsController {
     );
   }
 
-  @Put('updateRussianLanguageTestResult/:id')
+  @Put('candidate-application/russian-language/:id')
   async updateRussianLanguageTestResult(
     @Query('result', ParseIntPipe) result: number,
     @Param('id', ParseIntPipe) id: number,
@@ -84,7 +84,7 @@ export class CandidateApplicationsController {
     );
   }
 
-  @Put('updateComputerLiteracyTestResult/:id')
+  @Put('candidate-application/computer-literacy/:id')
   async updateComputerLiteracyTestResult(
     @Query('result', ParseIntPipe) result: number,
     @Param('id', ParseIntPipe) id: number,
@@ -95,7 +95,7 @@ export class CandidateApplicationsController {
     );
   }
 
-  @Put('updateInformationAnalysisTestResult/:id')
+  @Put('candidate-application/information-analysis/:id')
   async updateInformationAnalysisTestResult(
     @Query('result', ParseIntPipe) result: number,
     @Param('id', ParseIntPipe) id: number,
