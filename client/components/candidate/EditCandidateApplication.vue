@@ -55,10 +55,10 @@
       </div>
       <div v-if="application.experience">
         <p class="mb-5 font-semibold text-xl">Должность</p>
-        <input v-for="(n, i) in numberJobs" :key="n" v-model="application.position![i].value"
+        <input v-for="(n, i) in numberJobs" :key="n" v-model="application.position![i]"
           class="form-auth-input mb-5 w-full" />
         <button class="mb-5" @click="() => {
-          if (application?.position![numberJobs - 1].value) numberJobs += 1;
+          if (application?.position![numberJobs - 1]) numberJobs += 1;
         }
           ">
           <NuxtImg class="inline-block" format="svg" src="/candidate/add_circle.svg" style="height: 15px" />
