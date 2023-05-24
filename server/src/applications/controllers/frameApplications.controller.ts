@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   Param,
   ParseIntPipe,
   Post,
@@ -18,6 +19,8 @@ import { Role } from '../../auth/models/role.enum';
 import { RequireRoles } from '../../auth/guards/roles.decorator';
 import { IFrameApplication } from '../models/frame/frameApplication.interface';
 import { FrameApplicationStatus } from '../models/frame/frameApplicationStatus.enum';
+import { User } from '../../auth/models/user.model';
+import { InjectModel } from '@nestjs/sequelize';
 
 @ApiTags('Заявки кадра')
 @Controller('applications')

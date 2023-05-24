@@ -7,8 +7,8 @@ import { ApplicationsModule } from './applications/applications.module';
 import { FrameApplication } from './applications/models/frame/frameApplication.model';
 import { WorkExperience } from './applications/models/frame/workExperience.model';
 import { TraineeOnFrameApplication } from './applications/models/frame/traineeOnFrameApplication.model';
-import { Position } from './applications/models/trainee/positionModel';
-import { CandidateApplication } from './applications/models/trainee/candidateApplication.model';
+import { Position } from './applications/models/candidate/positionModel';
+import { CandidateApplication } from './applications/models/candidate/candidateApplication.model';
 import { Image } from './files/models/image.model';
 import { FilesModule } from './files/files.module';
 

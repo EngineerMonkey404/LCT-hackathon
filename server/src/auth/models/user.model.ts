@@ -16,7 +16,7 @@ import {
 import { Role } from './role.enum';
 import { FrameApplication } from '../../applications/models/frame/frameApplication.model';
 import { TraineeOnFrameApplication } from '../../applications/models/frame/traineeOnFrameApplication.model';
-import { CandidateApplication } from '../../applications/models/trainee/candidateApplication.model';
+import { CandidateApplication } from '../../applications/models/candidate/candidateApplication.model';
 import { Image } from '../../files/models/image.model';
 
 @Table({})
@@ -47,8 +47,11 @@ export class User extends Model {
   @Column
   pwd_hash: string;
 
+  @HasOne(() => CandidateApplication)
+  candidateApplication: CandidateApplication;
+
   @BelongsToMany(() => FrameApplication, () => TraineeOnFrameApplication)
-  applications: FrameApplication[];
+  frameApplications: FrameApplication[];
 
   @HasOne(() => Image)
   image: Image;

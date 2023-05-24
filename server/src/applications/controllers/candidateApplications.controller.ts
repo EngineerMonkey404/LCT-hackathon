@@ -11,12 +11,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { CandidateApplicationsService } from '../services/candidateApplications.service';
-import { CreateCandidateApplicationDto } from '../models/trainee/CreateCandidateApplicationDto';
+import { CreateCandidateApplicationDto } from '../models/candidate/CreateCandidateApplicationDto';
 import { RequireRoles } from '../../auth/guards/roles.decorator';
 import { Role } from 'src/auth/models/role.enum';
 import { JwtGuard } from '../../auth/guards/jwt.guard';
-import { CandidateApplicationStatus } from '../models/trainee/candidateApplicationStatus.enum';
-import { ICandidateApplication } from '../models/trainee/candidateApplication.interface';
+import { CandidateApplicationStatus } from '../models/candidate/candidateApplicationStatus.enum';
+import { ICandidateApplication } from '../models/candidate/candidateApplication.interface';
 import { application } from 'express';
 
 @ApiTags('Заявки кандидатов')

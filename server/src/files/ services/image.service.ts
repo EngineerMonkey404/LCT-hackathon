@@ -15,8 +15,8 @@ export class ImageService {
     private configService: ConfigService<EnvironmentVariables>,
   ) {}
 
-  async getImage(id: number) {
-    const image = this.imageModel.findOne({ where: { imageId: id } });
+  async getImageByUserId(id: number) {
+    const image = this.imageModel.findOne({ where: { userId: id } });
     if (!image) return null;
     return image;
   }
@@ -36,7 +36,7 @@ export class ImageService {
   }
 
   async deleteImage(id: number) {
-    const img = await this.getImage(id);
+    const img = await this.getImageByUserId(id);
     if (img) {
       await this.removeFile(img.path);
       await this.imageModel.destroy({ where: { imageId: id } });

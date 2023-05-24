@@ -7,9 +7,10 @@ import { WorkExperience } from './models/frame/workExperience.model';
 import { TraineeOnFrameApplication } from './models/frame/traineeOnFrameApplication.model';
 import { AuthModule } from '../auth/auth.module';
 import { CandidateApplicationsController } from './controllers/candidateApplications.controller';
-import { Position } from './models/trainee/positionModel';
-import { CandidateApplication } from './models/trainee/candidateApplication.model';
+import { Position } from './models/candidate/positionModel';
+import { CandidateApplication } from './models/candidate/candidateApplication.model';
 import { CandidateApplicationsService } from './services/candidateApplications.service';
+import { User } from '../auth/models/user.model';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { CandidateApplicationsService } from './services/candidateApplications.s
       TraineeOnFrameApplication,
       Position,
       CandidateApplication,
+      User,
     ]),
   ],
   controllers: [FrameApplicationsController, CandidateApplicationsController],
