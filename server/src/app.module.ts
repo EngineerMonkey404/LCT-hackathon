@@ -9,6 +9,8 @@ import { WorkExperience } from './applications/models/frame/workExperience.model
 import { TraineeOnFrameApplication } from './applications/models/frame/traineeOnFrameApplication.model';
 import { Position } from './applications/models/trainee/positionModel';
 import { CandidateApplication } from './applications/models/trainee/candidateApplication.model';
+import { Image } from './files/models/image.model';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -30,6 +32,7 @@ import { CandidateApplication } from './applications/models/trainee/candidateApp
         TraineeOnFrameApplication,
         Position,
         CandidateApplication,
+        Image,
       ],
       autoLoadModels: true,
       define: {
@@ -38,6 +41,7 @@ import { CandidateApplication } from './applications/models/trainee/candidateApp
     }),
     AuthModule,
     ApplicationsModule,
+    FilesModule,
   ],
   controllers: [],
   providers: [],

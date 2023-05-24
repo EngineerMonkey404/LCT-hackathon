@@ -6,6 +6,7 @@ import {
   DataType,
   Default,
   HasMany,
+  HasOne,
   Model,
   PrimaryKey,
   Table,
@@ -16,6 +17,7 @@ import { Role } from './role.enum';
 import { FrameApplication } from '../../applications/models/frame/frameApplication.model';
 import { TraineeOnFrameApplication } from '../../applications/models/frame/traineeOnFrameApplication.model';
 import { CandidateApplication } from '../../applications/models/trainee/candidateApplication.model';
+import { Image } from '../../files/models/image.model';
 
 @Table({})
 export class User extends Model {
@@ -47,4 +49,7 @@ export class User extends Model {
 
   @BelongsToMany(() => FrameApplication, () => TraineeOnFrameApplication)
   applications: FrameApplication[];
+
+  @HasOne(() => Image)
+  image: Image;
 }
