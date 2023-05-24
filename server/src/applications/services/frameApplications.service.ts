@@ -68,11 +68,10 @@ export class FrameApplicationsService {
 
   async submitCuratorRespond(
     applicationId: number,
-    curatorId: number,
     status: FrameApplicationStatus,
   ) {
     await this.frameApplicationModel.update(
-      { curatorId: curatorId, status: status },
+      { status: status },
       { where: { applicationId: applicationId } },
     );
   }

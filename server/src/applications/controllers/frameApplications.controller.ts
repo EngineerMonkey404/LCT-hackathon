@@ -78,17 +78,12 @@ export class FrameApplicationsController {
     );
   }
 
-  @Put('frame-application/:application_id/submit/:curator_id')
+  @Put('frame-application/:application_id/submit')
   async submitCuratorRespond(
     @Param('application_id', ParseIntPipe) applicationId: number,
-    @Param('curator_id', ParseIntPipe) traineeId: number,
     @Query('status') status: FrameApplicationStatus,
   ) {
-    await this.applicationService.submitCuratorRespond(
-      applicationId,
-      traineeId,
-      status,
-    );
+    await this.applicationService.submitCuratorRespond(applicationId, status);
   }
 
   @Get('frame-application/:id/trainees')

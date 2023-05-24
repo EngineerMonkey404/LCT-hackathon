@@ -11,15 +11,15 @@
       >
         Пока нет заявок
       </div>
-      <div
-        class="grid grid-cols-1 mt-20 mr-10 w-full"
-      >
-      <template v-for="application in frameApplicationsStore.allFrameApplications">
-        <CuratorApplicationCard
-          v-if="application.status === FrameApplicationStatus.PENDING"
-          :application="application"
-        ></CuratorApplicationCard>
-      </template>
+      <div class="grid grid-cols-1 mt-20 mr-10 w-full">
+        <template
+          v-for="application in frameApplicationsStore.allFrameApplications"
+        >
+          <CuratorApplicationCard
+            v-if="application.status === FrameApplicationStatus.PENDING"
+            :application="application"
+          ></CuratorApplicationCard>
+        </template>
       </div>
     </div>
   </div>

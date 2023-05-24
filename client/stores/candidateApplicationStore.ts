@@ -27,7 +27,6 @@ export const useCandidateApplicationStore = defineStore(
       if (fetchedApplications.value) {
         personalCandidateApplication.value = fetchedApplications.value;
       }
-      console.log(personalCandidateApplication.value);
     }
 
     async function getAllCandidateApplications() {

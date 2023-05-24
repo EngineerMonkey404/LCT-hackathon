@@ -7,7 +7,7 @@ import {
 export const useTraineeStore = defineStore("traineeStore", () => {
   const allFrameApplications = ref<IFrameApplication[]>([]);
   useApiFetch<IFrameApplication[], Error, string, "post" | "get">(
-    `applications/getFrameApplications`,
+    `applications/frame-applications`,
     {
       method: "GET",
     }

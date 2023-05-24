@@ -55,20 +55,22 @@ export class CandidateApplicationsController {
     );
   }
 
-  @Get('candidate-application/:id')
-  async getCandidateApplicationById(@Param('id', ParseIntPipe) id: number) {
+  @Get('candidate-application/:candidate_id')
+  async getCandidateApplicationById(
+    @Param('candidate_id', ParseIntPipe) id: number,
+  ) {
     return await this.candidateApplicationService.getCandidateApplicationById(
       id,
     );
   }
 
-  @Put('candidate-application/:id')
+  @Put('candidate-application/:candidate_id')
   async updateCandidateApplication(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('candidate_id', ParseIntPipe) candidateId: number,
     @Body() application: ICandidateApplication,
   ) {
     await this.candidateApplicationService.updateCandidateApplication(
-      id,
+      candidateId,
       application,
     );
   }

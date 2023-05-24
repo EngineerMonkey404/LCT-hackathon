@@ -20,7 +20,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       Error,
       string,
       "post" | "get"
-    >(`applications/frame-application/${id}`, {
+    >(`applications/frame-applications/${id}`, {
       method: "GET",
     });
     if (fetchedApplications.value) {
@@ -109,7 +109,6 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
 
   async function submitCuratorRespond(
     application_id: number,
-    curator_id: number,
     status: FrameApplicationStatus
   ) {
     const { data: newApplication } = await useApiFetch<
@@ -118,7 +117,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       string,
       "put"
     >(
-      `applications/frame-application/${application_id}/submit/${curator_id}?status=${status}`,
+      `applications/frame-application/${application_id}/submit?status=${status}`,
       {
         method: "PUT",
       }

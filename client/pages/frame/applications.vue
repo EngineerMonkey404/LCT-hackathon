@@ -45,7 +45,7 @@
             v-if="filterApplications === FilterApplications.ALL"
             class="grid grid-cols0 absolute w-full"
           >
-          <!-- need application id -->
+            <!-- need application id -->
             <ApplicationCard
               v-for="application in frameApplicationsStore.personalFrameApplications"
               :key="application.applicationId"
@@ -84,12 +84,7 @@ const filterApplications = ref<FilterApplications>(FilterApplications.ALL);
 const frameApplicationsStore = useFrameApplicationsStore();
 const userStore = useUserStore();
 
-onMounted(async () => {
-  await frameApplicationsStore.getApplicationsByFrameId(
-    userStore.user!.userId!
-  );
-});
-
+await frameApplicationsStore.getApplicationsByFrameId(userStore.user!.userId!);
 </script>
 
 <style scoped>
