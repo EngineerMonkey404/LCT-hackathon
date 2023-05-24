@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { CandidateApplication } from '../models/trainee/candidateApplication.model';
-import { ICandidateApplication } from '../models/trainee/candidateApplication.interface';
-import { CreateCandidateApplicationDto } from '../models/trainee/CreateCandidateApplicationDto';
-import { CandidateApplicationStatus } from '../models/trainee/candidateApplicationStatus.enum';
-import { Position } from '../models/trainee/positionModel';
+import { CandidateApplication } from '../models/candidate/candidateApplication.model';
+import { ICandidateApplication } from '../models/candidate/candidateApplication.interface';
+import { CreateCandidateApplicationDto } from '../models/candidate/CreateCandidateApplicationDto';
+import { CandidateApplicationStatus } from '../models/candidate/candidateApplicationStatus.enum';
+import { Position } from '../models/candidate/positionModel';
 import { IFrameApplication } from '../models/frame/frameApplication.interface';
 import { TraineeOnFrameApplication } from '../models/frame/traineeOnFrameApplication.model';
 

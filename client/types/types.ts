@@ -44,25 +44,35 @@ export interface IUser {
 }
 
 export interface ICandidateApplication {
-  applicationId?: number,
-  candidateId?: number,
-  direction?: string,
-  date?: Date,
-  nationality?: string,
-  city?: string,
-  experience?: boolean,
-  position?: Position[],
-  status?: FrameApplicationStatus,
+  applicationId?: number;
+  candidateId?: number;
+  direction?: string;
+  date?: Date;
+  nationality?: string;
+  city?: string;
+  experience?: boolean;
+  position?: Position[];
+  status?: FrameApplicationStatus;
 }
 
 export interface Position {
-  applicationId: number,
-  positionId: number,
-  value?: string,
+  applicationId: number;
+  positionId: number;
+  value?: string;
 }
 
-export interface ITrainee extends IUser, ICandidateApplication {
-  age?: number,
-  education?: string,
-  course?: string,
+export interface ITrainee extends IUser {
+  application: ICandidateApplication;
+  age?: number;
+  education?: string;
+  course?: string;
+}
+
+export interface RegisterData {
+  firstName: string;
+  secondName: string;
+  thirdName: string;
+  email: string;
+  password: string;
+  image: { url: string; file: File | null };
 }

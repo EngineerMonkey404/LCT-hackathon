@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { FrameApplication } from '../models/frame/frameApplication.model';
 import { WorkExperience } from '../models/frame/workExperience.model';
@@ -6,10 +6,15 @@ import { CreateFrameApplicationDto } from '../models/frame/CreateFrameApplicatio
 import { IFrameApplication } from '../models/frame/frameApplication.interface';
 import { FrameApplicationStatus } from '../models/frame/frameApplicationStatus.enum';
 import { TraineeOnFrameApplication } from '../models/frame/traineeOnFrameApplication.model';
+import { User } from '../../auth/models/user.model';
+import { CandidateApplication } from '../models/candidate/candidateApplication.model';
 
 @Injectable()
 export class FrameApplicationsService {
   constructor(
+    @InjectModel(CandidateApplication)
+    private candidateApplicationModel: typeof CandidateApplication,
+    @InjectModel(User) private userModel: typeof User,
     @InjectModel(FrameApplication)
     private frameApplicationModel: typeof FrameApplication,
     @InjectModel(WorkExperience)
@@ -72,14 +77,6 @@ export class FrameApplicationsService {
     );
   }
 
-  async getTraineesByFrameApplicationId(applicationId: number) {
-    return await this.frameApplicationModel.findAll({
-      where: {
-        applicationId: applicationId,
-      },
-    });
-  }
-
   async deleteFrameApplication(applicationId: number) {
     await this.frameApplicationModel.destroy({
       where: { applicationId: applicationId },
@@ -104,8 +101,13 @@ export class FrameApplicationsService {
   }
 
   async getTraineesByApplicationId(id: number) {
-    return (
+    const trainees = (
       await this.traineesModel.findAll({ where: { applicationId: id } })
     ).map((element) => element.traineeId);
+    return (
+      await this.userModel.findAll({
+        include: [CandidateApplication],
+      })
+    ).filter((user) => trainees.includes(user.userId));
   }
 }

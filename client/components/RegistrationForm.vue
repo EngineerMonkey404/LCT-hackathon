@@ -1,27 +1,77 @@
 <template>
-  <div class="container mx-auto flex flex-col w-1/3 bg-white py-10 px-20 rounded-3xl shadow-2xl max-lg:w-full max-md:mx-10">
+  <div
+    class="container mx-auto flex flex-col w-1/3 bg-white py-10 px-20 rounded-3xl shadow-2xl max-lg:w-full max-md:mx-10"
+  >
     <form class="flex flex-col">
       <h2 class="text-center text-2xl font-semibold">Регистрация</h2>
       <div class="flex flex-col items-center">
         <div class="text-2xl mt-5 mb-3 font-semibold">Фото</div>
-        <label class="labelPhoto p-7 bg-violet-100 text-slate-400" for="addImg">{{ photo }}</label>
-        <input @change="photo = 'Фото загружено'" class="photoInput" id="addImg" type="file" accept="image/png, image/jpeg" />
+        <label
+          class="labelPhoto bg-violet-100 text-slate-400"
+          for="addImg"
+          :class="{ 'p-7': !registerData.image.file }"
+        >
+          <span v-if="!registerData.image.url">
+            Перетащите свой файл или загрузите с компьютера
+          </span>
+          <img
+            v-else
+            :src="registerData.image.url"
+            class="h-full w-full rounded-full object-cover"
+            alt="profile-picture"
+          />
+        </label>
+        <input
+          id="addImg"
+          class="photoInput"
+          type="file"
+          accept="image/png, image/jpeg"
+          @change="addImageFile($event)"
+        />
       </div>
-      
+
       <label class="mb-2" for="name">Имя*</label>
-      <input id="name" v-model="registerData.firstName" class="form-auth-input mb-5" placeholder="Имя" />
+      <input
+        id="name"
+        v-model="registerData.firstName"
+        class="form-auth-input mb-5"
+        placeholder="Имя"
+      />
       <label class="mb-2" for="surname">Фамилия*</label>
-      <input id="surname" v-model="registerData.secondName" class="form-auth-input mb-5" placeholder="Фамилия" />
+      <input
+        id="surname"
+        v-model="registerData.secondName"
+        class="form-auth-input mb-5"
+        placeholder="Фамилия"
+      />
       <label class="mb-2" for="lastname">Отчество*</label>
-      <input id="lastname" v-model="registerData.thirdName" class="form-auth-input mb-5" placeholder="Отчество" />
+      <input
+        id="lastname"
+        v-model="registerData.thirdName"
+        class="form-auth-input mb-5"
+        placeholder="Отчество"
+      />
       <label class="mb-2" for="email">Электронная почта*</label>
-      <input id="email" v-model="registerData.email" class="form-auth-input mb-5" placeholder="Электронная почта" />
+      <input
+        id="email"
+        v-model="registerData.email"
+        class="form-auth-input mb-5"
+        placeholder="Электронная почта"
+      />
       <label class="mb-2" for="password">Пароль*</label>
-      <input id="password" v-model="registerData.password" class="form-auth-input mb-5 block" type="password"
-        placeholder="Пароль" />
+      <input
+        id="password"
+        v-model="registerData.password"
+        class="form-auth-input mb-5 block"
+        type="password"
+        placeholder="Пароль"
+      />
     </form>
     <NuxtLink to="/">
-      <button class="form-auth-input bg-black text-white font-semibold black-btn-hover" @click="">
+      <button
+        class="form-auth-input bg-black text-white font-semibold black-btn-hover"
+        @click="handleRegistration"
+      >
         Зарегистрироваться
       </button>
     </NuxtLink>
@@ -29,29 +79,34 @@
 </template>
 
 <script setup lang="ts">
-interface RegisterData {
-  firstName: string;
-  secondName: string;
-  thirdName: string;
-  email: string;
-  password: string;
-}
+import { RegisterData } from "~/types/types";
+import { useUserStore } from "~/stores/userStore";
 
+const userStore = useUserStore();
+const imageInput = ref<HTMLInputElement>();
+const imageFile = ref<{ stringFile: string; file: File }>();
 const registerData: RegisterData = reactive({
   firstName: "",
   secondName: "",
   thirdName: "",
   email: "",
   password: "",
+  image: { url: "", file: null },
 });
-const photo = ref('Перетащите свой файл или загрузите с компьютера');
 
-async function handleRegistration(user: RegisterData) {
-  /* const { data } = useApiFetch("auth/register", {
-    method: "POST",
-    body: registerData,  tut oshibka
-  });
-  console.log(data); */
+async function handleRegistration() {
+  await userStore.registerUser(registerData);
+}
+
+async function addImageFile(event: Event) {
+  const files = (event.target as HTMLInputElement).files;
+  if (files && files[0]) {
+    const reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    reader.onload = function () {
+      registerData.image = { url: reader.result as string, file: files[0] };
+    };
+  }
 }
 </script>
 
@@ -66,16 +121,14 @@ async function handleRegistration(user: RegisterData) {
 }
 
 .labelPhoto {
-    width: 140px;
-    height: 140px;
-    border-radius: 4px;
-    text-align: center;
-    cursor: pointer;
-    display: block;
-    font: 14px Tahoma;
-    transition: all 0.18s ease-in-out;
-    border: 1px solid #333;
-    border-radius: 9999px;
+  width: 140px;
+  height: 140px;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  font: 14px Tahoma;
+  transition: all 0.18s ease-in-out;
+  border: 1px solid #333;
+  border-radius: 9999px;
 }
-
 </style>

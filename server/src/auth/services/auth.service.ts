@@ -18,7 +18,6 @@ export class AuthService {
   }
   async registerAccount(user: IUser) {
     const { firstName, secondName, thirdName, email, password, role } = user;
-    console.log('user', user);
     return await this.userModel.create({
       firstName,
       secondName,

@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   Param,
   ParseIntPipe,
   Post,
@@ -18,6 +19,8 @@ import { Role } from '../../auth/models/role.enum';
 import { RequireRoles } from '../../auth/guards/roles.decorator';
 import { IFrameApplication } from '../models/frame/frameApplication.interface';
 import { FrameApplicationStatus } from '../models/frame/frameApplicationStatus.enum';
+import { User } from '../../auth/models/user.model';
+import { InjectModel } from '@nestjs/sequelize';
 
 @ApiTags('Заявки кадра')
 @Controller('applications')
@@ -28,7 +31,7 @@ export class FrameApplicationsController {
   @UseGuards(JwtGuard)
   @ApiOperation({ summary: 'Создание заявки' })
   @ApiBody({ type: CreateFrameApplicationDto })
-  @Post('createFrameApplication')
+  @Post('frame-application')
   async createApplication(@Body() application: CreateFrameApplicationDto) {
     return await this.applicationService.createApplication(application);
   }
@@ -36,42 +39,35 @@ export class FrameApplicationsController {
   @RequireRoles(Role.FRAME)
   @UseGuards(JwtGuard)
   @ApiOperation({ summary: 'Получение заявок кадра' })
-  @Get('getFrameApplications/:id')
+  @Get('frame-applications/:id')
   async getFrameApplicationsByFrameId(@Param('id') frameId: number) {
     return await this.applicationService.getFrameApplicationsByFrameId(frameId);
   }
 
   @RequireRoles(Role.FRAME)
   @UseGuards(JwtGuard)
-  @ApiOperation({ summary: 'Получение заявок кадра' })
-  @Get('getFrameApplications')
+  @ApiOperation({ summary: 'Получение всех заявок' })
+  @Get('frame-applications')
   async getFrameApplications() {
     return await this.applicationService.getFrameApplications();
   }
 
-  @Get('getFrameApplicationById/:id')
+  @Get('frame-application/:id')
   async getFrameApplicationById(@Param('id') applicationId: number) {
     return await this.applicationService.getFrameApplicationById(applicationId);
   }
 
-  @Delete('deleteFrameApplication/:id')
+  @Delete('frame-application/:id')
   async deleteFrameApplication(@Param('id') applicationId: number) {
     await this.applicationService.deleteFrameApplication(applicationId);
   }
 
-  @Get('getTraineesByFrameApplication/:id')
-  async getTraineesByFrameApplicationId(@Param('id') applicationId: number) {
-    return await this.applicationService.getTraineesByFrameApplicationId(
-      applicationId,
-    );
-  }
-
-  @Put('updateFrameApplication/:id')
+  @Put('frame-application/:id')
   async updateFrameApplication(@Body() application: IFrameApplication) {
     await this.applicationService.updateFrameApplication(application);
   }
 
-  @Put('submitTraineeRespond/:application_id/:trainee_id')
+  @Put('frame-application/:application_id/submit/:trainee_id')
   async submitTraineeRespond(
     @Param('application_id', ParseIntPipe) applicationId: number,
     @Param('trainee_id', ParseIntPipe) traineeId: number,
@@ -82,7 +78,7 @@ export class FrameApplicationsController {
     );
   }
 
-  @Put('submitCuratorRespond/:application_id/:curator_id')
+  @Put('frame-application/:application_id/submit/:curator_id')
   async submitCuratorRespond(
     @Param('application_id', ParseIntPipe) applicationId: number,
     @Param('curator_id', ParseIntPipe) traineeId: number,
@@ -95,7 +91,7 @@ export class FrameApplicationsController {
     );
   }
 
-  @Get('getTraineesByApplicationId/:id')
+  @Get('frame-application/:id/trainees')
   async getTraineesByApplicationId(
     @Param('id', ParseIntPipe) applicationId: number,
   ) {

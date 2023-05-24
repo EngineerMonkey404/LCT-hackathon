@@ -1,8 +1,30 @@
-import { IUser } from "~/types/types";
+import { IUser, RegisterData } from "~/types/types";
 import { defineStore } from "pinia";
 
 export const useUserStore = defineStore("counter", () => {
   const user = ref<IUser | null>(null);
+
+  async function registerUser(registerData: RegisterData) {
+    const { data: user } = await useApiFetch<
+      IUser,
+      Error,
+      string,
+      "post" | "get"
+    >("auth/register", {
+      method: "POST",
+      body: registerData,
+    });
+    if (registerData.image.file && user.value) {
+      const formData = new FormData();
+      console.log(registerData.image.file);
+      formData.append("file", registerData.image.file);
+      console.log(formData.get("image"));
+      await useApiFetch(`image/${user.value.userId}`, {
+        method: "POST",
+        body: formData,
+      });
+    }
+  }
 
   async function login(loginData: { email: string; password: string }) {
     const { data: fetchedUser } = await useApiFetch<
@@ -31,5 +53,5 @@ export const useUserStore = defineStore("counter", () => {
       console.log("fetchedUser", fetchedUser.value);
     } catch {}
   }
-  return { user: user, login, getUser };
+  return { user: user, login, getUser, registerUser };
 });

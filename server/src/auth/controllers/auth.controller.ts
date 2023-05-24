@@ -52,12 +52,4 @@ export class AuthController {
   async logout(@Res({ passthrough: true }) res: Response) {
     await this.authService.deleteToken(res);
   }
-
-  @RequireRoles(Role.CURATOR)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtGuard)
-  @Get('broker')
-  getSomething() {
-    return 'curator role';
-  }
 }
