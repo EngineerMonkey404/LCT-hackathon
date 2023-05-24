@@ -2,7 +2,7 @@
   <div class="flex container mx-auto mt-10">
     <div class="relative mr-10">
       <EditCandidateApplication
-        v-if="candidateApplicationStore.personalCandidateApplication"
+        v-if="candidateApplicationStore.personalCandidateApplication?.applicationId"
         class="w-full"
         :class="{
           'blur-sm':

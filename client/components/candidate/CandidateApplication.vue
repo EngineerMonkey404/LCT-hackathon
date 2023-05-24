@@ -105,13 +105,13 @@
       <input
         v-for="(n, i) in numberJobs"
         :key="n"
-        v-model="application.position![i]"
+        v-model="application.position![i].value"
         class="form-auth-input mb-5 w-full"
       />
       <button
         class="mb-5"
         @click="() => {
-        if (application.position![numberJobs - 1]) numberJobs += 1;
+        if (application.position![numberJobs - 1].value) numberJobs += 1;
       }
         "
       >

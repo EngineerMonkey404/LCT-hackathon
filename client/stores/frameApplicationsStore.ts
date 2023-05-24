@@ -42,6 +42,15 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     }
   }
 
+  async function getApprovedFrameApplications() {
+    if (!allFrameApplications.value.length) {
+      console.log('yes')
+      await getFrameApplications();
+    }
+    console.log(allFrameApplications.value)
+    return allFrameApplications.value.filter((element) => element.status === FrameApplicationStatus.APPROVED)
+  }
+
   async function getFrameApplicationById(id: number) {
     const { data: fetchedApplication, error } =
       await useApiFetch<IFrameApplication>(
@@ -139,5 +148,6 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     approvedFrameApplications,
     getFrameApplicationById,
     updateFrameApplication,
+    getApprovedFrameApplications,
   };
 });

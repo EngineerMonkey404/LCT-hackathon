@@ -1,9 +1,11 @@
 <template>
   <div class="subheader">
-    <div class="header-btn">
-      <NuxtImg class="inline-block" type="svg" src="/interns/mail.svg" />
-      Приглашения
-    </div>
+    <NuxtLink to="/trainee/invites">
+      <div class="header-btn">
+        <NuxtImg class="inline-block" type="svg" src="/interns/mail.svg" />
+        Приглашения
+      </div>
+    </NuxtLink>
     <div class="header-btn">
       <NuxtImg class="inline-block" type="svg" src="/interns/earth.svg" />
       Карта

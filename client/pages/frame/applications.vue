@@ -94,9 +94,6 @@ onMounted(async () => {
   );
 });
 
-function handle() {
-  console.log(userStore.getUser());
-}
 </script>
 
 <style scoped>

@@ -37,4 +37,9 @@
         @apply flex justify-center items-end bg-purple w-full h-44
     }
 
+    .black-btn {
+        @apply py-2 px-4 rounded-full text-white bg-black text-xl;
+        @apply hover:opacity-60 transition duration-150 ease-out;
+    }
+
 }

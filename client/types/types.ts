@@ -29,6 +29,7 @@ export interface IFrameApplication {
   description: string;
   frameId: number;
   curatorId?: number;
+  traineesId?: number[];
 }
 
 export interface IUser {
@@ -50,6 +51,12 @@ export interface ICandidateApplication {
   nationality?: string,
   city?: string,
   experience?: boolean,
-  position?: string[],
+  position?: Position[],
   status?: FrameApplicationStatus,
+}
+
+export interface Position {
+  applicationId: number,
+  positionId: number,
+  value?: string,
 }
