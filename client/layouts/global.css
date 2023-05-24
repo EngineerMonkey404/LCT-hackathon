@@ -19,7 +19,7 @@
     }
 
     .radio-btn {
-        @apply hover:opacity-50 duration-150 ease-out text-2xl
+        @apply hover:opacity-50 duration-150 ease-out text-2xl inline
     }
 
 

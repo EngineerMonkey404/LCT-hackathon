@@ -1,6 +1,17 @@
 <template>
   <header>
-    <div class="bg-red-500 p-10" @click="handleLogout">Выйти</div>
+    <div class="flex py-2 justify-evenly text-xl items-center">
+      <div>Главная</div>
+      <div>Расписание</div>
+      <div>Полезные материалы</div>
+      <div>Форум</div>
+      <div>Нетворкинг</div>
+      <div>События</div>
+      <div>Новости</div>
+      <div>
+        <MenuComp />
+      </div>
+    </div>
     <div v-if="userStore.user">
       <CandidateHeader v-if="userStore.user.role === Role.CANDIDATE" />
       <CuratorHeader v-else-if="userStore.user.role === Role.CURATOR" />
@@ -17,6 +28,7 @@ import MentorHeader from "~/components/headers/MentorHeader.vue";
 import TraineeHeader from "~/components/headers/TraineeHeader.vue";
 import CuratorHeader from "~/components/headers/CuratorHeader.vue";
 import FrameHeader from "~/components/headers/FrameHeader.vue";
+import MenuComp from "./headers/MenuComp.vue";
 import { useUserStore } from "~/stores/userStore";
 import { Role } from "~/types/types";
 
