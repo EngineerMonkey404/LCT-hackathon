@@ -3,8 +3,8 @@
          v-if="props.application.status === FrameApplicationStatus.PENDING">
         <div class="flex justify-between">
             <div class="text-2xl font-bold">
-                <div>{{ userStore.user?.firstName }} Имя Фамилия юзера {{ userStore.user?.secondName }}</div>
-                <div>{{ userStore.user?.thirdName }}Отчество</div>
+                <div>{{ userStore.user?.firstName }} {{ userStore.user?.secondName }}</div>
+                <div>{{ userStore.user?.thirdName }}</div>
                 <div class="text-xl">Будет юзер возраст</div>
             </div>
             <NuxtImg class="block" type="svg" src="/candidate/faceCandidate.svg" />

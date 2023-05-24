@@ -1,6 +1,7 @@
-import { IFrameApplication } from "~/types/types";
+import { IFrameApplication, FrameApplicationStatus, ITrainee } from "~/types/types";
 
 export const useTraineeStore = defineStore("traineeStore", () => {
+
     const allFrameApplications = ref<IFrameApplication[]>([]);
      useApiFetch<
         IFrameApplication[],
@@ -10,9 +11,13 @@ export const useTraineeStore = defineStore("traineeStore", () => {
     >(`applications/getFrameApplications`, {
         method: "GET",
     }).then((res) => allFrameApplications.value = res.data.value ?? []);
-    console.log(allFrameApplications)
+    console.log(allFrameApplications);
 
-    /* async function submitTraineeRespond(applicationId: number, traineeId: number) {
+    const personalApprovedFrameApplications = computed(() => { //frames poka chto
+        return allFrameApplications.value.filter(element => element.status === FrameApplicationStatus.APPROVED)
+    })
+
+    async function submitTraineeRespond(applicationId: number, traineeId: number) {
         const { data: newApplication } = await useApiFetch<
             number,
             Error,
@@ -23,16 +28,18 @@ export const useTraineeStore = defineStore("traineeStore", () => {
             {
                 method: "PUT",
             }
-        );`
-    } */
-    function submitTraineeRespond(application: IFrameApplication, traineeId: number) {
+        );
+    }
+    //need traineesId[] in frameApplication как будет сделаю получение заявок из стора со статусом апрувд
+    // и далее геттеры для таких заявок
+    /* function submitTraineeRespond(application: IFrameApplication, traineeId: number) {
         if (application.traineesId) {
             application.traineesId.push(traineeId)
         } else {
             application.traineesId = [traineeId]
         }
         console.log(application)
-    }
+    } */
 
     function getApplicationsByTraineeId(traineeId: number) {
         return allFrameApplications.value?.filter(element => element.traineesId?.includes(traineeId))
@@ -55,8 +62,29 @@ export const useTraineeStore = defineStore("traineeStore", () => {
                 method: "GET",
             }
         );
-        return fetchedTrainees.value
+        // эмулирую приход юзер(стажер) объектов
+        const arrTrainnes: ITrainee[] = [];
+        fetchedTrainees.value?.forEach(element => arrTrainnes.push(
+            { firstName: 'userName',
+              secondName: 'userSecondname',
+              thirdName: 'userThirdName',
+              age: 20,
+              userId: element,
+              nationality: 'nationality',
+              city: 'city',
+              experience: true,
+              position: [{ applicationId: 1, positionId: 1, value: 'gruzchik'}, { applicationId: 2, positionId: 2, value: 'stroitel'} ],
+              education: 'Voenmeh',
+              course: '44 course',
+            }
+        ))
+        return arrTrainnes
     }
+
+    /* const getTraineesByApplicationId = computed((applicationId: number) => {
+        let application = allFrameApplications.value.filter(elem => elem.applicationId = applicationId);
+        return application[0].traineesId
+    }) */
 
     return {
         submitTraineeRespond,
@@ -64,5 +92,6 @@ export const useTraineeStore = defineStore("traineeStore", () => {
         getApplicationsByTraineeId,
         getApplicationsWithoutTrainee,
         allFrameApplications,
+        personalApprovedFrameApplications,
     }
 })

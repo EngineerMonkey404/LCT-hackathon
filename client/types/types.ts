@@ -60,3 +60,9 @@ export interface Position {
   positionId: number,
   value?: string,
 }
+
+export interface ITrainee extends IUser, ICandidateApplication {
+  age?: number,
+  education?: string,
+  course?: string,
+}

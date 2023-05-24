@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="mb-20 mx-10 flex justify-between">
-        <button @click="traineeStore.submitTraineeRespond(application, userStore.user?.userId!)">
+        <button @click="traineeStore.submitTraineeRespond(application.applicationId!, userStore.user?.userId!)">
           Оставить заявку
         </button>
         <button>Посмотреть на карте</button>

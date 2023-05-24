@@ -77,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { IFrameApplication, WorkExperience } from "~/types/types";
+import { FrameApplicationStatus, IFrameApplication, WorkExperience } from "~/types/types";
 import { useUserStore } from "~/stores/userStore";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 
@@ -98,6 +98,7 @@ async function handleApplicationUpdate() {
     application.workExperience.forEach(
       (el, index) => (el.value = workExperience.value[index])
     );
+    application.status = FrameApplicationStatus.PENDING;
     await frameApplicationStore.updateFrameApplication(application);
     navigateTo("/frame/applications");
   }

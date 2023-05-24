@@ -74,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import AviableInvites from '~/components/trainee/AviableInvites.vue';
+import AvailableInvites from '~/components/trainee/AvailableInvites.vue';
 import SendedInvites from '~/components/trainee/SendedInvites.vue';
 import {
   RadioGroup,
@@ -82,12 +82,12 @@ import {
 } from '@headlessui/vue'
 
 enum CurrentComponents {
-  AVIABLE = "aviable",
+  AVIABLE = "available",
   INVITES = 'invites',
   SENDED = 'sended'
 }
 
-const listComponets = { [CurrentComponents.AVIABLE]: AviableInvites, [CurrentComponents.SENDED]: SendedInvites }
+const listComponets = { [CurrentComponents.AVIABLE]: AvailableInvites, [CurrentComponents.SENDED]: SendedInvites }
 
 const radioToggler = ref(CurrentComponents.AVIABLE);
 

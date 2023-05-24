@@ -57,13 +57,7 @@
             v-else-if="filterApplications === FilterApplications.APPROVED"
             class="grid grid-cols0 absolute w-full"
           >
-            <ApplicationCard
-              v-for="application of frameApplicationsStore.approvedFrameApplications"
-              :key="application.applicationId"
-              :application="application"
-            >
-              >
-            </ApplicationCard>
+            <ApprovedAplications />
           </div>
         </Transition>
       </div>
@@ -77,6 +71,7 @@ import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 import { useUserStore } from "~/stores/userStore";
 import { definePageMeta } from "#imports";
+import ApprovedAplications from "~/components/frame/ApprovedAplications.vue";
 
 const radioToggler = ref("application");
 

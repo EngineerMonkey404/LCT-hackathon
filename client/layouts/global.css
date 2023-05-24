@@ -38,8 +38,12 @@
     }
 
     .black-btn {
-        @apply py-2 px-4 rounded-full text-white bg-black text-xl;
+        @apply py-2 px-4 rounded-full text-white bg-black text-xl hover:cursor-pointer;
         @apply hover:opacity-60 transition duration-150 ease-out;
+    }
+
+    .card-style {
+        @apply p-10 shadow-slate-500 shadow-xl rounded-3xl border border-black
     }
 
 }
