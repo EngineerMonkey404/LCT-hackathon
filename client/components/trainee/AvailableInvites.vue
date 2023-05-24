@@ -22,21 +22,33 @@
         <button @click="traineeStore.submitTraineeRespond(application.applicationId!, userStore.user?.userId!)">
           Оставить заявку
         </button>
-        <button>Посмотреть на карте</button>
+        <button @click="handleMap(application)">Посмотреть на карте</button>
       </div>
+      
     </div>
   </div>
-  
+  <MapComp ref="map" :application="applicationCurrent!" />
 </template>
   
 <script setup lang="ts">
 //import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
+import MapComp from "./MapComp.vue";
 import { useUserStore } from "~/stores/userStore";
 import { useTraineeStore } from "~/stores/traineeStore";
+import { IFrameApplication } from "~/types/types";
 
 //const frameApplicationsStore = useFrameApplicationsStore();
 const traineeStore = useTraineeStore();
 const userStore = useUserStore();
+const applicationCurrent = ref<IFrameApplication>()
+
+const map = ref<InstanceType<typeof MapComp> | null>(null);
+
+function handleMap(application: IFrameApplication) {
+  map.value?.open();
+  applicationCurrent.value = application;
+  console.log(applicationCurrent.value);
+}
 
 //const applications = await frameApplicationsStore.getApprovedFrameApplications();
 
