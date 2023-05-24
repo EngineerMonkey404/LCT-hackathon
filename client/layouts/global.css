@@ -46,4 +46,8 @@
         @apply p-10 shadow-slate-500 shadow-xl rounded-3xl border border-black
     }
 
+    .invite-button{
+        @apply py-5 px-10 bg-black text-white rounded-3xl;
+    }
+
 }

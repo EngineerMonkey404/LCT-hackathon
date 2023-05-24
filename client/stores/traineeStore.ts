@@ -59,34 +59,14 @@ export const useTraineeStore = defineStore("traineeStore", () => {
 
   async function getTraineesByApplicationId(applicationId: number) {
     const { data: fetchedTrainees } = await useApiFetch<
-      number[],
+      ITrainee[],
       Error,
       string,
       "get"
     >(`applications/frame-application/${applicationId}/trainees`, {
       method: "GET",
     });
-    // эмулирую приход юзер(стажер) объектов
-    const arrTrainnes: ITrainee[] = [];
-    fetchedTrainees.value?.forEach((element) =>
-      arrTrainnes.push({
-        firstName: "userName",
-        secondName: "userSecondname",
-        thirdName: "userThirdName",
-        age: 20,
-        userId: element,
-        nationality: "nationality",
-        city: "city",
-        experience: true,
-        position: [
-          { applicationId: 1, positionId: 1, value: "gruzchik" },
-          { applicationId: 2, positionId: 2, value: "stroitel" },
-        ],
-        education: "Voenmeh",
-        course: "44 course",
-      })
-    );
-    return arrTrainnes;
+    return fetchedTrainees.value;
   }
 
   /* const getTraineesByApplicationId = computed((applicationId: number) => {

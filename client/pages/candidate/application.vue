@@ -1,25 +1,36 @@
 <template>
-  <div class="flex container mx-auto mt-10">
+  <div class="flex container mx-auto mt-10 justify-center">
     <div class="relative mr-10">
       <EditCandidateApplication
-        v-if="candidateApplicationStore.personalCandidateApplication?.applicationId"
+        v-if="
+          candidateApplicationStore.personalCandidateApplication?.applicationId
+        "
         class="w-full"
         :class="{
           'blur-sm':
-            status === FrameApplicationStatus.PENDING ||
-            status === FrameApplicationStatus.DECLINED,
+            candidateApplicationStore.personalCandidateApplication.status ===
+              FrameApplicationStatus.PENDING ||
+            candidateApplicationStore.personalCandidateApplication.status ===
+              FrameApplicationStatus.DECLINED,
         }"
       />
       <CandidateApplication v-else class="w-full" />
       <div
-        v-if="status === FrameApplicationStatus.PENDING"
+        v-if="
+          candidateApplicationStore.personalCandidateApplication &&
+          candidateApplicationStore.personalCandidateApplication.status ===
+            FrameApplicationStatus.PENDING
+        "
         class="absolute w-full h-full bg-black/20 rounded-3xl top-0 flex flex-col justify-center items-center"
       >
         <div class="mb-10 text-5xl font-bold">Заявка проверяется</div>
         <div class="text-center flex">
           <button
             class="form-auth-input border bg-black text-white me-5 black-btn-hover"
-            @click="status = FrameApplicationStatus.EDIT"
+            @click="
+              candidateApplicationStore.personalCandidateApplication.status =
+                FrameApplicationStatus.EDIT
+            "
           >
             Редактировать
           </button>
@@ -44,16 +55,17 @@ import EditCandidateApplication from "~/components/candidate/EditCandidateApplic
 const candidateApplicationStore = useCandidateApplicationStore();
 const userStore = useUserStore();
 
+//Todo BLUR BLUR BLUR BLUR
+
 const listStatus = {
   [FrameApplicationStatus.APPROVED]: ApprovedStatus,
   [FrameApplicationStatus.DECLINED]: DeclinedStatus,
   [FrameApplicationStatus.PENDING]: PendingStatus,
 };
-const status = computed(
-  () => candidateApplicationStore.personalCandidateApplication?.status
-);
 
-candidateApplicationStore.getCandidateApplicationById(userStore.user!.userId!);
+await candidateApplicationStore.getCandidateApplicationById(
+  userStore.user!.userId!
+);
 </script>
 
 <style scoped></style>

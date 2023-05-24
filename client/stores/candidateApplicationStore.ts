@@ -4,7 +4,9 @@ export const useCandidateApplicationStore = defineStore(
   "CandidateApplicationStore",
   () => {
     const allCandidateApplications = ref<ICandidateApplication[]>();
-    const personalCandidateApplication = ref<ICandidateApplication>();
+    const personalCandidateApplication = ref<ICandidateApplication | null>(
+      null
+    );
 
     const getStatusById = (id: number) => {
       //по id кандидата ищем заявку в базе и возвращаем статус
@@ -54,7 +56,7 @@ export const useCandidateApplicationStore = defineStore(
         method: "POST",
         body: application,
       });
-      console.log(newApplication.value);
+      personalCandidateApplication.value = application ?? null;
     }
 
     async function submitCandidateApplication(

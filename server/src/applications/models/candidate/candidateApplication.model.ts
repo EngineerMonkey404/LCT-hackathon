@@ -44,6 +44,12 @@ export class CandidateApplication extends Model {
   @Column
   experience: boolean;
 
+  @Column
+  education: string;
+
+  @Column
+  course: string;
+
   @HasMany(() => Position)
   position: Position[];
 

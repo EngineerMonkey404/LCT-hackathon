@@ -51,6 +51,8 @@ export interface ICandidateApplication {
   nationality?: string;
   city?: string;
   experience?: boolean;
+  education?: string;
+  course?: string;
   position?: Position[];
   status?: FrameApplicationStatus;
 }

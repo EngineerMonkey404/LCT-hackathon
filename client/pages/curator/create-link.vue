@@ -1,40 +1,82 @@
 <template>
-    <div class="container mx-auto text-center">
-        <RadioGroup v-model="choseRole">
-            <RadioGroupLabel class="block text-2xl my-3">Plan</RadioGroupLabel>
-            <RadioGroupOption class="radio-btn" v-slot="{ checked }" :value="Role.FRAME">
-                <span :class="checked ? 'bg-blue-200' : ''">Ссылка для куратора</span>
-            </RadioGroupOption>
-            <RadioGroupOption class="radio-btn" v-slot="{ checked }" :value="Role.MENTOR">
-                <span :class="checked ? 'bg-blue-200' : ''">Ссылка для наставника</span>
-            </RadioGroupOption>
-            <RadioGroupOption class="radio-btn" v-slot="{ checked }" :value="Role.CURATOR">
-                <span :class="checked ? 'bg-blue-200' : ''">Ссылка для куратора</span>
-            </RadioGroupOption>
-        </RadioGroup>
-        <div class="mt-20">
-            <div class=""> 
-                Здесь будет ссылка
-                <button class="form-auth-input">Скопировать</button> <!-- я уберу обещаю -->
-            </div>
-
-
-        </div>
+  <div class="container mx-auto text-center">
+    <RadioGroup v-model="chosenRole">
+      <RadioGroupLabel class="block text-2xl my-3">Plan</RadioGroupLabel>
+      <RadioGroupOption
+        v-slot="{ checked }"
+        class="radio-btn"
+        :value="Role.FRAME"
+      >
+        <span
+          :class="checked ? 'bg-blue-200 text-black' : ''"
+          class="invite-button"
+        >
+          Ссылка для куратора
+        </span>
+      </RadioGroupOption>
+      <RadioGroupOption
+        v-slot="{ checked }"
+        class="radio-btn"
+        :value="Role.MENTOR"
+      >
+        <span
+          :class="checked ? 'bg-blue-200 text-black' : ''"
+          class="invite-button"
+        >
+          Ссылка для наставника
+        </span>
+      </RadioGroupOption>
+      <RadioGroupOption
+        v-slot="{ checked }"
+        class="radio-btn"
+        :value="Role.CURATOR"
+      >
+        <span
+          :class="checked ? 'bg-blue-200 text-black' : ''"
+          class="invite-button"
+        >
+          Ссылка для куратора
+        </span>
+      </RadioGroupOption>
+    </RadioGroup>
+    <div class="mt-20">
+      <button class="invite-button mb-10" @click="generateInvite">
+        Сгенерировать
+      </button>
+      <div class="">
+        <input v-model="path" type="text" class="w-1/2" />
+        <button class="form-auth-input" @click="copy">Скопировать</button>
+      </div>
+      <div v-if="copied" class="text-center">Ссылка скопирована</div>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import {
-    RadioGroup,
-    RadioGroupLabel,
-    RadioGroupOption,
-} from '@headlessui/vue'
-import { Role } from '~/types/types';
-const choseRole = ref<Role>();
+import { RadioGroup, RadioGroupLabel, RadioGroupOption } from "@headlessui/vue";
+import { Role } from "~/types/types";
+const chosenRole = ref<Role>();
+const path = ref("");
+const copied = ref(false);
+
+const config = useRuntimeConfig;
+async function generateInvite() {
+  copied.value = false;
+  const { data: fetchedPath } = await useApiFetch<string>(`invites/generate`, {
+    method: "GET",
+    query: { role: chosenRole },
+  });
+  path.value = `http://localhost:3000/registration/${fetchedPath.value ?? ""}`;
+}
+
+function copy() {
+  navigator.clipboard.writeText(path.value);
+  copied.value = true;
+}
 </script>
 
 <style scoped>
 .radio-btn {
-    @apply me-10
+  @apply me-10;
 }
 </style>

@@ -22,4 +22,10 @@ export class CreateCandidateApplicationDto {
 
   @ApiProperty()
   position: Position[];
+
+  @ApiProperty()
+  education: string;
+
+  @ApiProperty()
+  course: string;
 }

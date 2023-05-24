@@ -1,7 +1,9 @@
 import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import { Role } from '../auth/models/role.enum';
 import { InvitesService } from './invites.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Создание приглашений для регистрации')
 @Controller('invites')
 export class InvitesController {
   constructor(private readonly invitesService: InvitesService) {}

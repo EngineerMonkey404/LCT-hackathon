@@ -3,7 +3,13 @@
     class="container mx-auto flex flex-col w-1/3 bg-white py-10 px-20 rounded-3xl shadow-2xl max-lg:w-full max-md:mx-10"
   >
     <form class="flex flex-col">
-      <h2 class="text-center text-2xl font-semibold">Регистрация</h2>
+      <h2 class="text-center text-2xl font-semibold">
+        Регистрация
+        <span v-if="role === Role.CANDIDATE">кандидата на стажировку</span>
+        <span v-if="role === Role.FRAME">кадра</span>
+        <span v-if="role === Role.CURATOR">куратора</span>
+        <span v-if="role === Role.MENTOR">наставника</span>
+      </h2>
       <div class="flex flex-col items-center">
         <div class="text-2xl mt-5 mb-3 font-semibold">Фото</div>
         <label
@@ -79,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { RegisterData } from "~/types/types";
+import { RegisterData, Role } from "~/types/types";
 import { useUserStore } from "~/stores/userStore";
 
 const userStore = useUserStore();
@@ -93,6 +99,7 @@ const registerData: RegisterData = reactive({
   password: "",
   image: { url: "", file: null },
 });
+const props = defineProps<{ role: Role }>();
 
 async function handleRegistration() {
   await userStore.registerUser(registerData);

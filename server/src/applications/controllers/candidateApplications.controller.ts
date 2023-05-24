@@ -56,7 +56,7 @@ export class CandidateApplicationsController {
   }
 
   @Get('candidate-application/:id')
-  async getCandidateApplicationsById(@Param('id', ParseIntPipe) id: number) {
+  async getCandidateApplicationById(@Param('id', ParseIntPipe) id: number) {
     return await this.candidateApplicationService.getCandidateApplicationById(
       id,
     );

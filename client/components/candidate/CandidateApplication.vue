@@ -73,24 +73,16 @@
     <p class="font-semibold mt-4 mb-2 text-xl">Образование</p>
     <SelectList
       :content-array="education"
-      @updates="selectedEducation = $event"
+      @updates="application.education = $event"
     />
     <!--need education in db-->
     <SelectList
-      v-if="selectedEducation === 'Неоконченное высшее'"
+      v-if="application.education === 'Неоконченное высшее'"
       :content-array="courses"
-      @updates="(course: string) => selectedCourse = course"
+      @updates="(course: string) => application.course = course"
     />
     <label class="mb-2 font-semibold text-xl" for="">Опыт работы*</label>
     <div>
-      <input
-        id="noExpirience"
-        v-model="application.experience"
-        class="mb-5 mr-2 accent-black"
-        type="radio"
-        :value="false"
-      />
-      <label class="" for="noExpirience">У меня нет опыта работы</label>
       <input
         id="noExpirience"
         v-model="application.experience"
@@ -105,13 +97,13 @@
       <input
         v-for="(n, i) in numberJobs"
         :key="n"
-        v-model="application.position![i].value"
+        v-model="application.position![i]"
         class="form-auth-input mb-5 w-full"
       />
       <button
         class="mb-5"
         @click="() => {
-        if (application.position![numberJobs - 1].value) numberJobs += 1;
+        if (application.position![numberJobs - 1]) numberJobs += 1;
       }
         "
       >
@@ -143,13 +135,13 @@ const candidateApplicationStore = useCandidateApplicationStore();
 const date = ref<string[]>([]);
 const application = ref<ICandidateApplication>({
   position: [],
+  education: "Неоконченное высшее",
 });
 
 const education = ["Нет высшего", "Неоконченное высшее", "Высшее"];
 const selectedEducation = ref("Нет высшего");
 
 const courses = ["1 курс", "2 курс", "3 курс", "4 курс"];
-const selectedCourse = ref("1 курс");
 const numberJobs = ref(1);
 
 //function converter date
@@ -163,9 +155,16 @@ function create() {
     +date.value[1] - 1,
     +date.value[0]
   );
+  if (
+    application.value.education === "Неоконченное высшее" &&
+    !application.value.course
+  ) {
+    application.value.course = "1 курс";
+  }
   application.value.date.setHours(application.value.date.getHours() + 3);
+  application.value.status = FrameApplicationStatus.PENDING;
   candidateApplicationStore.createCandidateApplication(application.value);
-  return navigateTo("/");
+  return navigateTo("/candidate/application");
 }
 </script>
 

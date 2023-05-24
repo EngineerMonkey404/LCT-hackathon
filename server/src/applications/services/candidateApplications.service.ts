@@ -30,11 +30,12 @@ export class CandidateApplicationsService {
       nationality: application.nationality,
       city: application.city,
       experience: application.experience,
+      education: application.education,
+      course: application.course,
     });
     const position = application.position.map((pos) => {
       return { applicationId: app.applicationId, value: pos.value };
     });
-    console.log(position);
     await this.positionModel.bulkCreate(position);
     return app.applicationId;
   }
