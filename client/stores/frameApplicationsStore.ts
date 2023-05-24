@@ -20,7 +20,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       Error,
       string,
       "post" | "get"
-    >(`applications/getFrameApplications/${id}`, {
+    >(`applications/frame-application/${id}`, {
       method: "GET",
     });
     if (fetchedApplications.value) {
@@ -34,7 +34,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       Error,
       string,
       "post" | "get"
-    >(`applications/getFrameApplications`, {
+    >(`applications/frame-applications`, {
       method: "GET",
     });
     if (fetchedApplications.value) {
@@ -44,17 +44,17 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
 
   async function getApprovedFrameApplications() {
     if (!allFrameApplications.value.length) {
-      console.log('yes')
       await getFrameApplications();
     }
-    console.log(allFrameApplications.value)
-    return allFrameApplications.value.filter((element) => element.status === FrameApplicationStatus.APPROVED)
+    return allFrameApplications.value.filter(
+      (element) => element.status === FrameApplicationStatus.APPROVED
+    );
   }
 
   async function getFrameApplicationById(id: number) {
     const { data: fetchedApplication, error } =
       await useApiFetch<IFrameApplication>(
-        `applications/getFrameApplicationById/${id}`,
+        `applications/frame-application/${id}`,
         {
           method: "GET",
         }
@@ -82,7 +82,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       Error,
       string,
       "post" | "get"
-    >(`applications/createFrameApplication`, {
+    >(`applications/frame-application`, {
       method: "POST",
       body: application,
     });
@@ -94,7 +94,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
 
   async function deleteApplication(id: number) {
     await useApiFetch<IFrameApplication[], Error, string, "delete">(
-      `/applications/deleteFrameApplication/${id}`,
+      `/applications/frame-application/${id}`,
       {
         method: "DELETE",
       }
@@ -118,7 +118,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       string,
       "put"
     >(
-      `applications/submitCuratorRespond/${application_id}/${curator_id}?status=${status}`,
+      `applications/frame-application/${application_id}/submit/${curator_id}?status=${status}`,
       {
         method: "PUT",
       }
@@ -131,7 +131,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       Error,
       string,
       "put"
-    >(`applications/updateFrameApplication/${application.applicationId}`, {
+    >(`applications/frame-application/${application.applicationId}`, {
       method: "PUT",
       body: application,
     });
