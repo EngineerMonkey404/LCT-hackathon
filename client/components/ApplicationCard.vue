@@ -23,7 +23,7 @@
           </span>
           {{ props.application.position }}
         </div>
-        <div>{{ props.application.organization }}</div>
+        <div>{{ props.application.organization }} {{ props.application.direction }}</div>
       </div>
       <hr class="mt-5 w-full" />
       <div class="font-semibold text-3xl mt-10 mb-3">Описание</div>

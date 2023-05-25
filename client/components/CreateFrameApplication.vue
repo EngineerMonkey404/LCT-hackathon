@@ -14,14 +14,6 @@
         />
       </div>
       <div>
-        <label class="block mb-2 font-semibold" for="organiztion">
-          Организация
-        </label>
-        <input
-          id="organization"
-          v-model="application.organization"
-          class="form-auth-input mb-5"
-        />
       </div>
       <div>
         <label class="block mb-2 font-semibold" for="adrees">
@@ -67,6 +59,9 @@
       />
       <span class="ml-3">Добавить требуемый опыт работы</span>
     </button>
+    <NuxtLink to="/frame/create-test">
+      <button class="black-btn block">Создать тестовое задание</button>
+    </NuxtLink>
     <button
       class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover"
       @click="createApplication"
@@ -84,6 +79,7 @@ import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 const route = useRoute();
 const frameApplicationStore = useFrameApplicationsStore();
 const userStore = useUserStore();
+console.log(userStore.user);
 const numberWork = ref(1);
 const application = ref<IFrameApplication>({
   organization: "",
@@ -104,6 +100,10 @@ if (route.query?.["frame_id"]) {
 
 const createApplication = async () => {
   //
+  application.value.organization = userStore.user?.organization ?? 'no organization';
+  application.value.direction = userStore.user?.direction;
+  console.log(application.value.organization)
+  console.log(application.value.direction)
   await frameApplicationStore.createApplication(application.value);
   return navigateTo("/frame/applications");
 };

@@ -38,6 +38,7 @@ export interface IFrameApplication {
   applicationId?: number;
   status?: FrameApplicationStatus;
   position?: string;
+  direction?: Direction;
   organization: string;
   address: string;
   workExperience: WorkExperience[];
@@ -56,12 +57,14 @@ export interface IUser {
   email?: string;
   password?: string;
   role?: Role;
+  direction?: Direction;
+  organization?: string;
 }
 
 export interface ICandidateApplication {
   applicationId?: number;
   candidateId?: number;
-  direction?: string;
+  direction?: Direction;
   date?: Date;
   nationality?: string;
   city?: string;

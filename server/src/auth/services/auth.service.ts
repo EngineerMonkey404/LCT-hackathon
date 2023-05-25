@@ -19,13 +19,15 @@ export class AuthService {
     return await bcrypt.hash(password, 12);
   }
   async registerAccount(user: IUser) {
-    const { firstName, secondName, thirdName, email, password, role } = user;
+    const { firstName, secondName, thirdName, email, password, role, direction, organization } = user;
     return await this.userModel.create({
       firstName,
       secondName,
       thirdName,
       email,
       role,
+      direction,
+      organization,
       pwd_hash: await this.hashPassword(password),
     });
   }
