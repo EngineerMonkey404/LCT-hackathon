@@ -30,7 +30,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Регистрация пользователей' })
   @ApiBody({ type: UserDto })
   @Post('register')
-  async register(@Body() user: IUser, @Query('path') path?: string) {
+  async register(@Body() user: IUser) {
     return await this.authService.registerAccount(user);
   }
 

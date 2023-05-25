@@ -206,8 +206,6 @@ import {
 } from "@headlessui/vue";
 
 const userStore = useUserStore();
-const imageInput = ref<HTMLInputElement>();
-const imageFile = ref<{ stringFile: string; file: File }>();
 const registerData: RegisterData = reactive({
   firstName: "",
   secondName: "",
@@ -234,8 +232,7 @@ async function handleRegistration() {
   if (props.path) {
     registerData.role = props.role;
     await userStore.registerUser(registerData, props.path);
-  }
-  await userStore.registerUser(registerData);
+  } else await userStore.registerUser(registerData);
 }
 
 async function addImageFile(event: Event) {
