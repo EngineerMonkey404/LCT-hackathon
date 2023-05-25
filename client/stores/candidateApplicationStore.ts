@@ -75,6 +75,51 @@ export const useCandidateApplicationStore = defineStore(
       );
     }
 
+    async function russianLanguage(applicationId: number, result: number) {
+      await useApiFetch<
+        number,
+        Error,
+        string,
+        "put"
+      >(
+        `applications/candidate-application/russian-language/${applicationId}?result=${result}`,
+        {
+          method: "PUT",
+        }
+      );
+      if (personalCandidateApplication.value) personalCandidateApplication.value.russianLanguageTestResult = result
+    }
+
+    async function computerLiteracy(applicationId: number, result: number) {
+      await useApiFetch<
+        number,
+        Error,
+        string,
+        "put"
+      >(
+        `applications/candidate-application/computer-literacy/${applicationId}?result=${result}`,
+        {
+          method: "PUT",
+        }
+      );
+      if (personalCandidateApplication.value) personalCandidateApplication.value.computerLiteracyTestResult = result
+    }
+
+    async function informationAnalysis(applicationId: number, result: number) {
+      await useApiFetch<
+        number,
+        Error,
+        string,
+        "put"
+      >(
+        `applications/candidate-application/information-analysis/${applicationId}?result=${result}`,
+        {
+          method: "PUT",
+        }
+      );
+      if (personalCandidateApplication.value) personalCandidateApplication.value.informationAnalysisTestResult = result
+    }
+
     return {
       createCandidateApplication,
       submitCandidateApplication,
@@ -82,6 +127,9 @@ export const useCandidateApplicationStore = defineStore(
       getAllCandidateApplications,
       getCandidateApplicationById,
       personalCandidateApplication,
+      russianLanguage,
+      computerLiteracy,
+      informationAnalysis,
     };
   }
 );

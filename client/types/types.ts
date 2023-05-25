@@ -70,6 +70,9 @@ export interface ICandidateApplication {
   course?: string;
   position?: Position[];
   status?: FrameApplicationStatus;
+  russianLanguageTestResult?: number;
+  computerLiteracyTestResult?: number;
+  informationAnalysisTestResult?: number;
 }
 
 export interface Position {

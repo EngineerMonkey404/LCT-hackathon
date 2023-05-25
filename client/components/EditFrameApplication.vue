@@ -49,7 +49,7 @@
     <input
       v-for="(n, i) in numberWork"
       :key="n"
-      v-model="application.workExperience[i]"
+      v-model="application.workExperience[n - 1]"
       class="form-auth-input mb-5 w-full"
     />
     <button
