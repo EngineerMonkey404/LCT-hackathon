@@ -53,6 +53,7 @@ export class CandidateApplication extends Model {
   @HasMany(() => Position)
   position: Position[];
 
+  @ForeignKey(() => User)
   @Column
   candidateId: number;
 
@@ -67,10 +68,6 @@ export class CandidateApplication extends Model {
   @AllowNull
   @Column
   computerLiteracyTestResult: number;
-
-  @ForeignKey(() => User)
-  @Column
-  userId: number;
 
   @BelongsTo(() => User)
   user: User;

@@ -21,8 +21,6 @@ export class FrameApplicationsService {
     private workExperienceModel: typeof WorkExperience,
     @InjectModel(TraineeOnFrameApplication)
     private traineeOnFrameApplicationModel: typeof TraineeOnFrameApplication,
-    @InjectModel(TraineeOnFrameApplication)
-    private traineesModel: typeof TraineeOnFrameApplication,
   ) {}
   async createApplication(application: CreateFrameApplicationDto) {
     const app = await this.frameApplicationModel.create({
@@ -101,8 +99,16 @@ export class FrameApplicationsService {
 
   async getTraineesByApplicationId(id: number) {
     const trainees = (
-      await this.traineesModel.findAll({ where: { applicationId: id } })
+      await this.traineeOnFrameApplicationModel.findAll({
+        where: { applicationId: id },
+      })
     ).map((element) => element.traineeId);
+    console.log(trainees);
+    console.log(
+      await this.userModel.findAll({
+        include: [CandidateApplication],
+      }),
+    );
     return (
       await this.userModel.findAll({
         include: [CandidateApplication],

@@ -27,8 +27,8 @@ import { InjectModel } from '@nestjs/sequelize';
 export class FrameApplicationsController {
   constructor(private readonly applicationService: FrameApplicationsService) {}
 
-  @RequireRoles(Role.FRAME)
-  @UseGuards(JwtGuard)
+  // @RequireRoles(Role.FRAME)
+  // @UseGuards(JwtGuard)
   @ApiOperation({ summary: 'Создание заявки' })
   @ApiBody({ type: CreateFrameApplicationDto })
   @Post('frame-application')
