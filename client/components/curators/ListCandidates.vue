@@ -1,5 +1,6 @@
 <template>
   <div class="grid grid-cols-3 gap-10 mt-20">
+    <!-- need filter by status + works -->
     <CandidateCard
       v-for="application of candidateApplicationStore.allCandidateApplications"
       :key="application.applicationId"

@@ -3,23 +3,13 @@ import {
   FrameApplicationStatus,
   ITrainee,
 } from "~/types/types";
+import { useFrameApplicationsStore } from "./frameApplicationsStore";
 
 export const useTraineeStore = defineStore("traineeStore", () => {
-  const allFrameApplications = ref<IFrameApplication[]>([]);
-  useApiFetch<IFrameApplication[], Error, string, "post" | "get">(
-    `applications/frame-applications`,
-    {
-      method: "GET",
-    }
-  ).then((res) => (allFrameApplications.value = res.data.value ?? []));
-  console.log(allFrameApplications);
 
-  const personalApprovedFrameApplications = computed(() => {
-    //frames poka chto
-    return allFrameApplications.value.filter(
-      (element) => element.status === FrameApplicationStatus.APPROVED
-    );
-  });
+  const frameApplicationsStore = useFrameApplicationsStore();
+  const allFrameApplications = ref<IFrameApplication[]>(frameApplicationsStore.allApprovedFrameApplications);
+
 
   async function submitTraineeRespond(
     applicationId: number,
@@ -80,6 +70,5 @@ export const useTraineeStore = defineStore("traineeStore", () => {
     getApplicationsByTraineeId,
     getApplicationsWithoutTrainee,
     allFrameApplications,
-    personalApprovedFrameApplications,
   };
 });

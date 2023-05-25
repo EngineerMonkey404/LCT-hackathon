@@ -7,6 +7,7 @@ import {
 export const useFrameApplicationsStore = defineStore("applications", () => {
   const personalFrameApplications = ref<IFrameApplication[]>([]);
   const allFrameApplications = ref<IFrameApplication[]>([]);
+  const allApprovedFrameApplications = ref<IFrameApplication[]>([])
 
   const approvedFrameApplications = computed(() => {
     return personalFrameApplications.value.filter(
@@ -28,6 +29,12 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     }
   }
 
+  const personalApprovedApplications = computed(() => {
+    return personalFrameApplications.value.filter(
+      (element) => element.status === FrameApplicationStatus.APPROVED
+    )
+  })
+
   async function getFrameApplications() {
     const { data: fetchedApplications, error } = await useApiFetch<
       IFrameApplication[],
@@ -46,7 +53,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     if (!allFrameApplications.value.length) {
       await getFrameApplications();
     }
-    return allFrameApplications.value.filter(
+    allApprovedFrameApplications.value = allFrameApplications.value.filter(
       (element) => element.status === FrameApplicationStatus.APPROVED
     );
   }
@@ -148,5 +155,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     getFrameApplicationById,
     updateFrameApplication,
     getApprovedFrameApplications,
+    allApprovedFrameApplications,
+    personalApprovedApplications,
   };
 });

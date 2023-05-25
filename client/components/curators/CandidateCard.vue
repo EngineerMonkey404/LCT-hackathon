@@ -10,22 +10,36 @@
             <NuxtImg class="block" type="svg" src="/candidate/faceCandidate.svg" />
         </div>
         <hr class="w-full mt-5">
-        <div class="flex mt-10 justify-between">
+        <div class="mt-10 grid grid-cols-3 place-items-center">
+            <div class="style-flex-col">
+                <div class="category text-lg text-center">Русский язык</div>
+                <span class="form-auth-input text-center text-xl mt-3 self-end">{{ application.russianLanguageTestResult ?? 0 }}</span>
+            </div>
+            <div class="style-flex-col">
+                <div class="category text-lg text-center">Анализ информации</div>
+                <span class="form-auth-input text-center text-xl mt-3 self-end">{{ application.informationAnalysisTestResult ?? 0 }}</span>
+            </div>
+            <div class="style-flex-col">
+                <div class="category text-lg text-center">Компюьтерная грамотность</div>
+                <span class="form-auth-input text-center text-xl mt-3 self-end">{{ application.computerLiteracyTestResult ?? 0 }}</span>
+            </div>
+        </div>
+        <div class="flex mt-3 justify-between">
             <div>
-                <div class="text-2xl font-semibold">Гражданство</div>
+                <div class="category">Гражданство</div>
                 <div class="form-auth-input">{{ application.nationality }}</div>
             </div>
             <div>
-                <div class="text-2xl font-semibold">Город</div>
+                <div class="category">Город</div>
                 <div class="form-auth-input">{{ application.city }}</div>
             </div>
         </div>
-        <div class="text-2xl font-semibold mt-5 mb-2">Образование</div>
+        <div class="category mt-5 mb-2">Образование</div>
         <div>
             <div class="form-auth-input mb-3">надо поучиться</div>
             <div  class="form-auth-input">несколько лет</div>
         </div>
-        <div class="text-2xl font-semibold mt-5 mb-3">Опыт работы</div>
+        <div class="category mt-5 mb-3">Опыт работы</div>
         <div class="text-xl" v-if="!application.experience">Нет опыта</div>
         <div class="mb-3"
              v-for="job of application.position"
