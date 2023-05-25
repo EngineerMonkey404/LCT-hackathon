@@ -102,6 +102,11 @@
       />
       <span class="ml-3">Добавить требуемый опыт работы</span>
     </button>
+    <NuxtLink to="/frame/create-test">
+      <button class="black-btn block">
+        Создать тестовое задание
+      </button>
+    </NuxtLink>
     <button
       class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover"
       @click="createApplication"
