@@ -36,7 +36,16 @@ export class User extends Model {
   secondName: string;
 
   @Column
-  organization: string;
+  organizationName: string;
+
+  @Column
+  organizationAddress: string;
+
+  @Column
+  organizationCoordinateX: number;
+
+  @Column
+  organizationCoordinateY: number;
 
   @Column
   thirdName: string;

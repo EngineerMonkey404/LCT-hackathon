@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { IUser } from '../models/user.interface';
 import { InjectModel } from '@nestjs/sequelize';
@@ -19,7 +19,16 @@ export class AuthService {
     return await bcrypt.hash(password, 12);
   }
   async registerAccount(user: IUser) {
-    const { firstName, secondName, thirdName, email, password, role, direction, organization } = user;
+    const {
+      firstName,
+      secondName,
+      thirdName,
+      email,
+      password,
+      role,
+      direction,
+      organization,
+    } = user;
     return await this.userModel.create({
       firstName,
       secondName,
@@ -27,7 +36,6 @@ export class AuthService {
       email,
       role,
       direction,
-      organization,
       pwd_hash: await this.hashPassword(password),
     });
   }
@@ -45,17 +53,22 @@ export class AuthService {
         direction,
       } = user;
       const role = p.role;
+      await this.inviteModel.destroy({ where: { path: path } });
+      console.log('DESTROYED');
       return await this.userModel.create({
         firstName,
         secondName,
         thirdName,
         email,
         direction,
-        organization,
+        organizationCoordinateX: organization.coordinates[0] ?? 0,
+        organizationCoordinateY: organization.coordinates[1] ?? 0,
+        organizationName: organization.name,
+        organizationAddress: organization.address,
         role,
         pwd_hash: await this.hashPassword(password),
       });
-    } else return Error;
+    } else throw new HttpException('Path isnt found', HttpStatus.NOT_FOUND);
   }
 
   async getRoleByInvite(path: string) {
@@ -69,7 +82,19 @@ export class AuthService {
     const valid = await bcrypt.compare(password, user.pwd_hash);
     if (user && valid) {
       delete user.dataValues.pwd_hash;
-      return user;
+      const u = {
+        ...user.dataValues,
+        organization: {
+          name: user.organizationName,
+          address: user.organizationAddress,
+          coordinates: [
+            user.organizationCoordinateX,
+            user.organizationCoordinateY,
+          ],
+        },
+      };
+      delete u.organization;
+      return u;
     }
     return null;
   }

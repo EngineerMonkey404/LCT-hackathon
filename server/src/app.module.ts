@@ -12,6 +12,11 @@ import { CandidateApplication } from './applications/models/candidate/candidateA
 import { Image } from './files/models/image.model';
 import { FilesModule } from './files/files.module';
 import { InvitesModule } from './invites/invites.module';
+import { TestsModule } from './tests/tests.module';
+import { Question } from './tests/models/question.model';
+import { QuestionsOnTest } from './tests/models/questionsOnTest.model';
+import { Test } from './tests/models/test.model';
+import { TestResult } from './tests/models/testResult.model';
 
 @Module({
   imports: [
@@ -34,6 +39,10 @@ import { InvitesModule } from './invites/invites.module';
         Position,
         CandidateApplication,
         Image,
+        Question,
+        QuestionsOnTest,
+        Test,
+        TestResult,
       ],
       autoLoadModels: true,
       define: {
@@ -44,6 +53,7 @@ import { InvitesModule } from './invites/invites.module';
     ApplicationsModule,
     FilesModule,
     InvitesModule,
+    TestsModule,
   ],
   controllers: [],
   providers: [],

@@ -37,6 +37,7 @@ export class FrameApplicationsService {
       address: application.address,
       description: application.description,
       organization: application.organization,
+      direction: application.direction,
     });
     const workExperience = application.workExperience.map((element) => {
       return { applicationId: app.applicationId, value: element };

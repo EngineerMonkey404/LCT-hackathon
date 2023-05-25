@@ -27,16 +27,21 @@ import { ApiImplicitQuery } from '@nestjs/swagger/dist/decorators/api-implicit-q
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiQuery({ name: 'path', required: false })
   @ApiOperation({ summary: 'Регистрация пользователей' })
   @ApiBody({ type: UserDto })
   @Post('register')
   async register(@Body() user: IUser, @Query('path') path?: string) {
-    if (!path) {
-      return await this.authService.registerAccount(user);
-    } else {
-      return await this.authService.registerAccountThroughInvite(user, path);
-    }
+    return await this.authService.registerAccount(user);
+  }
+
+  @ApiOperation({ summary: 'Регистрация пользователей через приглашение' })
+  @ApiBody({ type: UserDto })
+  @Post('register/:path')
+  async registerThroughInvite(
+    @Body() user: IUser,
+    @Param('path') path: string,
+  ) {
+    return await this.authService.registerAccountThroughInvite(user, path);
   }
 
   @ApiOperation({ summary: 'Получение роли по приглашению' })

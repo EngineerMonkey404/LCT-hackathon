@@ -13,10 +13,29 @@ export enum FrameApplicationStatus {
   EDIT = "edit",
 }
 
-export const organizations = [
-  "Московская дирекция транспортного обслуживания",
-  'Автономная некоммерческая организация "Московский экспортный центр"',
-  'Автономная некоммерческая организация "Проектный офис по развитию туризма и гостеприимства Москвы',
+export interface Organization {
+  name: string;
+  coordinates: number[];
+  address: string;
+}
+
+export const organizations: Organization[] = [
+  {
+    name: "Московская дирекция транспортного обслуживания",
+    coordinates: [],
+    address: "Ул пушкина Дом калатушкина",
+  },
+
+  {
+    name: 'Автономная некоммерческая организация "Московский экспортный центр"',
+    coordinates: [],
+    address: "Ул пушкина Дом калатушкина",
+  },
+  {
+    name: 'Автономная некоммерческая организация "Проектный офис по развитию туризма и гостеприимства Москвы',
+    coordinates: [],
+    address: "Ул пушкина Дом калатушкина",
+  },
 ];
 
 export enum Direction {
@@ -96,8 +115,9 @@ export interface RegisterData {
   secondName: string;
   thirdName: string;
   email: string;
+  role: string;
   password: string;
   direction?: Direction;
-  organization?: string;
+  organization?: Organization;
   image: { url: string; file: File | null };
 }

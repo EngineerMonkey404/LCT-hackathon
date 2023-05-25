@@ -8,6 +8,10 @@
 import { useUserStore } from "~/stores/userStore";
 
 const userStore = useUserStore();
+
+if (userStore.user) {
+  navigateTo("/auth");
+}
 </script>
 
 <style scoped></style>

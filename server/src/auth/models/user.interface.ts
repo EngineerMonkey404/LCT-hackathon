@@ -7,11 +7,17 @@ export interface IUser {
   firstName?: string;
 
   direction?: Direction;
-  organization?: string;
+  organization: Organization;
   secondName?: string;
   thirdName?: string;
   email?: string;
   password?: string;
   role?: Role;
   imageId?: number;
+}
+
+export interface Organization {
+  name: string;
+  coordinates: number[];
+  address: string;
 }
