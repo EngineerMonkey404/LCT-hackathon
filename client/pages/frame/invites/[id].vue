@@ -38,6 +38,7 @@ onMounted(async () => {
   trainees.value = await traineeStore.getTraineesByApplicationId(
     application?.applicationId ?? 0
   );
+  console.log('eto', trainees.value);
 });
 console.log(+route.query.application_id!);
 console.log(application);

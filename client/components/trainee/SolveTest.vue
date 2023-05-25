@@ -45,6 +45,12 @@ import {
     RadioGroup,
     RadioGroupOption,
 } from '@headlessui/vue'
+import { useTraineeStore } from '~/stores/traineeStore';
+import { useUserStore } from '~/stores/userStore';
+
+const traineeStore = useTraineeStore();
+const userStore = useUserStore();
+const route = useRoute();
 // из рутов достаем тест
 const test = [{ "question": "1 вопрос", "rightAnswer": "1", "variantA": "1", "variantB": "2", "variantC": "3", "variantD": "4" },
 { "question": "2 вопрос", "rightAnswer": "4", "variantA": "1", "variantB": "2", "variantC": "3", "variantD": "4" }
@@ -64,7 +70,8 @@ function handleResult() {
         i += 1
     })
     console.log(test.length)
-    result.value = Math.round(result.value / test.length * 100) 
+    result.value = Math.round(result.value / test.length * 100);
+    traineeStore.submitTraineeRespond(+route.params.id, userStore.user?.userId!);
 }
 </script>
 

@@ -19,15 +19,29 @@
         </div>
       </div>
       <div class="mb-20 mx-10 flex justify-between">
-        <button @click="handleApplication(application.applicationId!)">
+        <button @click="setIsOpen(true, application.applicationId)">
           Оставить заявку
         </button>
         <button @click="handleMap(application)">Посмотреть на карте</button>
       </div>
-      
     </div>
   </div>
   <MapComp ref="map" :application="applicationCurrent!" />
+    <Dialog class="absolute top-0 z-10 w-screen bg-black/40"
+    :open="isOpen" @close="setIsOpen">
+    <div class="flex min-h-screen items-center justify-center p-4 text-center ">
+      <DialogPanel class="card-style w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left 
+                    align-middle transition-all">
+        <div class="text-3xl font-semibold text-center">
+          Для отклика на эту стажировку Вам необходимо пройти тестовое задание
+        </div>
+        <div class="flex justify-between mt-10 px-10">
+          <button @click="handleApplication(currentApplicationId!)">Пройти</button>
+          <button @click="setIsOpen(false)">Позже</button>
+        </div>
+      </DialogPanel>
+    </div>
+    </Dialog>
 </template>
 
 <script setup lang="ts">
@@ -37,6 +51,17 @@ import { useUserStore } from "~/stores/userStore";
 import { useTraineeStore } from "~/stores/traineeStore";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 import { IFrameApplication } from "~/types/types";
+import {
+  Dialog,
+  DialogPanel,
+} from '@headlessui/vue'
+
+const isOpen = ref(false)
+
+function setIsOpen(value: boolean, applicationId?: number) {
+  if (applicationId) currentApplicationId.value = applicationId;
+  isOpen.value = value;
+}
 
 //need application withou trainee
 const frameApplicationsStore = useFrameApplicationsStore();
@@ -45,6 +70,9 @@ const userStore = useUserStore();
 const applicationCurrent = ref<IFrameApplication>()
 
 const map = ref<InstanceType<typeof MapComp> | null>(null);
+
+//for modal dialog
+const currentApplicationId = ref<number>();
 
 await frameApplicationsStore.getApprovedFrameApplications()
 
