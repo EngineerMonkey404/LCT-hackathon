@@ -21,6 +21,8 @@ import { RolesGuard } from '../guards/roles.guard';
 import { RequireRoles } from '../guards/roles.decorator';
 import { Role } from '../models/role.enum';
 import { ApiImplicitQuery } from '@nestjs/swagger/dist/decorators/api-implicit-query.decorator';
+import { User } from '../models/user.model';
+import { InjectModel } from '@nestjs/sequelize';
 
 @ApiTags('Авторизация')
 @Controller('auth')
@@ -70,5 +72,10 @@ export class AuthController {
   @Delete('login')
   async logout(@Res({ passthrough: true }) res: Response) {
     await this.authService.deleteToken(res);
+  }
+
+  @Get('user/:id')
+  async getUserById(@Param('id') id: number) {
+    return await this.authService.getUserById(id);
   }
 }

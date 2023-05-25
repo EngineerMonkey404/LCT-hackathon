@@ -75,7 +75,6 @@ export interface IUser {
   thirdName?: string;
   email?: string;
   password?: string;
-  direction?: Direction;
   role?: Role;
   direction?: Direction;
   organization?: string;

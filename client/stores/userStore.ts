@@ -68,5 +68,11 @@ export const useUserStore = defineStore("counter", () => {
     } catch {}
   }
 
-  return { user: user, login, getUser, registerUser };
+  async function getUserById(id: number) {
+    const { data: user } = await useApiFetch<IUser>(`auth/user/${id}`, {
+      method: "GET",
+    });
+    return user.value;
+  }
+  return { user: user, login, getUser, registerUser, getUserById };
 });
