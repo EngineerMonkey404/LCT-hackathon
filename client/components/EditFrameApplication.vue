@@ -15,16 +15,6 @@
         />
       </div>
       <div>
-        <label class="block mb-2 font-semibold" for="organiztion">
-          Организация
-        </label>
-        <input
-          id="organization"
-          v-model="application.organization"
-          class="form-auth-input mb-5"
-        />
-      </div>
-      <div>
         <label class="block mb-2 font-semibold" for="adrees">
           Адрес организации
         </label>

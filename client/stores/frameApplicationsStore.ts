@@ -98,6 +98,8 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
   // }
 
   async function createApplication(application: IFrameApplication) {
+    console.log(application.direction)
+    console.log(application.organization)
     const { data: newApplication } = await useApiFetch<
       IFrameApplication,
       Error,
