@@ -17,6 +17,9 @@ export class Question extends Model {
   questionId: number;
 
   @Column
+  question: string;
+
+  @Column
   variantA: string;
 
   @Column

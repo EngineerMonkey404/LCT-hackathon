@@ -52,6 +52,7 @@ import { useUserStore } from "~/stores/userStore";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 
 const props = defineProps<{ application: IFrameApplication }>();
+console.log(props.application);
 const userStore = useUserStore();
 const frameApplicationsStore = useFrameApplicationsStore();
 </script>
