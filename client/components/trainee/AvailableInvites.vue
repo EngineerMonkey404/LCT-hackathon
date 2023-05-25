@@ -1,5 +1,5 @@
 <template>
-  <div v-for="application of traineeStore.getApplicationsWithoutTrainee(userStore.user?.userId!)">
+  <div v-for="application of frameApplicationsStore.allApprovedFrameApplications">
     <div class="relative shadow-slate-500 shadow-lg border-black border rounded-3xl w-full mb-20">
       <div class="p-10">
         <div class="flex justify-between text-3xl font-bold">
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="mb-20 mx-10 flex justify-between">
-        <button @click="traineeStore.submitTraineeRespond(application.applicationId!, userStore.user?.userId!)">
+        <button @click="handleApplication(application.applicationId!)">
           Оставить заявку
         </button>
         <button @click="handleMap(application)">Посмотреть на карте</button>
@@ -29,25 +29,34 @@
   </div>
   <MapComp ref="map" :application="applicationCurrent!" />
 </template>
-  
+
 <script setup lang="ts">
 //import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 import MapComp from "./MapComp.vue";
 import { useUserStore } from "~/stores/userStore";
 import { useTraineeStore } from "~/stores/traineeStore";
+import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 import { IFrameApplication } from "~/types/types";
 
-//const frameApplicationsStore = useFrameApplicationsStore();
+//need application withou trainee
+const frameApplicationsStore = useFrameApplicationsStore();
 const traineeStore = useTraineeStore();
 const userStore = useUserStore();
 const applicationCurrent = ref<IFrameApplication>()
 
 const map = ref<InstanceType<typeof MapComp> | null>(null);
 
+await frameApplicationsStore.getApprovedFrameApplications()
+
 function handleMap(application: IFrameApplication) {
   map.value?.open();
   applicationCurrent.value = application;
   console.log(applicationCurrent.value);
+}
+
+function handleApplication(applicationId: number) {
+  //traineeStore.submitTraineeRespond(applicationId, userStore.user?.userId!);
+  return navigateTo(`/trainee/solve-test/${applicationId}`)
 }
 
 //const applications = await frameApplicationsStore.getApprovedFrameApplications();

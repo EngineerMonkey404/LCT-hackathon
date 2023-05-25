@@ -16,6 +16,7 @@
                 <NuxtImg class="inline-block" format="svg" src="/candidate/add_circle.svg" style="height: 15px" />
                 Добавить вопрос
             </button>
+            <button @click="console.log(listQuestions)" class="black-btn mt-10 block">Создать</button>
         </div>
         {{ listQuestions }}
     </div>
