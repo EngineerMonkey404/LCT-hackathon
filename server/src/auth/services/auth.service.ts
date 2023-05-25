@@ -7,6 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { expire, tokenKey } from '../auth.module';
 import { Invites } from '../../invites/invites.model';
+import { Role } from '../models/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -54,20 +55,30 @@ export class AuthService {
       } = user;
       const role = p.role;
       await this.inviteModel.destroy({ where: { path: path } });
-      console.log('DESTROYED');
-      return await this.userModel.create({
-        firstName,
-        secondName,
-        thirdName,
-        email,
-        direction,
-        organizationCoordinateX: organization.coordinates[0] ?? 0,
-        organizationCoordinateY: organization.coordinates[1] ?? 0,
-        organizationName: organization.name,
-        organizationAddress: organization.address,
-        role,
-        pwd_hash: await this.hashPassword(password),
-      });
+      if (role === Role.FRAME)
+        return await this.userModel.create({
+          firstName,
+          secondName,
+          thirdName,
+          email,
+          direction,
+          organizationCoordinateX: organization.coordinates[0] ?? 0,
+          organizationCoordinateY: organization.coordinates[1] ?? 0,
+          organizationName: organization.name,
+          organizationAddress: organization.address,
+          role,
+          pwd_hash: await this.hashPassword(password),
+        });
+      else if (role === Role.MENTOR)
+        return await this.userModel.create({
+          firstName,
+          secondName,
+          thirdName,
+          email,
+          direction,
+          role,
+          pwd_hash: await this.hashPassword(password),
+        });
     } else throw new HttpException('Path isnt found', HttpStatus.NOT_FOUND);
   }
 

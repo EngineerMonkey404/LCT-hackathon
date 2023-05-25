@@ -113,7 +113,7 @@
           </Listbox>
         </div>
       </template>
-      <template v-if="props.role === Role.FRAME">
+      <template v-if="props.role === Role.FRAME || props.role === Role.MENTOR">
         <label for="direction" class="mb-2">Направление*</label>
         <div id="direction" class="w-full rounded-3xl mb-5">
           <!--оценить реализацию-->
@@ -228,7 +228,8 @@ async function handleRegistration() {
     registerData.organization = organizations.filter(
       (org) => (org.name = organization.value)
     )[0];
-  }
+  } else if (props.role === Role.MENTOR)
+    registerData.direction = direction.value;
   if (props.path) {
     registerData.role = props.role;
     await userStore.registerUser(registerData, props.path);

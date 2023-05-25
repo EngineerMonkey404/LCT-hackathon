@@ -2,18 +2,32 @@ import {
   IUser,
   IFrameApplication,
   FrameApplicationStatus,
+  Direction,
 } from "~/types/types";
 
 export const useFrameApplicationsStore = defineStore("applications", () => {
   const personalFrameApplications = ref<IFrameApplication[]>([]);
   const allFrameApplications = ref<IFrameApplication[]>([]);
-  const allApprovedFrameApplications = ref<IFrameApplication[]>([])
-
+  const allApprovedFrameApplications = ref<IFrameApplication[]>([]);
+  const mentors = ref<IUser[]>([]);
   const approvedFrameApplications = computed(() => {
     return personalFrameApplications.value.filter(
       (app) => app.status === FrameApplicationStatus.APPROVED
     );
   });
+
+  async function getMentorsByDirection(direction: Direction) {
+    const { data: fetchedMentors } = await useApiFetch<IUser[]>(
+      "applications/frame-application/mentors",
+      {
+        method: "GET",
+        query: { direction: direction },
+      }
+    );
+    if (fetchedMentors.value) {
+      mentors.value = fetchedMentors.value;
+    }
+  }
 
   async function getApplicationsByFrameId(id: number) {
     const { data: fetchedApplications, error } = await useApiFetch<
@@ -32,8 +46,8 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
   const personalApprovedApplications = computed(() => {
     return personalFrameApplications.value.filter(
       (element) => element.status === FrameApplicationStatus.APPROVED
-    )
-  })
+    );
+  });
 
   async function getFrameApplications() {
     const { data: fetchedApplications, error } = await useApiFetch<
@@ -157,5 +171,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     getApprovedFrameApplications,
     allApprovedFrameApplications,
     personalApprovedApplications,
+    getMentorsByDirection,
+    mentors,
   };
 });

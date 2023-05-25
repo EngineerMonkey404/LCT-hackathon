@@ -43,6 +43,21 @@ export const useCandidateApplicationStore = defineStore(
       }
     }
 
+    async function getPendingCandidateApplications() {
+      const { data: fetchedApplications, error } = await useApiFetch<
+        ICandidateApplication[],
+        Error,
+        string,
+        "post" | "get"
+      >(`applications/candidate-applications`, {
+        method: "GET",
+        query: { status: FrameApplicationStatus.PENDING },
+      });
+      if (fetchedApplications.value) {
+        allCandidateApplications.value = fetchedApplications.value;
+      }
+    }
+
     async function createCandidateApplication(
       application: ICandidateApplication
     ) {
@@ -76,48 +91,37 @@ export const useCandidateApplicationStore = defineStore(
     }
 
     async function russianLanguage(applicationId: number, result: number) {
-      await useApiFetch<
-        number,
-        Error,
-        string,
-        "put"
-      >(
+      await useApiFetch<number, Error, string, "put">(
         `applications/candidate-application/russian-language/${applicationId}?result=${result}`,
         {
           method: "PUT",
         }
       );
-      if (personalCandidateApplication.value) personalCandidateApplication.value.russianLanguageTestResult = result
+      if (personalCandidateApplication.value)
+        personalCandidateApplication.value.russianLanguageTestResult = result;
     }
 
     async function computerLiteracy(applicationId: number, result: number) {
-      await useApiFetch<
-        number,
-        Error,
-        string,
-        "put"
-      >(
+      await useApiFetch<number, Error, string, "put">(
         `applications/candidate-application/computer-literacy/${applicationId}?result=${result}`,
         {
           method: "PUT",
         }
       );
-      if (personalCandidateApplication.value) personalCandidateApplication.value.computerLiteracyTestResult = result
+      if (personalCandidateApplication.value)
+        personalCandidateApplication.value.computerLiteracyTestResult = result;
     }
 
     async function informationAnalysis(applicationId: number, result: number) {
-      await useApiFetch<
-        number,
-        Error,
-        string,
-        "put"
-      >(
+      await useApiFetch<number, Error, string, "put">(
         `applications/candidate-application/information-analysis/${applicationId}?result=${result}`,
         {
           method: "PUT",
         }
       );
-      if (personalCandidateApplication.value) personalCandidateApplication.value.informationAnalysisTestResult = result
+      if (personalCandidateApplication.value)
+        personalCandidateApplication.value.informationAnalysisTestResult =
+          result;
     }
 
     return {
@@ -130,6 +134,7 @@ export const useCandidateApplicationStore = defineStore(
       russianLanguage,
       computerLiteracy,
       informationAnalysis,
+      getPendingCandidateApplications,
     };
   }
 );

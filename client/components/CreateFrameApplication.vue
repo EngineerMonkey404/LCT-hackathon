@@ -2,9 +2,8 @@
   <div
     class="text-2xl py-5 px-10 w-1/2 mx-auto shadow-slate-950 shadow-2xl rounded-3xl mt-10"
   >
-    <div>{{ application.workExperience }}</div>
     <h1 class="text-3xl mb-10 font-bold">Создание заявки</h1>
-    <div class="flex justify-between row-inputs">
+    <div class="grid grid-cols-2">
       <div>
         <label class="block mb-2 font-semibold" for="job">Должность</label>
         <input
@@ -14,24 +13,60 @@
         />
       </div>
       <div>
-        <label class="block mb-2 font-semibold" for="organiztion">
-          Организация
+        <label for="mentor" class="mb-2 block font-semibold">
+          Выберите наставника
         </label>
-        <input
-          id="organization"
-          v-model="application.organization"
-          class="form-auth-input mb-5"
-        />
-      </div>
-      <div>
-        <label class="block mb-2 font-semibold" for="adrees">
-          Адрес организации
-        </label>
-        <input
-          id="adress"
-          v-model="application.address"
-          class="form-auth-input mb-5"
-        />
+        <div id="mentor" class="rounded-3xl mb-5 w-full">
+          <Listbox v-model="mentor">
+            <div class="relative">
+              <ListboxButton
+                class="w-full cursor-default border-black border rounded-3xl bg-white py-2 pl-3 pr-10 text-left"
+              >
+                <span class="block">{{ getMentorName(mentor) }}</span>
+              </ListboxButton>
+
+              <transition
+                leave-active-class="transition duration-100 ease-in"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+              >
+                <ListboxOptions
+                  class="mt-1 absolute w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                >
+                  <ListboxOption
+                    v-for="(mentor, index) of frameApplicationStore.mentors"
+                    v-slot="{ active, selected }"
+                    :key="index"
+                    :value="mentor"
+                    as="template"
+                  >
+                    <li
+                      :class="[
+                        active
+                          ? 'bg-amber-100 text-amber-900'
+                          : 'text-gray-900',
+                        'relative cursor-default select-none py-2 pl-10 pr-4',
+                      ]"
+                    >
+                      <span
+                        :class="[
+                          selected ? 'font-medium' : 'font-normal',
+                          'block truncate',
+                        ]"
+                      >
+                        {{ getMentorName(mentor) }}
+                      </span>
+                      <span
+                        v-if="selected"
+                        class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
+                      ></span>
+                    </li>
+                  </ListboxOption>
+                </ListboxOptions>
+              </transition>
+            </div>
+          </Listbox>
+        </div>
       </div>
     </div>
     <hr class="w-full" />
@@ -43,7 +78,7 @@
       rows="5"
     ></textarea>
     <label class="block mb-2 font-semibold mt-10" for="workExpirience">
-      Опыт работы
+      Требуемый опыт работы
     </label>
     <input
       v-for="(n, i) in numberWork"
@@ -77,13 +112,20 @@
 </template>
 
 <script setup lang="ts">
-import { IFrameApplication } from "~/types/types";
+import { IFrameApplication, IUser } from "~/types/types";
 import { useUserStore } from "~/stores/userStore";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+} from "@headlessui/vue";
+
+const userStore = useUserStore();
 
 const route = useRoute();
 const frameApplicationStore = useFrameApplicationsStore();
-const userStore = useUserStore();
 const numberWork = ref(1);
 const application = ref<IFrameApplication>({
   organization: "",
@@ -93,6 +135,10 @@ const application = ref<IFrameApplication>({
   workExperience: [],
   frameId: userStore.user!.userId!,
 });
+if (userStore.user && userStore.user.direction)
+  await frameApplicationStore.getMentorsByDirection(userStore.user.direction);
+const mentor = ref(frameApplicationStore.mentors[0]);
+
 if (route.query?.["frame_id"]) {
   frameApplicationStore.getApplicationsByFrameId(+route.query?.["frame_id"]);
   for (const app of frameApplicationStore.personalFrameApplications) {
@@ -102,18 +148,15 @@ if (route.query?.["frame_id"]) {
   }
 }
 
+function getMentorName(mentor: IUser) {
+  return mentor.firstName + " " + mentor.secondName + " " + mentor.thirdName;
+}
+
 const createApplication = async () => {
-  //
+  application.value.mentorId = mentor.value.userId;
   await frameApplicationStore.createApplication(application.value);
   return navigateTo("/frame/applications");
 };
 </script>
 
-<style scoped>
-.row-input > input {
-  width: 30%;
-  /* Убираем влияние padding и border на конечную ширину input */
-  box-sizing: border-box;
-  /* Обнуляем margin */
-}
-</style>
+<style scoped></style>

@@ -67,5 +67,6 @@ export const useUserStore = defineStore("counter", () => {
       console.log("fetchedUser", fetchedUser.value);
     } catch {}
   }
+
   return { user: user, login, getUser, registerUser };
 });

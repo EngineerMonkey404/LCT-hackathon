@@ -14,6 +14,8 @@ import { useCandidateApplicationStore } from "~/stores/candidateApplicationStore
 import CandidateCard from "~/components/curators/CandidateCard.vue";
 
 const candidateApplicationStore = useCandidateApplicationStore();
+await candidateApplicationStore.getPendingCandidateApplications();
+console.log(candidateApplicationStore.allCandidateApplications);
 </script>
 
 <style scoped></style>

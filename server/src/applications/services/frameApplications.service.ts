@@ -38,6 +38,7 @@ export class FrameApplicationsService {
       description: application.description,
       organization: application.organization,
       direction: application.direction,
+      mentorId: application.mentorId,
     });
     const workExperience = application.workExperience.map((element) => {
       return { applicationId: app.applicationId, value: element };

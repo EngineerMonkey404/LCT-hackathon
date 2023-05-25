@@ -4,8 +4,57 @@
     @submit.prevent
   >
     <h2 class="text-2xl font-semibold mb-5">Создание заявки</h2>
-    <div class="mb-2 font-semibold text-xl">Желаемое направление</div>
-    <input v-model="application.direction" class="form-auth-input mb-5" />
+    <label for="direction" class="mb-2">Направление*</label>
+    <div id="direction" class="w-full rounded-3xl mb-5">
+      <!--оценить реализацию-->
+      <Listbox v-model="application.direction">
+        <div class="relative">
+          <ListboxButton
+            class="w-full cursor-default border-black border rounded-3xl bg-white py-2 pl-3 pr-10 text-left"
+          >
+            <span class="block">{{ application.direction }}</span>
+          </ListboxButton>
+
+          <transition
+            leave-active-class="transition duration-100 ease-in"
+            leave-from-class="opacity-100"
+            leave-to-class="opacity-0"
+          >
+            <ListboxOptions
+              class="mt-1 absolute w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+            >
+              <ListboxOption
+                v-for="(direction, index) of Object.values(Direction)"
+                v-slot="{ active, selected }"
+                :key="index"
+                :value="direction"
+                as="template"
+              >
+                <li
+                  :class="[
+                    active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+                    'relative cursor-default select-none py-2 pl-10 pr-4',
+                  ]"
+                >
+                  <span
+                    :class="[
+                      selected ? 'font-medium' : 'font-normal',
+                      'block truncate',
+                    ]"
+                  >
+                    {{ direction }}
+                  </span>
+                  <span
+                    v-if="selected"
+                    class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
+                  ></span>
+                </li>
+              </ListboxOption>
+            </ListboxOptions>
+          </transition>
+        </div>
+      </Listbox>
+    </div>
     <label class="mb-2 font-semibold text-xl" for="day">Дата рождения*</label>
     <div class="flex justify-between date">
       <input
@@ -128,13 +177,24 @@
 <script setup lang="ts">
 import { useCandidateApplicationStore } from "~/stores/candidateApplicationStore";
 import { useUserStore } from "~/stores/userStore";
-import { ICandidateApplication, FrameApplicationStatus } from "~/types/types";
+import {
+  Listbox,
+  ListboxOption,
+  ListboxButton,
+  ListboxOptions,
+} from "@headlessui/vue";
+import {
+  ICandidateApplication,
+  FrameApplicationStatus,
+  Direction,
+} from "~/types/types";
 
 const userStore = useUserStore();
 const candidateApplicationStore = useCandidateApplicationStore();
 const date = ref<string[]>([]);
 const application = ref<ICandidateApplication>({
   position: [],
+  direction: Direction.HR,
   education: "Неоконченное высшее",
 });
 
