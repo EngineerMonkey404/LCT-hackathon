@@ -28,6 +28,18 @@ export class AuthService {
     });
   }
 
+  async registerAccountThroughInvite(user: IUser) {
+    const { firstName, secondName, thirdName, email, password, role } = user;
+    return await this.userModel.create({
+      firstName,
+      secondName,
+      thirdName,
+      email,
+      role,
+      pwd_hash: await this.hashPassword(password),
+    });
+  }
+
   async validateUser(email: string, password: string) {
     const user = await this.userModel.findOne({
       where: { email: email },

@@ -7,6 +7,7 @@ import { CandidateApplicationStatus } from '../models/candidate/candidateApplica
 import { Position } from '../models/candidate/positionModel';
 import { IFrameApplication } from '../models/frame/frameApplication.interface';
 import { TraineeOnFrameApplication } from '../models/frame/traineeOnFrameApplication.model';
+import { FrameApplicationStatus } from '../models/frame/frameApplicationStatus.enum';
 
 @Injectable()
 export class CandidateApplicationsService {
@@ -18,6 +19,13 @@ export class CandidateApplicationsService {
 
   async getAllCandidateApplications() {
     return await this.candidateApplicationModel.findAll({
+      include: [{ model: Position, attributes: ['value'] }],
+    });
+  }
+
+  async getAllPendingCandidateApplications() {
+    return await this.candidateApplicationModel.findAll({
+      where: { status: FrameApplicationStatus.PENDING },
       include: [{ model: Position, attributes: ['value'] }],
     });
   }
@@ -34,7 +42,7 @@ export class CandidateApplicationsService {
       course: application.course,
     });
     const position = application.position.map((pos) => {
-      return { applicationId: app.applicationId, value: pos.value };
+      return { applicationId: app.applicationId, value: pos };
     });
     await this.positionModel.bulkCreate(position);
     return app.applicationId;
