@@ -1,41 +1,50 @@
 <template>
   <div
-    v-if="props.application.status === FrameApplicationStatus.PENDING"
+    v-if="props.application.status === FrameApplicationStatus.PENDING && user"
     class="flex flex-col justify-between p-10 shadow-slate-500 shadow-xl rounded-3xl"
   >
     <div class="flex justify-between">
       <div class="text-2xl font-bold">
-        <div>
-          {{ userStore.user?.firstName }} {{ userStore.user?.secondName }}
+        <div>{{ user.firstName }} {{ user.secondName }}</div>
+        <div>{{ user.thirdName }}</div>
+        <div v-if="date" class="text-xl">
+          {{
+            getYears(new Date(date)) +
+            " " +
+            declOfNum(getYears(new Date(date)), ["год", "года", "лет"])
+          }}
         </div>
-        <div>{{ userStore.user?.thirdName }}</div>
-        <div class="text-xl">Будет юзер возраст</div>
       </div>
-      <NuxtImg class="block" type="svg" src="/candidate/faceCandidate.svg" />
+      <NuxtImg
+        class="block rounded-full"
+        style="height: 100px; width: 100px"
+        type="svg"
+        :src="`http://localhost:5000/api/image/${application.candidateId}`"
+      />
     </div>
     <hr class="w-full mt-5" />
-    <div class="mt-10 grid grid-cols-3 place-items-center">
+    <div class="mt-10 grid grid-cols-3 mb-5">
       <div class="style-flex-col">
         <div class="category text-lg text-center">Русский язык</div>
-        <span class="form-auth-input text-center text-xl mt-3 self-end">
+        <span class="form-auth-input text-center text-xl mt-3 self-center">
           {{ application.russianLanguageTestResult ?? 0 }}
         </span>
       </div>
       <div class="style-flex-col">
         <div class="category text-lg text-center">Анализ информации</div>
-        <span class="form-auth-input text-center text-xl mt-3 self-end">
+        <span class="form-auth-input text-center text-xl mt-3 self-center">
           {{ application.informationAnalysisTestResult ?? 0 }}
         </span>
       </div>
       <div class="style-flex-col">
         <div class="category text-lg text-center">Компюьтерная грамотность</div>
-        <span class="form-auth-input text-center text-xl mt-3 self-end">
+        <span class="form-auth-input text-center text-xl mt-3 self-center">
           {{ application.computerLiteracyTestResult ?? 0 }}
         </span>
       </div>
     </div>
     <div class="flex mt-3 justify-between">
-      <div>
+      <div class="mb-5">
         <div class="category">Гражданство</div>
         <div class="form-auth-input">{{ application.nationality }}</div>
       </div>
@@ -44,10 +53,15 @@
         <div class="form-auth-input">{{ application.city }}</div>
       </div>
     </div>
-    <div class="category mt-5 mb-2">Образование</div>
+    <div class="category mt-5">Образование</div>
     <div>
-      <div class="form-auth-input mb-3">надо поучиться</div>
-      <div class="form-auth-input">несколько лет</div>
+      <div class="form-auth-input mb-2">{{ application.education }}</div>
+      <div
+        v-if="application.education === 'Неоконченное высшее'"
+        class="form-auth-input"
+      >
+        {{ application.course }}
+      </div>
     </div>
     <div class="category mt-5 mb-3">Опыт работы</div>
     <div v-if="!application.experience" class="text-xl">Нет опыта</div>
@@ -83,10 +97,46 @@
 <script setup lang="ts">
 import { useUserStore } from "~/stores/userStore";
 import { useCandidateApplicationStore } from "~/stores/candidateApplicationStore";
-import { ICandidateApplication, FrameApplicationStatus } from "~/types/types";
+import {
+  ICandidateApplication,
+  FrameApplicationStatus,
+  IUser,
+} from "~/types/types";
 const userStore = useUserStore();
+
 const props = defineProps<{ application: ICandidateApplication }>();
 const candidateApplicationStore = useCandidateApplicationStore();
+const date = ref<Date>(new Date());
+const user: IUser =
+  (await userStore.getUserById(props.application.candidateId!)) ?? {};
+if (props.application) {
+  date.value = props.application.date ?? new Date();
+}
+
+function getYears(dob: Date) {
+  const month_diff = Date.now() - dob.getTime();
+
+  const age_dt = new Date(month_diff);
+
+  const year = age_dt.getUTCFullYear();
+
+  return Math.abs(year - 1970);
+}
+
+function declOfNum(n: number, text_forms: string[]) {
+  n = Math.abs(n) % 100;
+  const n1 = n % 10;
+  if (n > 10 && n < 20) {
+    return text_forms[2];
+  }
+  if (n1 > 1 && n1 < 5) {
+    return text_forms[1];
+  }
+  if (n1 == 1) {
+    return text_forms[0];
+  }
+  return text_forms[2];
+}
 </script>
 
 <style scoped>

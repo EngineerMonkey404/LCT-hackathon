@@ -16,7 +16,7 @@ export const useCandidateApplicationStore = defineStore(
     };
 
     async function getCandidateApplicationById(id: number) {
-      const { data: fetchedApplications, error } = await useApiFetch<
+      const { data: fetchedApplication, error } = await useApiFetch<
         ICandidateApplication,
         Error,
         string,
@@ -24,8 +24,10 @@ export const useCandidateApplicationStore = defineStore(
       >(`applications/candidate-application/${id}`, {
         method: "GET",
       });
-      if (fetchedApplications.value) {
-        personalCandidateApplication.value = fetchedApplications.value;
+      if (fetchedApplication.value) {
+        personalCandidateApplication.value = fetchedApplication.value;
+
+        return fetchedApplication.value;
       }
     }
 
@@ -87,6 +89,12 @@ export const useCandidateApplicationStore = defineStore(
         {
           method: "PUT",
         }
+      );
+      allCandidateApplications.value?.splice(
+        allCandidateApplications.value?.findIndex(
+          (application) => application.applicationId === applicationId
+        ),
+        1
       );
     }
 

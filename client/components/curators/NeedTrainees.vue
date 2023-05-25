@@ -31,11 +31,5 @@ import { FrameApplicationStatus } from "~/types/types";
 import CuratorApplicationCard from "./CuratorApplicationCard.vue";
 
 const frameApplicationsStore = useFrameApplicationsStore();
-onMounted(async () => {
-  await frameApplicationsStore.getFrameApplications();
-});
-
-onUpdated(async () => {
-  await frameApplicationsStore.getFrameApplications();
-});
+await frameApplicationsStore.getFrameApplications();
 </script>

@@ -51,11 +51,13 @@
     }
 
     .category {
-        @apply text-2xl font-semibold;
+        @apply text-2xl font-semibold ;
+        line-height: 1em;
+        height:3em;
     }
 
     .style-flex-col {
-        @apply flex flex-col items-center h-full justify-stretch;
+        @apply flex flex-col h-full place-content-center ;
     }
 
 }

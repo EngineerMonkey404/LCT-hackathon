@@ -5,7 +5,7 @@
     <div class="p-10">
       <div class="flex justify-between text-3xl font-bold">
         <div>{{ props.application.position }}</div>
-        <div>{{ props.application.organization }}</div>
+        <div>{{ props.application.organization.name }}</div>
       </div>
       <hr class="mt-5 w-full" />
       <div class="font-semibold text-3xl mt-10 mb-3">Описание</div>
@@ -20,7 +20,7 @@
           <span class="form-auth-input text-xl">{{ exp.value }}</span>
         </div>
       </div>
-      <div class="flex justify-between text-3xl font-bold">
+      <div class="flex gap-x-10 text-3xl font-bold">
         <button
           @click="
             frameApplicationsStore.submitCuratorRespond(
@@ -58,6 +58,6 @@ const frameApplicationsStore = useFrameApplicationsStore();
 
 <style scoped>
 button {
-  @apply form-auth-input bg-black px-5;
+  @apply black-btn px-10;
 }
 </style>

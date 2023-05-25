@@ -133,7 +133,11 @@ const route = useRoute();
 const frameApplicationStore = useFrameApplicationsStore();
 const numberWork = ref(1);
 const application = ref<IFrameApplication>({
-  organization: "",
+  organization: userStore.user?.organization ?? {
+    name: "",
+    address: "",
+    coordinates: [0, 0],
+  },
   position: "",
   address: "",
   description: "",
@@ -159,6 +163,15 @@ function getMentorName(mentor: IUser) {
 
 const createApplication = async () => {
   application.value.mentorId = mentor.value.userId;
+  application.value.organization = {
+    name: userStore.user?.organizationName ?? "",
+    address: userStore.user?.organizationAddress ?? "",
+    coordinates: [
+      userStore.user?.organizationCoordinateX ?? 0,
+      userStore.user?.organizationCoordinateY ?? 0,
+    ],
+  };
+  console.log("organization", userStore.user);
   await frameApplicationStore.createApplication(application.value);
   return navigateTo("/frame/applications");
 };

@@ -82,6 +82,10 @@ export class AuthService {
     } else throw new HttpException('Path isnt found', HttpStatus.NOT_FOUND);
   }
 
+  async getUserById(id: number) {
+    return await this.userModel.findOne({ where: { userId: id } });
+  }
+
   async getRoleByInvite(path: string) {
     return (await this.inviteModel.findOne({ where: { path: path } })).role;
   }

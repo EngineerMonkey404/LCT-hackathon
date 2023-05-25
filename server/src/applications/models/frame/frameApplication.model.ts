@@ -19,6 +19,7 @@ import { TraineeOnFrameApplication } from './traineeOnFrameApplication.model';
 import { FrameApplicationStatus } from './frameApplicationStatus.enum';
 import { Direction } from '../../../auth/models/direction.enum';
 import { Test } from '../../../tests/models/test.model';
+import { Organization } from '../../../auth/models/user.interface';
 
 @Table({})
 export class FrameApplication extends Model {
@@ -40,8 +41,8 @@ export class FrameApplication extends Model {
   @Column(DataType.ENUM(...Object.values(FrameApplicationStatus)))
   status: FrameApplicationStatus;
 
-  @Column
-  organization: string;
+  @Column(DataType.JSON)
+  organization: Organization;
 
   @Column
   address: string;

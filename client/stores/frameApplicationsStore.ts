@@ -98,8 +98,9 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
   // }
 
   async function createApplication(application: IFrameApplication) {
-    console.log(application.direction)
-    console.log(application.organization)
+    console.log(application.direction);
+
+    console.log(application.organization);
     const { data: newApplication } = await useApiFetch<
       IFrameApplication,
       Error,
@@ -131,7 +132,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
   }
 
   async function submitCuratorRespond(
-    application_id: number,
+    applicationId: number,
     status: FrameApplicationStatus
   ) {
     const { data: newApplication } = await useApiFetch<
@@ -140,10 +141,16 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       string,
       "put"
     >(
-      `applications/frame-application/${application_id}/submit?status=${status}`,
+      `applications/frame-application/${applicationId}/submit?status=${status}`,
       {
         method: "PUT",
       }
+    );
+    allFrameApplications.value.splice(
+      allFrameApplications.value.findIndex(
+        (application) => application.applicationId === applicationId
+      ),
+      1
     );
   }
 
