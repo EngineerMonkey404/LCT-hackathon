@@ -4,21 +4,35 @@ import { defineStore } from "pinia";
 export const useUserStore = defineStore("counter", () => {
   const user = ref<IUser | null>(null);
 
-  async function registerUser(registerData: RegisterData, role?: Role) {
-    const { data: user } = await useApiFetch<
-      IUser,
-      Error,
-      string,
-      "post" | "get"
-    >("auth/register", {
-      method: "POST",
-      body: registerData,
-    });
+  async function registerUser(registerData: RegisterData, path?: string) {
+    const user = ref();
+    if (path) {
+      console.log("with path");
+      const { data: data } = await useApiFetch<
+        IUser,
+        Error,
+        string,
+        "post" | "get"
+      >(`auth/register/${path}`, {
+        method: "POST",
+        body: registerData,
+      });
+      user.value = data.value;
+    } else {
+      const { data: data } = await useApiFetch<
+        IUser,
+        Error,
+        string,
+        "post" | "get"
+      >("auth/register", {
+        method: "POST",
+        body: registerData,
+      });
+      user.value = data.value;
+    }
     if (registerData.image.file && user.value) {
       const formData = new FormData();
-      console.log(registerData.image.file);
       formData.append("file", registerData.image.file);
-      console.log(formData.get("image"));
       await useApiFetch(`image/${user.value.userId}`, {
         method: "POST",
         body: formData,

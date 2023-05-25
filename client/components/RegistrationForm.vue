@@ -59,109 +59,115 @@
         class="form-auth-input mb-5"
         placeholder="Отчество"
       />
-      <label for="organization" class="mb-2">*</label>
-      <div id="organization" class="w-full rounded-3xl mb-5">
-        <!--оценить реализацию-->
-        <Listbox v-model="organization">
-          <div class="relative">
-            <ListboxButton
-              class="w-full cursor-default border-black border rounded-3xl bg-white py-2 pl-3 pr-10 text-left"
-            >
-              <span class="block">{{ organization }}</span>
-            </ListboxButton>
-
-            <transition
-              leave-active-class="transition duration-100 ease-in"
-              leave-from-class="opacity-100"
-              leave-to-class="opacity-0"
-            >
-              <ListboxOptions
-                class="mt-1 absolute w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+      <template v-if="props.role === Role.FRAME">
+        <label for="organization" class="mb-2">Организация*</label>
+        <div id="organization" class="w-full rounded-3xl mb-5">
+          <Listbox v-model="organization">
+            <div class="relative">
+              <ListboxButton
+                class="w-full cursor-default border-black border rounded-3xl bg-white py-2 pl-3 pr-10 text-left"
               >
-                <ListboxOption
-                  v-for="(org, index) of organizations"
-                  v-slot="{ active, selected }"
-                  :key="index"
-                  :value="org"
-                  as="template"
+                <span class="block">{{ organization }}</span>
+              </ListboxButton>
+
+              <transition
+                leave-active-class="transition duration-100 ease-in"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+              >
+                <ListboxOptions
+                  class="mt-1 absolute z-10 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                 >
-                  <li
-                    :class="[
-                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
-                      'relative cursor-default select-none py-2 pl-10 pr-4',
-                    ]"
+                  <ListboxOption
+                    v-for="(org, index) of organizations"
+                    v-slot="{ active, selected }"
+                    :key="index"
+                    :value="org.name"
+                    as="template"
                   >
-                    <span
+                    <li
                       :class="[
-                        selected ? 'font-medium' : 'font-normal',
-                        'block truncate',
+                        active
+                          ? 'bg-amber-100 text-amber-900'
+                          : 'text-gray-900',
+                        'relative cursor-default select-none py-2 pl-10 pr-4',
                       ]"
                     >
-                      {{ org }}
-                    </span>
-                    <span
-                      v-if="selected"
-                      class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
-                    ></span>
-                  </li>
-                </ListboxOption>
-              </ListboxOptions>
-            </transition>
-          </div>
-        </Listbox>
-      </div>
-      <label for="organization" class="mb-2">Направление*</label>
-      <div id="organization" class="w-full rounded-3xl mb-5">
-        <!--оценить реализацию-->
-        <Listbox v-model="organization">
-          <div class="relative">
-            <ListboxButton
-              class="w-full cursor-default border-black border rounded-3xl bg-white py-2 pl-3 pr-10 text-left"
-            >
-              <span class="block">{{ organization }}</span>
-            </ListboxButton>
-
-            <transition
-              leave-active-class="transition duration-100 ease-in"
-              leave-from-class="opacity-100"
-              leave-to-class="opacity-0"
-            >
-              <ListboxOptions
-                class="mt-1 absolute w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      <span
+                        :class="[
+                          selected ? 'font-medium' : 'font-normal',
+                          'block truncate',
+                        ]"
+                      >
+                        {{ org.name }}
+                      </span>
+                      <span
+                        v-if="selected"
+                        class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
+                      ></span>
+                    </li>
+                  </ListboxOption>
+                </ListboxOptions>
+              </transition>
+            </div>
+          </Listbox>
+        </div>
+      </template>
+      <template v-if="props.role === Role.FRAME">
+        <label for="direction" class="mb-2">Направление*</label>
+        <div id="direction" class="w-full rounded-3xl mb-5">
+          <!--оценить реализацию-->
+          <Listbox v-model="direction">
+            <div class="relative">
+              <ListboxButton
+                class="w-full cursor-default border-black border rounded-3xl bg-white py-2 pl-3 pr-10 text-left"
               >
-                <ListboxOption
-                  v-for="(org, index) of organizations"
-                  v-slot="{ active, selected }"
-                  :key="index"
-                  :value="org"
-                  as="template"
+                <span class="block">{{ direction }}</span>
+              </ListboxButton>
+
+              <transition
+                leave-active-class="transition duration-100 ease-in"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+              >
+                <ListboxOptions
+                  class="mt-1 absolute w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                 >
-                  <li
-                    :class="[
-                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
-                      'relative cursor-default select-none py-2 pl-10 pr-4',
-                    ]"
+                  <ListboxOption
+                    v-for="(direction, index) of Object.values(Direction)"
+                    v-slot="{ active, selected }"
+                    :key="index"
+                    :value="direction"
+                    as="template"
                   >
-                    <span
+                    <li
                       :class="[
-                        selected ? 'font-medium' : 'font-normal',
-                        'block truncate',
+                        active
+                          ? 'bg-amber-100 text-amber-900'
+                          : 'text-gray-900',
+                        'relative cursor-default select-none py-2 pl-10 pr-4',
                       ]"
                     >
-                      {{ org }}
-                    </span>
-                    <span
-                      v-if="selected"
-                      class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
-                    ></span>
-                  </li>
-                </ListboxOption>
-              </ListboxOptions>
-            </transition>
-          </div>
-        </Listbox>
-      </div>
-
+                      <span
+                        :class="[
+                          selected ? 'font-medium' : 'font-normal',
+                          'block truncate',
+                        ]"
+                      >
+                        {{ direction }}
+                      </span>
+                      <span
+                        v-if="selected"
+                        class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
+                      ></span>
+                    </li>
+                  </ListboxOption>
+                </ListboxOptions>
+              </transition>
+            </div>
+          </Listbox>
+        </div>
+      </template>
       <label class="mb-2" for="email">Электронная почта*</label>
       <input
         id="email"
@@ -190,15 +196,14 @@
 </template>
 
 <script setup lang="ts">
-import { Direction, RegisterData, Role } from "~/types/types";
+import { Direction, organizations, RegisterData, Role } from "~/types/types";
 import { useUserStore } from "~/stores/userStore";
 import {
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption,
   Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
 } from "@headlessui/vue";
-import { organizations } from "~/types/types";
 
 const userStore = useUserStore();
 const imageInput = ref<HTMLInputElement>();
@@ -206,19 +211,30 @@ const imageFile = ref<{ stringFile: string; file: File }>();
 const registerData: RegisterData = reactive({
   firstName: "",
   secondName: "",
+  role: Role.CANDIDATE,
   thirdName: "",
   email: "",
   password: "",
   image: { url: "", file: null },
 });
 
-const organization = ref(organizations[0]);
+const organization = ref(organizations[0].name);
 const direction = ref(Direction.HR);
 const props = withDefaults(defineProps<{ role: Role; path: string }>(), {
   role: Role.CANDIDATE,
 });
 
 async function handleRegistration() {
+  if (props.role === Role.FRAME) {
+    registerData.direction = direction.value;
+    registerData.organization = organizations.filter(
+      (org) => (org.name = organization.value)
+    )[0];
+  }
+  if (props.path) {
+    registerData.role = props.role;
+    await userStore.registerUser(registerData, props.path);
+  }
   await userStore.registerUser(registerData);
 }
 
