@@ -6,10 +6,10 @@ import {
 import { useFrameApplicationsStore } from "./frameApplicationsStore";
 
 export const useTraineeStore = defineStore("traineeStore", () => {
-
   const frameApplicationsStore = useFrameApplicationsStore();
-  const allFrameApplications = ref<IFrameApplication[]>(frameApplicationsStore.allApprovedFrameApplications);
-
+  const allFrameApplications = ref<IFrameApplication[]>(
+    frameApplicationsStore.allApprovedFrameApplications
+  );
 
   async function submitTraineeRespond(
     applicationId: number,

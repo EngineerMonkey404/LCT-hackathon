@@ -132,7 +132,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
   }
 
   async function submitCuratorRespond(
-    application_id: number,
+    applicationId: number,
     status: FrameApplicationStatus
   ) {
     const { data: newApplication } = await useApiFetch<
@@ -141,10 +141,16 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       string,
       "put"
     >(
-      `applications/frame-application/${application_id}/submit?status=${status}`,
+      `applications/frame-application/${applicationId}/submit?status=${status}`,
       {
         method: "PUT",
       }
+    );
+    allFrameApplications.value.splice(
+      allFrameApplications.value.findIndex(
+        (application) => application.applicationId === applicationId
+      ),
+      1
     );
   }
 

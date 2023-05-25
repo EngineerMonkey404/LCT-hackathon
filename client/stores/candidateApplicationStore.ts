@@ -90,6 +90,12 @@ export const useCandidateApplicationStore = defineStore(
           method: "PUT",
         }
       );
+      allCandidateApplications.value?.splice(
+        allCandidateApplications.value?.findIndex(
+          (application) => application.applicationId === applicationId
+        ),
+        1
+      );
     }
 
     async function russianLanguage(applicationId: number, result: number) {
