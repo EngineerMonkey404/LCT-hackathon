@@ -1,4 +1,5 @@
 import {
+  AllowNull,
   AutoIncrement,
   BelongsTo,
   BelongsToMany,
@@ -18,6 +19,7 @@ import { FrameApplication } from '../../applications/models/frame/frameApplicati
 import { TraineeOnFrameApplication } from '../../applications/models/frame/traineeOnFrameApplication.model';
 import { CandidateApplication } from '../../applications/models/candidate/candidateApplication.model';
 import { Image } from '../../files/models/image.model';
+import { Direction } from './direction.enum';
 
 @Table({})
 export class User extends Model {
@@ -34,11 +36,19 @@ export class User extends Model {
   secondName: string;
 
   @Column
+  organization: string;
+
+  @Column
   thirdName: string;
 
   @Default(Role.CANDIDATE)
   @Column(DataType.ENUM(...Object.values(Role)))
   role: Role;
+
+  @AllowNull
+  @Default(null)
+  @Column(DataType.ENUM(...Object.values(Direction)))
+  direction: Direction;
 
   @Unique
   @Column

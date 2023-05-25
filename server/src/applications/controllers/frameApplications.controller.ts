@@ -21,6 +21,7 @@ import { IFrameApplication } from '../models/frame/frameApplication.interface';
 import { FrameApplicationStatus } from '../models/frame/frameApplicationStatus.enum';
 import { User } from '../../auth/models/user.model';
 import { InjectModel } from '@nestjs/sequelize';
+import { Direction } from '../../auth/models/direction.enum';
 
 @ApiTags('Заявки кадра')
 @Controller('applications')
@@ -34,6 +35,12 @@ export class FrameApplicationsController {
   @Post('frame-application')
   async createApplication(@Body() application: CreateFrameApplicationDto) {
     return await this.applicationService.createApplication(application);
+  }
+
+  @ApiOperation({ summary: 'Получение всех наставников по направлению' })
+  @Get('frame-application/mentors')
+  async getMentorsByDirection(@Query('direction') direction: Direction) {
+    return await this.applicationService.getMentorsByDirection(direction);
   }
 
   @RequireRoles(Role.FRAME)

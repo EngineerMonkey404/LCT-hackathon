@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { WorkExperience } from './workExperience.model';
+import { Direction } from '../../../auth/models/direction.enum';
 
 export class CreateFrameApplicationDto {
   @ApiProperty()
@@ -19,4 +20,10 @@ export class CreateFrameApplicationDto {
 
   @ApiProperty()
   workExperience: WorkExperience[];
+
+  @ApiProperty()
+  mentorId: number;
+
+  @ApiProperty()
+  direction: Direction;
 }

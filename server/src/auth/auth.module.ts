@@ -10,6 +10,7 @@ import { LocalStrategy } from './guards/local.strategy';
 import { AuthGuard, PassportModule } from '@nestjs/passport';
 import { RolesGuard } from './guards/roles.guard';
 import { Image } from '../files/models/image.model';
+import { Invites } from '../invites/invites.model';
 
 export const expire = 3600 * 1000;
 export const tokenKey = 'token';
@@ -22,7 +23,7 @@ export const tokenKey = 'token';
         signOptions: { expiresIn: expire },
       }),
     }),
-    SequelizeModule.forFeature([User, Image]),
+    SequelizeModule.forFeature([User, Image, Invites]),
   ],
   providers: [
     RolesGuard,

@@ -6,10 +6,12 @@ import { User } from '../models/user.model';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { expire, tokenKey } from '../auth.module';
+import { Invites } from '../../invites/invites.model';
 
 @Injectable()
 export class AuthService {
   constructor(
+    @InjectModel(Invites) private inviteModel: typeof Invites,
     @InjectModel(User) private userModel: typeof User,
     private jwtService: JwtService,
   ) {}
@@ -28,16 +30,34 @@ export class AuthService {
     });
   }
 
-  async registerAccountThroughInvite(user: IUser) {
-    const { firstName, secondName, thirdName, email, password, role } = user;
-    return await this.userModel.create({
-      firstName,
-      secondName,
-      thirdName,
-      email,
-      role,
-      pwd_hash: await this.hashPassword(password),
-    });
+  async registerAccountThroughInvite(user: IUser, path: string) {
+    const p = await this.inviteModel.findOne({ where: { path: path } });
+    if (p) {
+      const {
+        firstName,
+        secondName,
+        thirdName,
+        email,
+        password,
+        organization,
+        direction,
+      } = user;
+      const role = p.role;
+      return await this.userModel.create({
+        firstName,
+        secondName,
+        thirdName,
+        email,
+        direction,
+        organization,
+        role,
+        pwd_hash: await this.hashPassword(password),
+      });
+    } else return Error;
+  }
+
+  async getRoleByInvite(path: string) {
+    return (await this.inviteModel.findOne({ where: { path: path } })).role;
   }
 
   async validateUser(email: string, password: string) {

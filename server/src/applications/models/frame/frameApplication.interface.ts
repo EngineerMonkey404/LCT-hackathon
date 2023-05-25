@@ -1,3 +1,5 @@
+import { Direction } from '../../../auth/models/direction.enum';
+
 export interface IFrameApplication {
   applicationId: number;
   position: string;
@@ -7,6 +9,8 @@ export interface IFrameApplication {
   description: string;
   frameId: number;
   curatorId?: number;
+  direction: Direction;
+  mentorId?: number;
 }
 
 export interface WorkExperience {

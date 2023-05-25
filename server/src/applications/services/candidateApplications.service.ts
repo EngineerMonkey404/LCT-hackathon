@@ -8,6 +8,9 @@ import { Position } from '../models/candidate/positionModel';
 import { IFrameApplication } from '../models/frame/frameApplication.interface';
 import { TraineeOnFrameApplication } from '../models/frame/traineeOnFrameApplication.model';
 import { FrameApplicationStatus } from '../models/frame/frameApplicationStatus.enum';
+import { Direction } from '../../auth/models/direction.enum';
+import { User } from '../../auth/models/user.model';
+import { Role } from '../../auth/models/role.enum';
 
 @Injectable()
 export class CandidateApplicationsService {
@@ -15,6 +18,7 @@ export class CandidateApplicationsService {
     @InjectModel(CandidateApplication)
     private candidateApplicationModel: typeof CandidateApplication,
     @InjectModel(Position) private positionModel: typeof Position,
+    @InjectModel(User) private userModel: typeof User,
   ) {}
 
   async getAllCandidateApplications() {

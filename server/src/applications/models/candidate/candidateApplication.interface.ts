@@ -14,6 +14,12 @@ export interface ICandidateApplication {
   experience: boolean;
 
   position: Position[];
+
+  russianLanguageTestResult: number;
+
+  informationAnalysisTestResult: number;
+
+  computerLiteracyTestResult: number;
 }
 
 export interface Position {

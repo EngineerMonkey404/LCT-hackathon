@@ -13,6 +13,21 @@ export enum FrameApplicationStatus {
   EDIT = "edit",
 }
 
+export const organizations = [
+  "Московская дирекция транспортного обслуживания",
+  'Автономная некоммерческая организация "Московский экспортный центр"',
+  'Автономная некоммерческая организация "Проектный офис по развитию туризма и гостеприимства Москвы',
+];
+
+export enum Direction {
+  HR = "HR-город",
+  ECONOMY = "Городская экономика",
+  MEDIA = "Медийный город",
+  SOCIAL = "Социальный город",
+  COMFORT = "Комфортный городская среда",
+  RIGHT = "Правовое пространство",
+}
+
 export interface WorkExperience {
   workExperienceId: number;
   applicationId: number;
@@ -76,5 +91,7 @@ export interface RegisterData {
   thirdName: string;
   email: string;
   password: string;
+  direction?: Direction;
+  organization?: string;
   image: { url: string; file: File | null };
 }

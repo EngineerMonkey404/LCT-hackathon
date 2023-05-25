@@ -8,6 +8,8 @@ import { FrameApplicationStatus } from '../models/frame/frameApplicationStatus.e
 import { TraineeOnFrameApplication } from '../models/frame/traineeOnFrameApplication.model';
 import { User } from '../../auth/models/user.model';
 import { CandidateApplication } from '../models/candidate/candidateApplication.model';
+import { Direction } from '../../auth/models/direction.enum';
+import { Role } from '../../auth/models/role.enum';
 
 @Injectable()
 export class FrameApplicationsService {
@@ -22,6 +24,12 @@ export class FrameApplicationsService {
     @InjectModel(TraineeOnFrameApplication)
     private traineeOnFrameApplicationModel: typeof TraineeOnFrameApplication,
   ) {}
+
+  async getMentorsByDirection(direction: Direction) {
+    return await this.userModel.findAll({
+      where: { direction: direction, role: Role.MENTOR },
+    });
+  }
   async createApplication(application: CreateFrameApplicationDto) {
     const app = await this.frameApplicationModel.create({
       frameId: application.frameId,

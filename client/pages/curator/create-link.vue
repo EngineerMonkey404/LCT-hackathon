@@ -5,7 +5,7 @@
       <RadioGroupOption
         v-slot="{ checked }"
         class="radio-btn"
-        :value="Role.FRAME"
+        :value="Role.CURATOR"
       >
         <span
           :class="checked ? 'bg-blue-200 text-black' : ''"
@@ -29,13 +29,13 @@
       <RadioGroupOption
         v-slot="{ checked }"
         class="radio-btn"
-        :value="Role.CURATOR"
+        :value="Role.FRAME"
       >
         <span
           :class="checked ? 'bg-blue-200 text-black' : ''"
           class="invite-button"
         >
-          Ссылка для куратора
+          Ссылка для кадра
         </span>
       </RadioGroupOption>
     </RadioGroup>

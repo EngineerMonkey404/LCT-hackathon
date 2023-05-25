@@ -1,10 +1,10 @@
-import { IUser, RegisterData } from "~/types/types";
+import { IUser, RegisterData, Role } from "~/types/types";
 import { defineStore } from "pinia";
 
 export const useUserStore = defineStore("counter", () => {
   const user = ref<IUser | null>(null);
 
-  async function registerUser(registerData: RegisterData) {
+  async function registerUser(registerData: RegisterData, role?: Role) {
     const { data: user } = await useApiFetch<
       IUser,
       Error,

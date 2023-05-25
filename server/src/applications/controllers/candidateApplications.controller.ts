@@ -14,6 +14,7 @@ import { CreateCandidateApplicationDto } from '../models/candidate/CreateCandida
 import { CandidateApplicationStatus } from '../models/candidate/candidateApplicationStatus.enum';
 import { ICandidateApplication } from '../models/candidate/candidateApplication.interface';
 import { FrameApplicationStatus } from '../models/frame/frameApplicationStatus.enum';
+import { Direction } from '../../auth/models/direction.enum';
 
 @ApiTags('Заявки кандидатов')
 @Controller('applications')

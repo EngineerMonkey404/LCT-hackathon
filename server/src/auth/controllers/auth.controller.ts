@@ -3,14 +3,16 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Post,
+  Query,
   Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
 import { IUser } from '../models/user.interface';
 import { AuthService } from '../services/auth.service';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { UserDto } from '../models/userDto';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
@@ -18,17 +20,29 @@ import { JwtGuard } from '../guards/jwt.guard';
 import { RolesGuard } from '../guards/roles.guard';
 import { RequireRoles } from '../guards/roles.decorator';
 import { Role } from '../models/role.enum';
+import { ApiImplicitQuery } from '@nestjs/swagger/dist/decorators/api-implicit-query.decorator';
 
 @ApiTags('Авторизация')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiQuery({ name: 'path', required: false })
   @ApiOperation({ summary: 'Регистрация пользователей' })
   @ApiBody({ type: UserDto })
   @Post('register')
-  async register(@Body() user: IUser) {
-    return await this.authService.registerAccount(user);
+  async register(@Body() user: IUser, @Query('path') path?: string) {
+    if (!path) {
+      return await this.authService.registerAccount(user);
+    } else {
+      return await this.authService.registerAccountThroughInvite(user, path);
+    }
+  }
+
+  @ApiOperation({ summary: 'Получение роли по приглашению' })
+  @Get('invite/:path')
+  async getRoleByInvite(@Param('path') path: string) {
+    return await this.authService.getRoleByInvite(path);
   }
 
   @ApiBody({ type: UserDto })

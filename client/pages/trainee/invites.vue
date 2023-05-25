@@ -1,20 +1,34 @@
 <template>
   <div class="container mx-auto flex justify-between mt-10">
-    <div class="text-xl font-medium mr-20" >
+    <div class="text-xl font-medium mr-20">
       <RadioGroup v-model="radioToggler">
-        <RadioGroupOption class="mb-5" v-slot="{ checked }" :value="CurrentComponents.AVIABLE">
+        <RadioGroupOption
+          v-slot="{ checked }"
+          class="mb-5"
+          :value="CurrentComponents.AVAILABLE"
+        >
           <span :class="checked ? 'font-bold' : ''">Доступные места</span>
         </RadioGroupOption>
-        <RadioGroupOption class="mb-5" v-slot="{ checked }" :value="CurrentComponents.INVITES">
+        <RadioGroupOption
+          v-slot="{ checked }"
+          class="mb-5"
+          :value="CurrentComponents.INVITES"
+        >
           <span :class="checked ? 'font-bold' : ''">Ваши приглашения</span>
         </RadioGroupOption>
-        <RadioGroupOption class="mb-5" v-slot="{ checked }" :value="CurrentComponents.SENDED">
+        <RadioGroupOption
+          v-slot="{ checked }"
+          class="mb-5"
+          :value="CurrentComponents.SENDED"
+        >
           <span :class="checked ? 'font-bold' : ''">Отправленные заявки</span>
         </RadioGroupOption>
       </RadioGroup>
     </div>
     <div class="w-full grid grid-cols-2 gap-10">
-      <component :is="listComponets[radioToggler as keyof typeof listComponets]" />
+      <component
+        :is="listComponets[radioToggler as keyof typeof listComponets]"
+      />
     </div>
   </div>
   <!-- <div>
@@ -74,27 +88,26 @@
 </template>
 
 <script setup lang="ts">
-import AvailableInvites from '~/components/trainee/AvailableInvites.vue';
-import SendedInvites from '~/components/trainee/SendedInvites.vue';
-import {
-  RadioGroup,
-  RadioGroupOption,
-} from '@headlessui/vue'
+import AvailableInvites from "~/components/trainee/AvailableInvites.vue";
+import SendedInvites from "~/components/trainee/SendedInvites.vue";
+import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
 
 enum CurrentComponents {
-  AVIABLE = "available",
-  INVITES = 'invites',
-  SENDED = 'sended'
+  AVAILABLE = "available",
+  INVITES = "invites",
+  SENDED = "sended",
 }
 
-const listComponets = { [CurrentComponents.AVIABLE]: AvailableInvites, [CurrentComponents.SENDED]: SendedInvites }
+const listComponets = {
+  [CurrentComponents.AVAILABLE]: AvailableInvites,
+  [CurrentComponents.SENDED]: SendedInvites,
+};
 
-const radioToggler = ref(CurrentComponents.AVIABLE);
-
+const radioToggler = ref(CurrentComponents.AVAILABLE);
 </script>
 
 <style scoped>
 span {
-  @apply pb-10
+  @apply pb-10;
 }
 </style>
