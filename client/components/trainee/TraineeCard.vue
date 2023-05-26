@@ -57,15 +57,25 @@
     </div> -->
     {{ trainee.userId }}
     <div class="flex items-center gap-x-10 mt-5">
-      <div class="black-btn text-center py-1">Пригласить на собеседование</div>
-      <div class="black-btn text-center py-4">Отказать</div>
+      <div @click="mentorApplicationStore.mentorSubmitApplication(+route.params.id,
+            trainee.userId!, FrameApplicationStatus.APPROVED)"
+          class="black-btn text-center py-1">
+        Пригласить на собеседование
+      </div>
+      <div @click="mentorApplicationStore.mentorSubmitApplication(+route.params.id,
+            trainee.userId!, FrameApplicationStatus.DECLINED)"
+      class="black-btn text-center py-4">Отказать</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ITrainee } from "~/types/types";
-import { declOfNum, getYears } from "public/scripts/getAge"
+import { ITrainee, FrameApplicationStatus } from "~/types/types";
+import { declOfNum, getYears } from "public/scripts/getAge";
+import { useMentorApplicationStore } from "~/stores/mentorApplicationStore";
+
+const mentorApplicationStore = useMentorApplicationStore();
+const route = useRoute();
 const props = defineProps<{ trainee: ITrainee }>();
 </script>
 
