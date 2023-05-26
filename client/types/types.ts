@@ -127,3 +127,8 @@ export enum CandidateApplicationFilter {
   RECOMMENDED = "Рекомендованные",
   NOT_RECOMMENDED = "Нерекомендованные",
 }
+
+export enum FrameApplicationFilter {
+  AVAILABLE = "available",
+  SENDED = "sended",
+}
