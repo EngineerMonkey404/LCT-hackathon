@@ -1,12 +1,12 @@
 <template>
     <div class="relative text-4xl font-bold p-10 shadow-slate-950 shadow-2xl rounded-3xl flex flex-col justify-between">
         <div>Статус заявки</div>
-        <NuxtImg class="my-20 text-center h-1/4" type="svg" src="/candidate/wait.svg" />
-        <div class="text-4xl mb-20">
+        <NuxtImg class="my-20 text-center" type="svg" src="/candidate/wait.svg" style="height: 200px;"/>
+        <div class="text-4xl text-center">
             Ожидайте
         </div>
-        <div class="mb-20 text-4xl">
-            Ваша заявка рассматривается
+        <div class="mb-10 text-4xl text-center">
+            Ваша заявка<br>рассматривается
         </div>
     </div>
 </template>

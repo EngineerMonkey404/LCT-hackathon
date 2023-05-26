@@ -1,12 +1,13 @@
 <template>
-  <div class="flex container mx-auto mt-10 justify-center items-stretch">
+  <div class="container mx-auto mt-10 flex justify-center items-stretch">
     <div class="relative mr-10">
       <EditCandidateApplication
         v-if="
           candidateApplicationStore.personalCandidateApplication?.applicationId
         "
+        class=""
       />
-      <CandidateApplication v-else/>
+      <CandidateApplication class="" v-else/>
     </div>
     <component
       :is="listStatus[candidateApplicationStore.personalCandidateApplication?.status as keyof typeof listStatus]"

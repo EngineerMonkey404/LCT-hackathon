@@ -1,12 +1,11 @@
 <template>
   <form
-    class="text-xl flex flex-col bg-white py-5 px-10 rounded-3xl shadow-slate-950 shadow-2xl max-lg:w-full max-sm font-semibold:mx-2"
+    class="text-xl flex flex-col bg-white py-5 px-10 rounded-3xl shadow-slate-950 shadow-2xl"
     @submit.prevent
   >
     <h2 class="text-2xl font-semibold mb-5">Создание заявки</h2>
     <label for="direction" class="mb-2">Направление*</label>
     <div id="direction" class="w-full rounded-3xl mb-5">
-      <!--оценить реализацию-->
       <Listbox v-model="application.direction">
         <div class="relative">
           <ListboxButton
@@ -124,7 +123,6 @@
       :content-array="education"
       @updates="application.education = $event"
     />
-    <!--need education in db-->
     <SelectList
       v-if="application.education === 'Неоконченное высшее'"
       :content-array="courses"
@@ -133,13 +131,13 @@
     <label class="mb-2 font-semibold text-xl" for="">Опыт работы*</label>
     <div>
       <input
-        id="noExpirience"
+        id="expirience"
         v-model="application.experience"
         class="ml-5 mb-5 mr-2 accent-black"
         type="radio"
         :value="true"
       />
-      <label for="noExpirience">У меня есть опыт работы</label>
+      <label for="expirience">У меня есть опыт работы</label>
     </div>
     <div v-if="application?.experience">
       <p class="mb-5 font-semibold text-xl">Должность</p>
@@ -195,11 +193,10 @@ const date = ref<string[]>([]);
 const application = ref<ICandidateApplication>({
   position: [],
   direction: Direction.HR,
-  education: "Неоконченное высшее",
+  education: "",
 });
 
 const education = ["Нет высшего", "Неоконченное высшее", "Высшее"];
-const selectedEducation = ref("Нет высшего");
 
 const courses = ["1 курс", "2 курс", "3 курс", "4 курс"];
 const numberJobs = ref(1);

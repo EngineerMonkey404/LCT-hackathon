@@ -75,6 +75,20 @@ export const useCandidateApplicationStore = defineStore(
       personalCandidateApplication.value = application ?? null;
     }
 
+    async function updateCandidateApplication(application: ICandidateApplication) {
+      const { data: newApplication } = await useApiFetch<
+        ICandidateApplication,
+        Error,
+        string,
+        "put"
+      >(`applications/candidate-application/${application.candidateId}`, {
+        method: "PUT",
+        body: application,
+      });
+      personalCandidateApplication.value = application ?? null;
+      personalCandidateApplication.value.status = FrameApplicationStatus.PENDING;
+    }
+
     async function submitCandidateApplication(
       applicationId: number,
       status: FrameApplicationStatus
@@ -143,6 +157,7 @@ export const useCandidateApplicationStore = defineStore(
       computerLiteracy,
       informationAnalysis,
       getPendingCandidateApplications,
+      updateCandidateApplication,
     };
   }
 );
