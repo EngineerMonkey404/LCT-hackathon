@@ -1,6 +1,6 @@
 <template>
-  <div class="container mx-auto mt-10 flex justify-center items-stretch">
-    <div class="relative mr-10">
+  <div class="lg:container lg:mx-auto mt-10 flex justify-center xl:items-stretch max-xl:adaptive-flex-col">
+    <div class="mr-10 max-xl:mr-0">
       <EditCandidateApplication
         v-if="
           candidateApplicationStore.personalCandidateApplication?.applicationId

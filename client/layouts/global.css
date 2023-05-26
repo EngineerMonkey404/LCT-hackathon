@@ -19,7 +19,7 @@
     }
 
     .radio-btn {
-        @apply hover:opacity-50 duration-150 ease-out text-2xl inline
+        @apply hover:opacity-50 duration-150 ease-out text-2xl inline max-md:text-xl
     }
 
 
@@ -34,12 +34,13 @@
     }
 
     .subheader {
-        @apply flex justify-center items-end bg-purple w-full h-44
+        @apply flex justify-center items-end bg-purple w-full h-44 max-md:hidden
     }
 
     .black-btn {
         @apply py-2 px-4 rounded-full text-white bg-black text-xl hover:cursor-pointer;
         @apply hover:opacity-60 transition duration-150 ease-out;
+        @apply  max-sm:px-2 max-sm:text-base
     }
 
     .card-style {
@@ -69,6 +70,10 @@
         width: 350px !important;
         height: 500px !important;
         overflow-x:hidden;
+    }
+
+    .adaptive-flex-col {
+        @apply flex flex-col items-center;
     }
     /*.ymaps-2-1-79-balloon {*/
     /*    width: 800px !important;*/

@@ -3,15 +3,15 @@
     class="relative shadow-slate-500 shadow-lg border-black border rounded-3xl w-full mb-20"
   >
     <div
-      class="p-10"
+      class="p-10 max-lg:py-4"
       :class="{
         'blur-sm':
           application.status === FrameApplicationStatus.PENDING ||
           application.status === FrameApplicationStatus.DECLINED,
       }"
     >
-      <div class="flex justify-between text-3xl font-bold">
-        <div v-if="props.application.position">
+      <div class="flex flex-col justify-between max-lg:text-xl">
+        <div class="mb-4 font-bold text-3xl" v-if="props.application.position">
           <span
             v-if="props.application.status === FrameApplicationStatus.APPROVED"
           >
@@ -23,16 +23,16 @@
           </span>
           {{ props.application.position }}
         </div>
-        <div>
+        <div class="text-2xl font-semibold">
           {{ props.application.organization.name }}
           {{ props.application.direction }}
         </div>
       </div>
       <hr class="mt-5 w-full" />
-      <div class="font-semibold text-3xl mt-10 mb-3">Описание</div>
-      <p class="text-2xl">{{ props.application.description }}</p>
-      <div class="font-semibold text-3xl mt-10 mb-5">Опыт работы</div>
-      <div class="mb-10 flex gap-x-5">
+      <div class="font-semibold text-3xl mt-10 mb-3 max-lg:text-xl">Описание</div>
+      <p class="text-2xl max-lg:text-lg">{{ props.application.description }}</p>
+      <div class="font-semibold text-3xl mt-10 mb-5 max-lg:text-xl">Опыт работы</div>
+      <div class="mb- flex gap-x-5">
         <div
           v-for="(exp, index) of props.application.workExperience"
           :key="index"
@@ -46,7 +46,7 @@
       v-if="application.status === FrameApplicationStatus.PENDING"
       class="absolute w-full h-full bg-black/20 top-0 rounded-3xl flex flex-col justify-center items-center"
     >
-      <div class="mb-10 text-5xl font-bold">Заявка проверяется</div>
+      <div class="mb-10 text-5xl font-bold max-lg:text-3xl text-center">Заявка проверяется</div>
       <div class="text-center flex">
         <NuxtLink :to="`/frame/edit/${application.applicationId}`">
           <div
@@ -69,7 +69,7 @@
       v-else-if="application.status === FrameApplicationStatus.DECLINED"
       class="absolute w-full h-full bg-black/20 top-0 rounded-3xl flex flex-col justify-center items-center"
     >
-      <div class="mb-10 text-5xl font-bold">Заявка отклонена</div>
+      <div class="mb-10 text-5xl font-bold max-lg:text-3xl text-center">Заявка отклонена</div>
 
       <div class="text-center flex">
         <div class="form-auth-input border bg-black text-white me-5">

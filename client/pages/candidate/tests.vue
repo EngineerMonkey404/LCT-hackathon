@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto mt-10 grid grid-cols-3 gap-10">
+    <div class="container mx-auto mt-10 grid grid-cols-3 gap-10 max-md:grid-cols-1">
         <Russiantest />
         <AnalysisInfoTest />
         <ComputerLiteracyTest />

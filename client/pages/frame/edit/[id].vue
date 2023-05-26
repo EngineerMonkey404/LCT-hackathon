@@ -1,11 +1,10 @@
 <template>
   <div
     v-if="application"
-    class="text-2xl py-5 px-10 w-1/2 mx-auto shadow-slate-950 shadow-2xl rounded-3xl mt-10"
+    class="text-2xl py-5 px-10 w-1/2 mx-auto shadow-slate-950 shadow-2xl rounded-3xl mt-10 max-xl:w-full"
   >
-    <div>{{ application.workExperience }}</div>
     <h1 class="text-3xl mb-10 font-bold">Создание заявки</h1>
-    <div class="flex justify-between row-inputs">
+    <div class="flex justify-between row-input max-sm:adaptive-flex-col">
       <div>
         <label class="block mb-2 font-semibold" for="job">Должность</label>
         <input
@@ -26,7 +25,7 @@
       </div>
       <div>
         <label class="block mb-2 font-semibold" for="adrees">
-          Адрес организации
+          Адрес
         </label>
         <input
           id="adress"
@@ -106,8 +105,8 @@ async function handleApplicationUpdate() {
 </script>
 
 <style scoped>
-.row-input > input {
-  width: 30%;
+.row-input input {
+  width: 80%;
   /* Убираем влияние padding и border на конечную ширину input */
   box-sizing: border-box;
   /* Обнуляем margin */
