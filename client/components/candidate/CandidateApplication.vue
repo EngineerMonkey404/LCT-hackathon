@@ -6,7 +6,6 @@
     <h2 class="text-2xl font-semibold mb-5">Создание заявки</h2>
     <label for="direction" class="mb-2">Направление*</label>
     <div id="direction" class="w-full rounded-3xl mb-5">
-      <!--оценить реализацию-->
       <Listbox v-model="application.direction">
         <div class="relative">
           <ListboxButton
@@ -195,7 +194,7 @@ const date = ref<string[]>([]);
 const application = ref<ICandidateApplication>({
   position: [],
   direction: Direction.HR,
-  education: "Неоконченное высшее",
+  education: "Нет высшего",
 });
 
 const education = ["Нет высшего", "Неоконченное высшее", "Высшее"];

@@ -3,3 +3,15 @@ export enum FrameApplicationStatus {
   DECLINED = 'declined',
   PENDING = 'pending',
 }
+
+export enum TraineeStatus {
+  APPROVED = 'approved',
+  DECLINED = 'declined',
+  PENDING = 'pending',
+}
+
+export enum MentorStatus {
+  APPROVED = 'approved',
+  DECLINED = 'declined',
+  PENDING = 'pending',
+}

@@ -22,18 +22,18 @@ export interface Organization {
 export const organizations: Organization[] = [
   {
     name: "Московская дирекция транспортного обслуживания",
-    coordinates: [],
+    coordinates: [55.75705, 37.621273],
     address: "Ул пушкина Дом калатушкина",
   },
 
   {
     name: 'Автономная некоммерческая организация "Московский экспортный центр"',
-    coordinates: [],
+    coordinates: [55.756422068978374, 37.64561749999996],
     address: "Ул пушкина Дом калатушкина",
   },
   {
     name: 'Автономная некоммерческая организация "Проектный офис по развитию туризма и гостеприимства Москвы',
-    coordinates: [],
+    coordinates: [55.76043356895892, 37.614419499999904],
     address: "Ул пушкина Дом калатушкина",
   },
 ];
@@ -59,7 +59,6 @@ export interface IFrameApplication {
   position?: string;
   direction?: Direction;
   organization: Organization;
-  address: string;
   workExperience: WorkExperience[];
   description: string;
   frameId: number;
@@ -124,4 +123,10 @@ export interface RegisterData {
   direction?: Direction;
   organization?: Organization;
   image: { url: string; file: File | null };
+}
+
+export enum CandidateApplicationFilter {
+  ALL = "Все",
+  RECOMMENDED = "Рекомендованные",
+  NOT_RECOMMENDED = "Нерекомендованные",
 }

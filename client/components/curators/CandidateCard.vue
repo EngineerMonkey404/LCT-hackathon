@@ -108,10 +108,11 @@ const props = defineProps<{ application: ICandidateApplication }>();
 const candidateApplicationStore = useCandidateApplicationStore();
 const date = ref<Date>(new Date());
 const user: IUser =
-  (await userStore.getUserById(props.application.candidateId!)) ?? {};
+  (await userStore.getUserById(props.application.candidateId)) ?? {};
 if (props.application) {
   date.value = props.application.date ?? new Date();
 }
+console.log(user);
 
 function getYears(dob: Date) {
   const month_diff = Date.now() - dob.getTime();

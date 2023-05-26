@@ -1,4 +1,9 @@
-import { FrameApplicationStatus, ICandidateApplication } from "~/types/types";
+import {
+  CandidateApplicationFilter,
+  FrameApplicationStatus,
+  ICandidateApplication,
+  IUser,
+} from "~/types/types";
 
 export const useCandidateApplicationStore = defineStore(
   "CandidateApplicationStore",
@@ -14,6 +19,40 @@ export const useCandidateApplicationStore = defineStore(
       //status.value = 'wait'
       //if (listCandidatesApplications.value[id]) return listCandidatesApplications.value[id].status
     };
+
+    function getFilteredCandidateApplications(
+      candidateApplicationFilter: CandidateApplicationFilter
+    ) {
+      if (allCandidateApplications.value) {
+        if (
+          candidateApplicationFilter === CandidateApplicationFilter.RECOMMENDED
+        ) {
+          return allCandidateApplications.value.filter(
+            (application) =>
+              application.nationality === "Российское" &&
+              (application.education === "Высшее" ||
+                (application.education === "Неоконченное высшее" &&
+                  application.course === "4 курс"))
+          );
+        } else if (
+          candidateApplicationFilter ===
+          CandidateApplicationFilter.NOT_RECOMMENDED
+        ) {
+          return allCandidateApplications.value.filter(
+            (application) =>
+              !(
+                application.nationality === "Российское" &&
+                (application.education === "Высшее" ||
+                  (application.education === "Неоконченное высшее" &&
+                    application.course === "4 курс"))
+              )
+          );
+        } else if (
+          candidateApplicationFilter === CandidateApplicationFilter.ALL
+        )
+          return allCandidateApplications.value;
+      }
+    }
 
     async function getCandidateApplicationById(id: number) {
       const { data: fetchedApplication, error } = await useApiFetch<
@@ -143,6 +182,7 @@ export const useCandidateApplicationStore = defineStore(
       computerLiteracy,
       informationAnalysis,
       getPendingCandidateApplications,
+      getFilteredCandidateApplications,
     };
   }
 );

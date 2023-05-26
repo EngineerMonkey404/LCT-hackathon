@@ -103,9 +103,7 @@
       <span class="ml-3">Добавить требуемый опыт работы</span>
     </button>
     <NuxtLink to="/frame/create-test">
-      <button class="black-btn block">
-        Создать тестовое задание
-      </button>
+      <button class="black-btn block">Создать тестовое задание</button>
     </NuxtLink>
     <button
       class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover"
@@ -139,7 +137,6 @@ const application = ref<IFrameApplication>({
     coordinates: [0, 0],
   },
   position: "",
-  address: "",
   description: "",
   workExperience: [],
   frameId: userStore.user!.userId!,
@@ -162,6 +159,7 @@ function getMentorName(mentor: IUser) {
 }
 
 const createApplication = async () => {
+  console.log("user", userStore.user);
   application.value.mentorId = mentor.value.userId;
   application.value.organization = {
     name: userStore.user?.organizationName ?? "",

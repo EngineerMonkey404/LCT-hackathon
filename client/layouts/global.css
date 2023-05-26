@@ -60,4 +60,19 @@
         @apply flex flex-col h-full place-content-center ;
     }
 
+    .yandex-container {
+        height: 1000px;
+        width: 1000px;
+    }
+
+    .yandex-balloon {
+        width: 350px !important;
+        height: 500px !important;
+        overflow-x:hidden;
+    }
+    /*.ymaps-2-1-79-balloon {*/
+    /*    width: 800px !important;*/
+    /*    height: 800px !important;*/
+    /*}*/
+
 }
