@@ -101,8 +101,8 @@ export interface ICandidateApplication {
 }
 
 export interface Position {
-  applicationId: number;
-  positionId: number;
+  applicationId?: number;
+  positionId?: number;
   value?: string;
 }
 
@@ -149,9 +149,8 @@ export interface IQuestion {
   rightAnswer: AnswerVariant;
 }
 
-
 export interface ITest {
-  questions: IQuestion[],
+  questions: IQuestion[];
   applicationId: number;
-  testId:number;
+  testId: number;
 }

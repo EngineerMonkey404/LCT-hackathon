@@ -7,6 +7,7 @@
     <div
       v-if="application"
       class="relative shadow-slate-500 shadow-lg border-black border rounded-3xl w-full mb-20"
+      style="height: 800px"
     >
       <div class="p-10">
         <div class="flex flex-col">

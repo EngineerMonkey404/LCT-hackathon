@@ -12,7 +12,7 @@
         v-model="answers[i]"
         class="grid grid-cols-2 w-full gap-y-5 mt-5"
       >
-        <RadioGroupOption v-slot="{ checked }" :value="'d'">
+        <RadioGroupOption v-slot="{ checked }" :value="'a'">
           <div class="black-btn" :class="checked ? 'bg-violet-500' : ''">А</div>
           <span>{{ question.variantA }}</span>
         </RadioGroupOption>
@@ -33,9 +33,7 @@
     <div class="black-btn mt-20" style="display: block" @click="handleResult">
       Отправить тест
     </div>
-    <div v-if="result" class="text-center text-2xl mt-10">
-      Результат: {{ result }}%
-    </div>
+    <div class="text-center text-2xl mt-10" v-if="submitted">Результат: {{ result }}%</div>
   </div>
 </template>
 
@@ -50,22 +48,22 @@ const userStore = useUserStore();
 const testStore = useTestStore();
 // из рутов достаем тест
 
+const submitted = ref(false;)
 const answers = ref([]);
 const result = ref(0);
 
 function handleResult() {
   //надо отвечать на все вопросы
-  let i = 0;
-  answers.value.forEach((element) => {
-    if (element === testStore.currentTest[i].rightAnswer) {
+  answers.value.forEach((element, index) => {
+    if (element === testStore.currentTest[index].rightAnswer) {
       result.value += 1;
     }
-    console.log(result.value);
-    i += 1;
   });
-  console.log(test.length);
-  result.value = Math.round((result.value / test.length) * 100);
-  traineeStore.submitTraineeRespond(+route.params.id, userStore.user?.userId!);
+  result.value = Math.round(
+    (result.value / testStore.currentTest.length) * 100
+  );
+  submitted.value = true;
+  // traineeStore.submitTraineeRespond(+route.params.id, userStore.user?.userId!);
 }
 </script>
 
