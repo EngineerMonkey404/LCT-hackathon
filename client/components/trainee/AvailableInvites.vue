@@ -11,13 +11,13 @@
       <div class="p-10">
         <div class="flex flex-col">
           <div v-if="application.position" class="text-3xl font-bold mb-4">
-            {{ application.position }}
+            {{ application.position + " " + application.applicationId }}
           </div>
           <div class="text-2xl">{{ application.organization.name }}</div>
         </div>
         <hr class="mt-5 w-full" />
         <div class="font-semibold text-3xl mt-10 mb-3">Описание</div>
-        <p class="text-2xl">{{ application.description }}</p>
+        <p class="text-2xl break-words">{{ application.description }}</p>
         <div class="font-semibold text-3xl mt-10 mb-5">Опыт работы</div>
         <div class="mb-10 flex gap-x-5">
           <div
@@ -55,9 +55,9 @@
           Для отклика на эту стажировку Вам необходимо пройти тестовое задание
         </div>
         <div class="flex justify-between mt-10 px-10">
-          <button @click="handleApplication(currentApplicationId!)">
-            Пройти
-          </button>
+          <NuxtLink to="/trainee/solve-test">
+            <button>Пройти</button>
+          </NuxtLink>
           <button @click="setIsOpen(false)">Позже</button>
         </div>
       </DialogPanel>
@@ -73,6 +73,7 @@ import { useTraineeStore } from "~/stores/traineeStore";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 import { FrameApplicationFilter, IFrameApplication } from "~/types/types";
 import { Dialog, DialogPanel } from "@headlessui/vue";
+import { useTestStore } from "~/stores/testStore";
 
 const isOpen = ref(false);
 
@@ -87,7 +88,7 @@ const frameApplicationsStore = useFrameApplicationsStore();
 const traineeStore = useTraineeStore();
 const userStore = useUserStore();
 const applicationCurrent = ref<IFrameApplication>();
-
+const testStore = useTestStore();
 const map = ref<InstanceType<typeof MapComp> | null>(null);
 
 await frameApplicationsStore.getApprovedFrameApplications();
@@ -104,9 +105,15 @@ function handleMap(application: IFrameApplication) {
   console.log(applicationCurrent.value);
 }
 
-function handleApplication(applicationId: number) {
-  //traineeStore.submitTraineeRespond(applicationId, userStore.user?.userId!);
-  return navigateTo(`/trainee/solve-test/${applicationId}`);
+async function handleApplication(applicationId: number) {
+  await testStore.getTestByFrameApplicationId(applicationId);
+  if (testStore.currentTest) {
+    console.log(testStore.currentTest);
+    setIsOpen(true);
+  }
+
+  // traineeStore.submitTraineeRespond(applicationId, userStore.user!.userId!);
+  // return navigateTo(`/trainee/solve-test/${applicationId}`);
 }
 
 //const applications = await frameApplicationsStore.getApprovedFrameApplications();

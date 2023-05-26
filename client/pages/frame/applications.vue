@@ -4,11 +4,12 @@
       <strong>Заявки</strong>
       | Тестовые задания
     </h2>
-    <div class="flex w-full">
+    <div class="flex gap-x-20">
       <div class="me-10">
         <NuxtLink to="/frame/create-frame-application">
           <button
             class="block mb-4 form-auth-input text-white bg-black text-2xl font-semibold black-btn-hover"
+            @click="testStore.creationTest.length = 0"
           >
             Создать заявку на стажера
           </button>
@@ -39,12 +40,9 @@
           </RadioGroupOption>
         </RadioGroup>
       </div>
-      <div class="relative mt-19 mr-10 w-full">
+      <div class="relative mt-19 mr-10">
         <Transition>
-          <div
-            v-if="filterApplications === FilterApplications.ALL"
-            class="grid grid-cols0 absolute w-full"
-          >
+          <div v-if="filterApplications === FilterApplications.ALL">
             <ApplicationCard
               v-for="application in frameApplicationsStore.personalFrameApplications"
               :key="application.applicationId"
@@ -55,7 +53,7 @@
           </div>
           <div
             v-else-if="filterApplications === FilterApplications.APPROVED"
-            class="grid grid-cols0 absolute w-full"
+            class=""
           >
             <ApprovedAplications />
           </div>
@@ -72,6 +70,7 @@ import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 import { useUserStore } from "~/stores/userStore";
 import { definePageMeta } from "#imports";
 import ApprovedAplications from "~/components/frame/ApprovedAplications.vue";
+import { useTestStore } from "~/stores/testStore";
 
 const radioToggler = ref("application");
 
@@ -79,6 +78,7 @@ enum FilterApplications {
   ALL = "all",
   APPROVED = "approved",
 }
+const testStore = useTestStore();
 const filterApplications = ref<FilterApplications>(FilterApplications.ALL);
 const frameApplicationsStore = useFrameApplicationsStore();
 const userStore = useUserStore();

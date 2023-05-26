@@ -40,6 +40,12 @@ export class FrameApplicationsController {
     return await this.applicationService.createApplication(application);
   }
 
+  @ApiOperation({ summary: 'Получение ментора по id заявки' })
+  @Get('frame-application/:application_id/mentor/')
+  async getMentorByApplicationId(@Param('application_id') id: number) {
+    return await this.applicationService.getMentorByApplicationId(id);
+  }
+
   @ApiOperation({ summary: 'Получение всех заявок по id ментора' })
   @Get('frame-application/mentor/:mentor_id')
   async getApplicationsByMentorId(@Param('id') id: number) {

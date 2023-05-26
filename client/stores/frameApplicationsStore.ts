@@ -5,12 +5,25 @@ import {
   Direction,
   FrameApplicationFilter,
 } from "~/types/types";
+import { useUserStore } from "~/stores/userStore";
 
 export const useFrameApplicationsStore = defineStore("applications", () => {
+  const userStore = useUserStore();
   const personalFrameApplications = ref<IFrameApplication[]>([]);
   const allFrameApplications = ref<IFrameApplication[]>([]);
   const allApprovedFrameApplications = ref<IFrameApplication[]>([]);
   const traineeFrameApplicationIds = ref<number[]>([]);
+  const creationApplication = ref<IFrameApplication>({
+    organization: userStore.user?.organization ?? {
+      name: "",
+      address: "",
+      coordinates: [0, 0],
+    },
+    position: "",
+    description: "",
+    workExperience: [],
+    frameId: userStore.user!.userId!,
+  });
   const mentors = ref<IUser[]>([]);
   const approvedFrameApplications = computed(() => {
     return personalFrameApplications.value.filter(
@@ -125,11 +138,8 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
   // }
 
   async function createApplication(application: IFrameApplication) {
-    console.log(application.direction);
-
-    console.log("organization", application.organization);
-    const { data: newApplication } = await useApiFetch<
-      IFrameApplication,
+    const { data: appId } = await useApiFetch<
+      number,
       Error,
       string,
       "post" | "get"
@@ -137,10 +147,24 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       method: "POST",
       body: application,
     });
-    if (newApplication.value) {
-      newApplication.value.status = FrameApplicationStatus.PENDING;
-      personalFrameApplications.value.push(newApplication.value);
-    }
+
+    creationApplication.value = {
+      organization: userStore.user?.organization ?? {
+        name: "",
+        address: "",
+        coordinates: [0, 0],
+      },
+      position: "",
+      description: "",
+      workExperience: [],
+      frameId: userStore.user!.userId!,
+    };
+    console.log("ID", appId.value);
+    return appId.value;
+    // if (newApplication.value) {
+    //   newApplication.value.status = FrameApplicationStatus.PENDING;
+    //   personalFrameApplications.value.push(newApplication.value);
+    // }
   }
 
   async function deleteApplication(id: number) {
@@ -150,6 +174,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
         method: "DELETE",
       }
     );
+    await useApiFetch(`/tests/test/${id}`, { method: "DELETE" });
     personalFrameApplications.value.splice(
       personalFrameApplications.value.findIndex(
         (elem) => elem.applicationId === id
@@ -211,5 +236,6 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     mentors,
     getTraineeFrameApplicationIds,
     getFilteredFrameApplications,
+    creationApplication,
   };
 });

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -28,6 +29,11 @@ export class TestsController {
   @Get('test/:applicationId')
   async getTest(@Param('applicationId', ParseIntPipe) applicationId: number) {
     return await this.testService.getTestByFrameApplicationId(applicationId);
+  }
+
+  @Delete('test/:applicationId')
+  async deleteTest(@Param('application_id') applicationId: number) {
+    await this.testService.deleteTest(applicationId);
   }
 
   @ApiBody({ type: IAnswer, isArray: true })

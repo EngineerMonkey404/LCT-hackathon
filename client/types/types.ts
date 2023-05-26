@@ -132,3 +132,26 @@ export enum FrameApplicationFilter {
   AVAILABLE = "available",
   SENDED = "sended",
 }
+
+export interface IAnswer {
+  questionId: number;
+  answer: AnswerVariant;
+}
+
+export type AnswerVariant = "a" | "b" | "c" | "d" | null;
+
+export interface IQuestion {
+  question: string;
+  variantA: string;
+  variantB: string;
+  variantC: string;
+  variantD: string;
+  rightAnswer: AnswerVariant;
+}
+
+
+export interface ITest {
+  questions: IQuestion[],
+  applicationId: number;
+  testId:number;
+}

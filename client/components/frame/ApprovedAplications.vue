@@ -1,6 +1,6 @@
 <template>
   <div v-for="application of frameApplicationsStore.approvedFrameApplications">
-    <div class="relative w-full mb-20 card-style">
+    <div class="relative mb-20 card-style">
       <div class="flex justify-between text-3xl font-bold">
         <div v-if="application.position">
           {{ application.position }}
@@ -9,7 +9,9 @@
       </div>
       <hr class="mt-5 w-full" />
       <div class="font-semibold text-3xl mt-10 mb-3">Описание</div>
-      <p class="text-2xl">{{ application.description }}</p>
+      <div class="text-2xl break-all w-full">
+        {{ application.description }}
+      </div>
       <div class="font-semibold text-3xl mt-10 mb-5">Опыт работы</div>
       <div class="mb-10 flex gap-x-5">
         <div

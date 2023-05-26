@@ -9,7 +9,7 @@
       </div>
       <hr class="mt-5" />
       <div class="font-semibold mt-10 mb-3 text-xl">Описание</div>
-      <p class="text-xl">{{ props.application.description }}</p>
+      <p class="text-xl break-words">{{ props.application.description }}</p>
       <div class="font-semibold mt-10 mb-5">Опыт работы</div>
       <div class="flex gap-x-5">
         <div

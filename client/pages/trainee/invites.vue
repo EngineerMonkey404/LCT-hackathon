@@ -26,7 +26,6 @@
 
 <script setup lang="ts">
 import AvailableInvites from "~/components/trainee/AvailableInvites.vue";
-import SendedInvites from "~/components/trainee/SendedInvites.vue";
 import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
 import { FrameApplicationFilter } from "~/types/types";
 

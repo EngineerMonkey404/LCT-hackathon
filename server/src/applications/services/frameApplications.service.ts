@@ -29,6 +29,15 @@ export class FrameApplicationsService {
     private traineeOnFrameApplicationModel: typeof TraineeOnFrameApplication,
   ) {}
 
+  async getMentorByApplicationId(applicationId: number) {
+    const id = (
+      await this.frameApplicationModel.findOne({
+        where: { applicationId: applicationId },
+      })
+    ).mentorId;
+    return await this.userModel.findOne({ where: { userId: id } });
+  }
+
   async getMentorsByDirection(direction: Direction) {
     return await this.userModel.findAll({
       where: { direction: direction, role: Role.MENTOR },
@@ -48,7 +57,7 @@ export class FrameApplicationsService {
       return { applicationId: app.applicationId, value: element };
     });
     await this.workExperienceModel.bulkCreate(workExperience);
-    return app.id;
+    return app.applicationId;
   }
 
   async submitTraineeByMentor(
