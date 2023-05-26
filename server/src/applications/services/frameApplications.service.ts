@@ -4,7 +4,11 @@ import { FrameApplication } from '../models/frame/frameApplication.model';
 import { WorkExperience } from '../models/frame/workExperience.model';
 import { CreateFrameApplicationDto } from '../models/frame/CreateFrameApplicationDto';
 import { IFrameApplication } from '../models/frame/frameApplication.interface';
-import { FrameApplicationStatus } from '../models/frame/frameApplicationStatus.enum';
+import {
+  FrameApplicationStatus,
+  MentorStatus,
+  TraineeStatus,
+} from '../models/frame/frameApplicationStatus.enum';
 import { TraineeOnFrameApplication } from '../models/frame/traineeOnFrameApplication.model';
 import { User } from '../../auth/models/user.model';
 import { CandidateApplication } from '../models/candidate/candidateApplication.model';
@@ -45,6 +49,34 @@ export class FrameApplicationsService {
     });
     await this.workExperienceModel.bulkCreate(workExperience);
     return app.id;
+  }
+
+  async submitTraineeByMentor(
+    traineeId: number,
+    applicationId: number,
+    status: MentorStatus,
+  ) {
+    await this.traineeOnFrameApplicationModel.update(
+      { mentorStatus: status },
+      { where: { traineeId: traineeId, applicationId: applicationId } },
+    );
+  }
+
+  async submitTraineeByFrame(
+    traineeId: number,
+    applicationId: number,
+    status: TraineeStatus,
+  ) {
+    await this.traineeOnFrameApplicationModel.update(
+      { traineeStatus: status },
+      { where: { traineeId: traineeId, applicationId: applicationId } },
+    );
+  }
+
+  async getApplicationByMentorId(mentorId: number) {
+    return await this.frameApplicationModel.findAll({
+      where: { mentorId: mentorId },
+    });
   }
 
   async getFrameApplications() {

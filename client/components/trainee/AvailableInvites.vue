@@ -1,47 +1,65 @@
 <template>
-  <div v-for="application of frameApplicationsStore.allApprovedFrameApplications">
-    <div class="relative shadow-slate-500 shadow-lg border-black border rounded-3xl w-full mb-20">
+  <div
+    v-for="application of frameApplicationsStore.allApprovedFrameApplications"
+  >
+    <div
+      class="relative shadow-slate-500 shadow-lg border-black border rounded-3xl w-full mb-20"
+    >
       <div class="p-10">
-        <div class="flex justify-between text-3xl font-bold">
-          <div v-if="application.position">
+        <div class="flex flex-col">
+          <div v-if="application.position" class="text-3xl font-bold mb-4">
             {{ application.position }}
           </div>
-          <div>{{ application.organization }}</div>
+          <div class="text-2xl">{{ application.organization.name }}</div>
         </div>
         <hr class="mt-5 w-full" />
         <div class="font-semibold text-3xl mt-10 mb-3">Описание</div>
         <p class="text-2xl">{{ application.description }}</p>
         <div class="font-semibold text-3xl mt-10 mb-5">Опыт работы</div>
         <div class="mb-10 flex gap-x-5">
-          <div v-for="(exp, index) of application.workExperience" :key="index" class="mb-8">
+          <div
+            v-for="(exp, index) of application.workExperience"
+            :key="index"
+            class="mb-8"
+          >
             <span class="form-auth-input text-xl">{{ exp.value }}</span>
           </div>
         </div>
       </div>
       <div class="mb-20 mx-10 flex justify-between">
-        <button @click="setIsOpen(true, application.applicationId)">
+        <button @click="handleApplication(application.applicationId!)">
           Оставить заявку
         </button>
         <button @click="handleMap(application)">Посмотреть на карте</button>
       </div>
     </div>
   </div>
-  <MapComp ref="map" :application="applicationCurrent!" />
-    <Dialog class="absolute top-0 z-10 w-screen bg-black/40"
-    :open="isOpen" @close="setIsOpen">
-    <div class="flex min-h-screen items-center justify-center p-4 text-center ">
-      <DialogPanel class="card-style w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left 
-                    align-middle transition-all">
+  <MapComp
+    v-if="applicationCurrent"
+    ref="map"
+    :application="applicationCurrent"
+  />
+  <Dialog
+    class="absolute top-0 z-10 w-screen bg-black/40"
+    :open="isOpen"
+    @close="setIsOpen"
+  >
+    <div class="flex min-h-screen items-center justify-center p-4 text-center">
+      <DialogPanel
+        class="card-style w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle transition-all"
+      >
         <div class="text-3xl font-semibold text-center">
           Для отклика на эту стажировку Вам необходимо пройти тестовое задание
         </div>
         <div class="flex justify-between mt-10 px-10">
-          <button @click="handleApplication(currentApplicationId!)">Пройти</button>
+          <button @click="handleApplication(currentApplicationId!)">
+            Пройти
+          </button>
           <button @click="setIsOpen(false)">Позже</button>
         </div>
       </DialogPanel>
     </div>
-    </Dialog>
+  </Dialog>
 </template>
 
 <script setup lang="ts">
@@ -51,12 +69,9 @@ import { useUserStore } from "~/stores/userStore";
 import { useTraineeStore } from "~/stores/traineeStore";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 import { IFrameApplication } from "~/types/types";
-import {
-  Dialog,
-  DialogPanel,
-} from '@headlessui/vue'
+import { Dialog, DialogPanel } from "@headlessui/vue";
 
-const isOpen = ref(false)
+const isOpen = ref(false);
 
 function setIsOpen(value: boolean, applicationId?: number) {
   if (applicationId) currentApplicationId.value = applicationId;
@@ -67,14 +82,13 @@ function setIsOpen(value: boolean, applicationId?: number) {
 const frameApplicationsStore = useFrameApplicationsStore();
 const traineeStore = useTraineeStore();
 const userStore = useUserStore();
-const applicationCurrent = ref<IFrameApplication>()
+const applicationCurrent = ref<IFrameApplication>();
 
 const map = ref<InstanceType<typeof MapComp> | null>(null);
 
+await frameApplicationsStore.getApprovedFrameApplications();
 //for modal dialog
 const currentApplicationId = ref<number>();
-
-await frameApplicationsStore.getApprovedFrameApplications()
 
 function handleMap(application: IFrameApplication) {
   map.value?.open();
@@ -84,7 +98,7 @@ function handleMap(application: IFrameApplication) {
 
 function handleApplication(applicationId: number) {
   //traineeStore.submitTraineeRespond(applicationId, userStore.user?.userId!);
-  return navigateTo(`/trainee/solve-test/${applicationId}`)
+  return navigateTo(`/trainee/solve-test/${applicationId}`);
 }
 
 //const applications = await frameApplicationsStore.getApprovedFrameApplications();
@@ -94,10 +108,24 @@ function handleApplication(applicationId: number) {
   return traineesId?.includes(userStore.user?.userId!)
 }  */
 </script>
-  
+
 <style scoped>
 button {
-  @apply black-btn
+  @apply black-btn;
+}
+
+.yandex-container {
+  height: 1000px;
+  width: 1000px;
+}
+
+.yandex-balloon {
+  width: 330px !important;
+  height: 500px !important;
+}
+.ymaps-2-1-79-balloon {
+  width: 330px !important;
+  height: 500px !important;
+  min-height: auto !important;
 }
 </style>
-  

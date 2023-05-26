@@ -18,7 +18,10 @@ import { JwtGuard } from '../../auth/guards/jwt.guard';
 import { Role } from '../../auth/models/role.enum';
 import { RequireRoles } from '../../auth/guards/roles.decorator';
 import { IFrameApplication } from '../models/frame/frameApplication.interface';
-import { FrameApplicationStatus } from '../models/frame/frameApplicationStatus.enum';
+import {
+  FrameApplicationStatus,
+  MentorStatus,
+} from '../models/frame/frameApplicationStatus.enum';
 import { User } from '../../auth/models/user.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { Direction } from '../../auth/models/direction.enum';
@@ -35,6 +38,40 @@ export class FrameApplicationsController {
   @Post('frame-application')
   async createApplication(@Body() application: CreateFrameApplicationDto) {
     return await this.applicationService.createApplication(application);
+  }
+
+  @ApiOperation({ summary: 'Получение всех заявок по id ментора' })
+  @Get('frame-application/mentor/:mentor_id')
+  async getMentorsByApplicationId(@Param('id') id: number) {
+    return await this.applicationService.getApplicationByMentorId(id);
+  }
+
+  @ApiOperation({ summary: 'Подтверждение отклика ментором' })
+  @Put('frame-application/:application_id/mentor-submit/:trainee_id')
+  async submitTraineeByMentor(
+    @Param('application_id') applicationId: number,
+    @Param('trainee_id') traineeId: number,
+    @Query('status') status: MentorStatus,
+  ) {
+    await this.applicationService.submitTraineeByMentor(
+      traineeId,
+      applicationId,
+      status,
+    );
+  }
+
+  @ApiOperation({ summary: 'Подтверждение отклика кадром' })
+  @Put('frame-application/:application_id/frame-submit/:trainee_id')
+  async submitTraineeByFrame(
+    @Param('application_id') applicationId: number,
+    @Param('trainee_id') traineeId: number,
+    @Query('status') status: MentorStatus,
+  ) {
+    await this.applicationService.submitTraineeByMentor(
+      traineeId,
+      applicationId,
+      status,
+    );
   }
 
   @ApiOperation({ summary: 'Получение всех наставников по направлению' })
