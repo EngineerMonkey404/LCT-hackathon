@@ -73,10 +73,18 @@ export class FrameApplicationsService {
     );
   }
 
-  async getApplicationByMentorId(mentorId: number) {
+  async getApplicationsByMentorId(mentorId: number) {
     return await this.frameApplicationModel.findAll({
       where: { mentorId: mentorId },
     });
+  }
+
+  async getTraineeFrameApplicationIds(traineeId: number) {
+    return (
+      await this.traineeOnFrameApplicationModel.findAll({
+        where: { traineeId },
+      })
+    ).map((obj) => obj.applicationId);
   }
 
   async getFrameApplications() {

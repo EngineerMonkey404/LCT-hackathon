@@ -1,8 +1,11 @@
 <template>
   <div
-    v-for="application of frameApplicationsStore.allApprovedFrameApplications"
+    v-for="application of frameApplicationsStore.getFilteredFrameApplications(
+      props.filter
+    )"
   >
     <div
+      v-if="application"
       class="relative shadow-slate-500 shadow-lg border-black border rounded-3xl w-full mb-20"
     >
       <div class="p-10">
@@ -68,7 +71,7 @@ import MapComp from "./MapComp.vue";
 import { useUserStore } from "~/stores/userStore";
 import { useTraineeStore } from "~/stores/traineeStore";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
-import { IFrameApplication } from "~/types/types";
+import { FrameApplicationFilter, IFrameApplication } from "~/types/types";
 import { Dialog, DialogPanel } from "@headlessui/vue";
 
 const isOpen = ref(false);
@@ -78,6 +81,7 @@ function setIsOpen(value: boolean, applicationId?: number) {
   isOpen.value = value;
 }
 
+const props = defineProps<{ filter: FrameApplicationFilter }>();
 //need application withou trainee
 const frameApplicationsStore = useFrameApplicationsStore();
 const traineeStore = useTraineeStore();
@@ -87,6 +91,10 @@ const applicationCurrent = ref<IFrameApplication>();
 const map = ref<InstanceType<typeof MapComp> | null>(null);
 
 await frameApplicationsStore.getApprovedFrameApplications();
+if (userStore.user && userStore.user.userId)
+  await frameApplicationsStore.getTraineeFrameApplicationIds(
+    userStore.user.userId
+  );
 //for modal dialog
 const currentApplicationId = ref<number>();
 

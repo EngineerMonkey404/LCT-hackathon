@@ -3,12 +3,14 @@ import {
   IFrameApplication,
   FrameApplicationStatus,
   Direction,
+  FrameApplicationFilter,
 } from "~/types/types";
 
 export const useFrameApplicationsStore = defineStore("applications", () => {
   const personalFrameApplications = ref<IFrameApplication[]>([]);
   const allFrameApplications = ref<IFrameApplication[]>([]);
   const allApprovedFrameApplications = ref<IFrameApplication[]>([]);
+  const traineeFrameApplicationIds = ref<number[]>([]);
   const mentors = ref<IUser[]>([]);
   const approvedFrameApplications = computed(() => {
     return personalFrameApplications.value.filter(
@@ -27,6 +29,31 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     if (fetchedMentors.value) {
       mentors.value = fetchedMentors.value;
     }
+  }
+
+  async function getTraineeFrameApplicationIds(traineeId: number) {
+    const { data: fetchedIds, error } = await useApiFetch<number[]>(
+      `applications/frame-application/trainee/${traineeId}`,
+      {
+        method: "GET",
+      }
+    );
+    if (fetchedIds.value) {
+      traineeFrameApplicationIds.value = fetchedIds.value;
+    }
+  }
+
+  function getFilteredFrameApplications(
+    filter: FrameApplicationFilter
+  ): IFrameApplication[] {
+    if (allApprovedFrameApplications.value) {
+      if (filter === FrameApplicationFilter.SENDED) {
+        return approvedFrameApplications.value.filter((application) =>
+          traineeFrameApplicationIds.value.includes(application.applicationId!)
+        );
+      } else return allApprovedFrameApplications.value;
+    }
+    return [];
   }
 
   async function getApplicationsByFrameId(id: number) {
@@ -182,5 +209,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     personalApprovedApplications,
     getMentorsByDirection,
     mentors,
+    getTraineeFrameApplicationIds,
+    getFilteredFrameApplications,
   };
 });
