@@ -1,10 +1,10 @@
 <template>
-  <div class="container mx-auto">
+  <div class="lg:container lg:mx-auto">
     <div v-if="trainees?.length">
       <div class="text-4xl text-center mb-20 mt-10">
         На эту стажировку откликнулись
       </div>
-      <div class="grid grid-cols-3 gap-10">
+      <div class="grid grid-cols-3 gap-10 max-xl:grid-cols-2 max-xl:px-3 max-md:gap-5 max-sm:grid-cols-1">
         <div v-for="trainee of trainees">
           <TraineeCard :trainee="trainee" />
         </div>
