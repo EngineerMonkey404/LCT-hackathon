@@ -1,18 +1,25 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export interface Question {
+export type AnswerVariant = 'a' | 'b' | 'c' | 'd';
+
+export class IQuestion {
+  @ApiProperty()
   question: string;
+  @ApiProperty()
   variantA: string;
+  @ApiProperty()
   variantB: string;
+  @ApiProperty()
   variantC: string;
+  @ApiProperty()
   variantD: string;
-  rightAnswer: string;
+  @ApiProperty()
+  rightAnswer: AnswerVariant;
 }
 
-export class CreateTestDto {
+export class IAnswer {
   @ApiProperty()
-  applicationId: number;
-
+  questionId: number;
   @ApiProperty()
-  questions: Question[];
+  answer: AnswerVariant;
 }
