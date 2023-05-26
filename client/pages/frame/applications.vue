@@ -1,20 +1,20 @@
 <template>
-  <div class="container mx-auto">
+  <div class="lg:container lg:mx-auto">
     <h2 class="text-center text-3xl my-8">
       <strong>Заявки</strong>
       | Тестовые задания
     </h2>
-    <div class="flex gap-x-20">
-      <div class="me-10">
+    <div class="flex w-full max-md:adaptive-flex-col max-md:px-5">
+      <div class="me-10 max-lg:ml-3 max-md:text-center">
         <NuxtLink to="/frame/create-frame-application">
           <button
-            class="block mb-4 form-auth-input text-white bg-black text-2xl font-semibold black-btn-hover"
+            class="black-btn text-2xl font-semibold mb-3 max-md:text-xl max-md:w-full"
             @click="testStore.creationTest.length = 0"
           >
-            Создать заявку на стажера
+            Создать заявку <span class="max-md:hidden">на стажера</span>
           </button>
         </NuxtLink>
-        <RadioGroup v-model="filterApplications">
+        <RadioGroup class="max-md:flex max-md:gap-x-3" v-model="filterApplications">
           <RadioGroupOption
             v-slot="{ checked }"
             class="mb-4"
@@ -40,7 +40,7 @@
           </RadioGroupOption>
         </RadioGroup>
       </div>
-      <div class="relative mt-19 mr-10">
+      <div class="relative mt-19 mr-10 w-full max-md:mx-5">
         <Transition>
           <div v-if="filterApplications === FilterApplications.ALL">
             <ApplicationCard

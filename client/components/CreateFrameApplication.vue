@@ -1,22 +1,22 @@
 <template>
   <div
-    class="text-2xl py-5 px-10 w-1/2 mx-auto shadow-slate-950 shadow-2xl rounded-3xl mt-10"
+    class="text-2xl py-5 px-10 w-1/2 mx-auto shadow-slate-950 shadow-2xl rounded-3xl mt-10 max-md:w-full"
   >
     <h1 class="text-3xl mb-10 font-bold">Создание заявки</h1>
-    <div class="grid grid-cols-2">
-      <div>
+    <div class="grid grid-cols-2 max-lg:grid-cols-1">
+      <div class="row-input">
         <label class="block mb-2 font-semibold" for="job">Должность</label>
         <input
           id="job"
           v-model="frameApplicationStore.creationApplication.position"
-          class="form-auth-input mb-5"
+          class="form-auth-input mb-5 w-3/5 max-lg:w-full"
         />
       </div>
       <div>
-        <label for="mentor" class="mb-2 block font-semibold">
+        <label for="mentor" class="mb-2 block font-semibold max-md:inline">
           Выберите наставника
         </label>
-        <div id="mentor" class="rounded-3xl mb-5 w-full">
+        <div id="mentor" class="mt-3 rounded-3xl mb-5 w-full">
           <Listbox v-model="mentor">
             <div class="relative">
               <ListboxButton
@@ -107,8 +107,8 @@
       />
       <span class="ml-3">Добавить требуемый опыт работы</span>
     </button>
-    <NuxtLink to="/frame/create-test">
-      <button class="black-btn block">Создать тестовое задание</button>
+    <NuxtLink class="max-sm:w-full" to="/frame/create-test">
+      <button class="black-btn block font-medium max-sm:w-full max-sm:text-lg">Создать тестовое задание</button>
     </NuxtLink>
 
     <button
@@ -137,6 +137,17 @@ const testStore = useTestStore();
 const route = useRoute();
 const frameApplicationStore = useFrameApplicationsStore();
 const numberWork = ref(1);
+const application = ref<IFrameApplication>({
+  organization: userStore.user?.organization ?? {
+    name: "",
+    address: "",
+    coordinates: [0, 0],
+  },
+  position: "",
+  description: "",
+  workExperience: [],
+  frameId: userStore.user!.userId!,
+});
 if (userStore.user && userStore.user.direction)
   await frameApplicationStore.getMentorsByDirection(userStore.user.direction);
 const mentor = ref(frameApplicationStore.mentors[0]);
@@ -175,4 +186,12 @@ const createApplication = async () => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.row-input > input {
+  /*width: 60%;*/
+  /* Убираем влияние padding и border на конечную ширину input */
+  box-sizing: border-box;
+  /* Обнуляем margin */
+
+}
+</style>

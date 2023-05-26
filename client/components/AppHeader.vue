@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="flex py-2 justify-evenly text-xl items-center">
+    <div class="flex py-2 justify-evenly text-xl items-center max-lg:text-base max-md:hidden">
       <div>Главная</div>
       <div>Расписание</div>
       <div>Полезные материалы</div>

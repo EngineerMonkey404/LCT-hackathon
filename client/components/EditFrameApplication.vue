@@ -5,7 +5,7 @@
   >
     <div>{{ application.workExperience }}</div>
     <h1 class="text-3xl mb-10 font-bold">Создание заявки</h1>
-    <div class="flex justify-between row-inputs">
+    <div class="flex justify-between">
       <div>
         <label class="block mb-2 font-semibold" for="job">Должность</label>
         <input
@@ -84,10 +84,5 @@ console.log(application);
 </script>
 
 <style scoped>
-.row-input > input {
-  width: 30%;
-  /* Убираем влияние padding и border на конечную ширину input */
-  box-sizing: border-box;
-  /* Обнуляем margin */
-}
+
 </style>
