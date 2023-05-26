@@ -9,6 +9,7 @@
         <NuxtLink to="/frame/create-frame-application">
           <button
             class="black-btn text-2xl font-semibold mb-3 max-md:text-xl max-md:w-full"
+            @click="testStore.creationTest.length = 0"
           >
             Создать заявку <span class="max-md:hidden">на стажера</span>
           </button>
@@ -41,10 +42,7 @@
       </div>
       <div class="relative mt-19 mr-10 w-full max-md:mx-5">
         <Transition>
-          <div
-            v-if="filterApplications === FilterApplications.ALL"
-            class="grid grid-cols0 absolute w-full"
-          >
+          <div v-if="filterApplications === FilterApplications.ALL">
             <ApplicationCard
               v-for="application in frameApplicationsStore.personalFrameApplications"
               :key="application.applicationId"
@@ -55,7 +53,7 @@
           </div>
           <div
             v-else-if="filterApplications === FilterApplications.APPROVED"
-            class="grid grid-cols0 absolute w-full"
+            class=""
           >
             <ApprovedAplications />
           </div>
@@ -72,6 +70,7 @@ import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 import { useUserStore } from "~/stores/userStore";
 import { definePageMeta } from "#imports";
 import ApprovedAplications from "~/components/frame/ApprovedAplications.vue";
+import { useTestStore } from "~/stores/testStore";
 
 const radioToggler = ref("application");
 
@@ -79,6 +78,7 @@ enum FilterApplications {
   ALL = "all",
   APPROVED = "approved",
 }
+const testStore = useTestStore();
 const filterApplications = ref<FilterApplications>(FilterApplications.ALL);
 const frameApplicationsStore = useFrameApplicationsStore();
 const userStore = useUserStore();

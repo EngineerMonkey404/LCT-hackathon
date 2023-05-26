@@ -12,6 +12,7 @@ export class TestsService {
   ) {}
 
   async createTest(applicationId: number, questions: IQuestion[]) {
+    console.log('questions', questions);
     const test = await this.testModel.create(
       {
         applicationId: applicationId,
@@ -40,5 +41,9 @@ export class TestsService {
         answers.find((a) => a.questionId === q.questionId)?.answer ===
         q.rightAnswer,
     }));
+  }
+
+  async deleteTest(applicationId: number) {
+    await this.testModel.destroy({ where: { applicationId: applicationId } });
   }
 }

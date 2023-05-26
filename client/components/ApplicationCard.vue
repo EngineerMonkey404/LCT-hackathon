@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative shadow-slate-500 shadow-lg border-black border rounded-3xl w-full mb-20"
+    class="relative flex shadow-slate-500 shadow-lg border-black border rounded-3xl mb-20"
   >
     <div
       class="p-10 max-lg:py-4"
@@ -30,7 +30,7 @@
       </div>
       <hr class="mt-5 w-full" />
       <div class="font-semibold text-3xl mt-10 mb-3 max-lg:text-xl">Описание</div>
-      <p class="text-2xl max-lg:text-lg">{{ props.application.description }}</p>
+      <div class="text-xl max-lg:text-lg break-all">{{ props.application.description }}</div>
       <div class="font-semibold text-3xl mt-10 mb-5 max-lg:text-xl">Опыт работы</div>
       <div class="mb- flex gap-x-5">
         <div

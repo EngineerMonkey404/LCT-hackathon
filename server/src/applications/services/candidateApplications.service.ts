@@ -73,18 +73,29 @@ export class CandidateApplicationsService {
     id: number,
     application: ICandidateApplication,
   ) {
+    console.log('APPLICATION', application);
     await this.candidateApplicationModel.update(application, {
       where: { candidateId: id },
     });
-    application.position.map(
-      async (pos) =>
+    application.position.map(async (pos) => {
+      if (pos.positionId)
         await this.positionModel.update(
           { value: pos.value },
           {
-            where: { applicationId: application.applicationId },
+            where: {
+              applicationId: application.applicationId,
+              positionId: pos.positionId,
+            },
           },
-        ),
-    );
+        );
+      else {
+        console.log('CREATED');
+        await this.positionModel.create({
+          value: pos.value,
+          applicationId: application.applicationId,
+        });
+      }
+    });
   }
 
   async updateRussianLanguageTestResult(result: number, id: number) {

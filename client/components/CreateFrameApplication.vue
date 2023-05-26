@@ -8,7 +8,7 @@
         <label class="block mb-2 font-semibold" for="job">Должность</label>
         <input
           id="job"
-          v-model="application.position"
+          v-model="frameApplicationStore.creationApplication.position"
           class="form-auth-input mb-5 w-3/5 max-lg:w-full"
         />
       </div>
@@ -73,7 +73,7 @@
     <label class="block mb-2 font-semibold" for="description">Описание</label>
     <textarea
       id="description"
-      v-model="application.description"
+      v-model="frameApplicationStore.creationApplication.description"
       class="form-auth-input rounded-3xl text-2xl w-full"
       rows="5"
     ></textarea>
@@ -83,14 +83,19 @@
     <input
       v-for="(n, i) in numberWork"
       :key="n"
-      v-model="application.workExperience[i]"
+      v-model="frameApplicationStore.creationApplication.workExperience[i]"
       class="form-auth-input mb-5 w-full"
     />
     <button
       class="mb-5 block"
       @click="
         () => {
-          if (application.workExperience[numberWork - 1]) numberWork += 1;
+          if (
+            frameApplicationStore.creationApplication.workExperience[
+              numberWork - 1
+            ]
+          )
+            numberWork += 1;
         }
       "
     >
@@ -105,6 +110,7 @@
     <NuxtLink class="max-sm:w-full" to="/frame/create-test">
       <button class="black-btn block font-medium max-sm:w-full max-sm:text-lg">Создать тестовое задание</button>
     </NuxtLink>
+
     <button
       class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover"
       @click="createApplication"
@@ -124,9 +130,10 @@ import {
   ListboxOption,
   ListboxOptions,
 } from "@headlessui/vue";
+import { useTestStore } from "~/stores/testStore";
 
 const userStore = useUserStore();
-
+const testStore = useTestStore();
 const route = useRoute();
 const frameApplicationStore = useFrameApplicationsStore();
 const numberWork = ref(1);
@@ -149,7 +156,7 @@ if (route.query?.["frame_id"]) {
   frameApplicationStore.getApplicationsByFrameId(+route.query?.["frame_id"]);
   for (const app of frameApplicationStore.personalFrameApplications) {
     if (app.applicationId === +route.query?.["application_id"]!) {
-      application.value = app;
+      frameApplicationStore.creationApplication = app;
     }
   }
 }
@@ -160,8 +167,8 @@ function getMentorName(mentor: IUser) {
 
 const createApplication = async () => {
   console.log("user", userStore.user);
-  application.value.mentorId = mentor.value.userId;
-  application.value.organization = {
+  frameApplicationStore.creationApplication.mentorId = mentor.value.userId;
+  frameApplicationStore.creationApplication.organization = {
     name: userStore.user?.organizationName ?? "",
     address: userStore.user?.organizationAddress ?? "",
     coordinates: [
@@ -169,8 +176,12 @@ const createApplication = async () => {
       userStore.user?.organizationCoordinateY ?? 0,
     ],
   };
-  console.log("organization", userStore.user);
-  await frameApplicationStore.createApplication(application.value);
+  const id = await frameApplicationStore.createApplication(
+    frameApplicationStore.creationApplication
+  );
+
+  if (id) await testStore.createTest(id, testStore.creationTest);
+
   return navigateTo("/frame/applications");
 };
 </script>
@@ -181,6 +192,6 @@ const createApplication = async () => {
   /* Убираем влияние padding и border на конечную ширину input */
   box-sizing: border-box;
   /* Обнуляем margin */
-  
+
 }
 </style>

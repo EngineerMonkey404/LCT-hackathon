@@ -23,6 +23,7 @@ export interface ICandidateApplication {
 }
 
 export interface Position {
+  positionId?: number;
   applicationId: number;
   candidateId: number;
   value: string;

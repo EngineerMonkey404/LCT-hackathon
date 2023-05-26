@@ -114,7 +114,10 @@ export const useCandidateApplicationStore = defineStore(
       personalCandidateApplication.value = application ?? null;
     }
 
-    async function updateCandidateApplication(application: ICandidateApplication) {
+    async function updateCandidateApplication(
+      application: ICandidateApplication
+    ) {
+      console.log("Application", application);
       const { data: newApplication } = await useApiFetch<
         ICandidateApplication,
         Error,
@@ -125,7 +128,8 @@ export const useCandidateApplicationStore = defineStore(
         body: application,
       });
       personalCandidateApplication.value = application ?? null;
-      personalCandidateApplication.value.status = FrameApplicationStatus.PENDING;
+      personalCandidateApplication.value.status =
+        FrameApplicationStatus.PENDING;
     }
 
     async function submitCandidateApplication(
