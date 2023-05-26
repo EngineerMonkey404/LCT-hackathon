@@ -76,7 +76,7 @@ async function handleLogin() {
         return navigateTo("/curator/applications");
       else if (userStore.user.role === Role.TRAINEE)
         return navigateTo("/trainee/invites");
-      else return navigateTo("/mentor/application");
+      else return navigateTo("/mentor/applications");
     }
   } catch {
     error.value = true;

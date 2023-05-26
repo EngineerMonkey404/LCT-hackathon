@@ -4,7 +4,7 @@
       <div class="text-4xl text-center mb-20 mt-10">
         На эту стажировку откликнулись
       </div>
-      <div class="grid grid-cols-2 gap-10">
+      <div class="grid grid-cols-3 gap-10">
         <div v-for="trainee of trainees">
           <TraineeCard :trainee="trainee" />
         </div>
@@ -27,10 +27,6 @@ const frameApplicationStore = useFrameApplicationsStore();
 const application: IFrameApplication | null =
   await frameApplicationStore.getFrameApplicationById(+route.params.id);
 
-const numberWork = ref(application?.workExperience.length || 1);
-const workExperience = ref<string[]>(
-  application?.workExperience.map((element) => element.value) || []
-);
 const traineeStore = useTraineeStore();
 const trainees = ref<ITrainee[] | null>([]);
 
