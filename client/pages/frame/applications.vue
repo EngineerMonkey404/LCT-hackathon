@@ -45,7 +45,6 @@
             v-if="filterApplications === FilterApplications.ALL"
             class="grid grid-cols0 absolute w-full"
           >
-            <!-- need application id -->
             <ApplicationCard
               v-for="application in frameApplicationsStore.personalFrameApplications"
               :key="application.applicationId"

@@ -6,13 +6,11 @@
       class="relative shadow-slate-500 shadow-lg border-black border rounded-3xl w-full mb-20"
     >
       <div class="p-10">
-        <div class="flex flex-col gap-x-20">
-          <div v-if="application.position" class="mb-4 text-3xl font-semibold">
+        <div class="flex flex-col">
+          <div v-if="application.position" class="text-3xl font-bold mb-4">
             {{ application.position }}
           </div>
-          <div class="text-2xl">
-            {{ application.organization.name }}
-          </div>
+          <div class="text-2xl">{{ application.organization.name }}</div>
         </div>
         <hr class="mt-5 w-full" />
         <div class="font-semibold text-3xl mt-10 mb-3">Описание</div>
@@ -41,14 +39,44 @@
     ref="map"
     :application="applicationCurrent"
   />
+  <Dialog
+    class="absolute top-0 z-10 w-screen bg-black/40"
+    :open="isOpen"
+    @close="setIsOpen"
+  >
+    <div class="flex min-h-screen items-center justify-center p-4 text-center">
+      <DialogPanel
+        class="card-style w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle transition-all"
+      >
+        <div class="text-3xl font-semibold text-center">
+          Для отклика на эту стажировку Вам необходимо пройти тестовое задание
+        </div>
+        <div class="flex justify-between mt-10 px-10">
+          <button @click="handleApplication(currentApplicationId!)">
+            Пройти
+          </button>
+          <button @click="setIsOpen(false)">Позже</button>
+        </div>
+      </DialogPanel>
+    </div>
+  </Dialog>
 </template>
 
 <script setup lang="ts">
+//import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 import MapComp from "./MapComp.vue";
 import { useUserStore } from "~/stores/userStore";
 import { useTraineeStore } from "~/stores/traineeStore";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 import { IFrameApplication } from "~/types/types";
+import { Dialog, DialogPanel } from "@headlessui/vue";
+
+const isOpen = ref(false);
+
+function setIsOpen(value: boolean, applicationId?: number) {
+  if (applicationId) currentApplicationId.value = applicationId;
+  isOpen.value = value;
+}
 
 //need application withou trainee
 const frameApplicationsStore = useFrameApplicationsStore();
@@ -59,6 +87,8 @@ const applicationCurrent = ref<IFrameApplication>();
 const map = ref<InstanceType<typeof MapComp> | null>(null);
 
 await frameApplicationsStore.getApprovedFrameApplications();
+//for modal dialog
+const currentApplicationId = ref<number>();
 
 function handleMap(application: IFrameApplication) {
   map.value?.open();

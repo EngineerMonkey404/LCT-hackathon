@@ -107,10 +107,7 @@ export interface Position {
 }
 
 export interface ITrainee extends IUser {
-  application: ICandidateApplication;
-  age?: number;
-  education?: string;
-  course?: string;
+  candidateApplication: ICandidateApplication;
 }
 
 export interface RegisterData {
