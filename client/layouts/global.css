@@ -52,7 +52,7 @@ html {
 
     .card-style {
         @apply p-10 shadow-slate-500 shadow-xl rounded-3xl border border-black;
-        @apply max-md:p-5;
+        @apply max-xl:p-5;
     }
 
     .invite-button {
@@ -98,7 +98,7 @@ html {
 
         .text-height {
             line-height: 1.2;
-            height: 6em;
+            height: 5.8em;
             word-break: break-word;
             text-overflow: ellipsis;
             overflow: hidden;

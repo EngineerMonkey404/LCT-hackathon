@@ -6,9 +6,9 @@
         <div>{{ trainee.thirdName }}</div>
         <div class="text-xl">
           {{
-            getYears(new Date(trainee.candidateApplication.date)) +
+            getYears(new Date(trainee.candidateApplication.date!)) +
             " " +
-            declOfNum(getYears(new Date(trainee.candidateApplication.date)), [
+            declOfNum(getYears(new Date(trainee.candidateApplication.date!)), [
               "год",
               "года",
               "лет",
@@ -51,8 +51,8 @@
         </span>
       </div>
     </div>
-    <div class="flex mt-5">
-      <div class="mr-20 max-md:mr-10">
+    <div class="flex mt-5 ">
+      <div class="mr-20 ">
         <div class="category mb-3">Гражданство</div>
         <div class="form-auth-input">
           {{ trainee.candidateApplication.nationality }}
@@ -81,16 +81,16 @@
     <div v-for="job of trainee.candidateApplication.position" class="mb-3">
       <div class="form-auth-input">{{ job.value }}</div>
     </div>
-    <div class="flex items-center gap-x-10 mt-5 max-lg:gap-x-5">
+    <div class="flex items-center gap-x-10 mt-5 max-xl:gap-x-5">
       <div
-        class="black-btn text-center py-1"
+        class="black-btn text-center py-1 max-xl:py-2"
         @click="$emit('sub', MentorStatus.APPROVED)"
       >
         Пригласить
-        <span class="max-lg:hidden">на собеседование</span>
+        <span class="max-xl:hidden">на собеседование</span>
       </div>
       <div
-        class="black-btn text-center py-4 max-lg:py-1"
+        class="black-btn text-center py-4 max-xl:py-2"
         @click="$emit('sub', MentorStatus.DECLINED)"
       >
         Отказать

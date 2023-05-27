@@ -22,7 +22,7 @@
         </RadioGroupOption>
       </RadioGroup>
     </div>
-    <div class="w-full grid grid-cols-2 gap-10 max-lg:gap-5 max-sm:grid-cols-1">
+    <div class="w-full grid grid-cols-2 gap-10 max-lg:gap-5 max-md:grid-cols-1">
       <AvailableInvites :filter="filter" />
     </div>
   </div>

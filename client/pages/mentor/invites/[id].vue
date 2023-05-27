@@ -1,10 +1,10 @@
 <template>
-  <div class="container mx-auto">
+  <div class="xl:container mx-auto max-xl:px-3">
     <div v-if="trainees?.length">
-      <div class="text-4xl text-center mb-20 mt-10">
+      <div class="text-4xl text-center mb-20 mt-10 max-lg:mt-5">
         На эту стажировку откликнулись
       </div>
-      <div class="grid grid-cols-3 gap-10">
+      <div class="grid grid-cols-3 gap-10 max-lg:grid-cols-2 max-md:grid-cols-1 max-lg:gap-x-5">
         <div v-for="(trainee, index) of trainees" :key="index">
           <MentorTraineeCard
             :trainee="trainee"
