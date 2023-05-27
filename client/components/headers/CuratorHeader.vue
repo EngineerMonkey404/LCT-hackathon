@@ -6,7 +6,7 @@
         :class="current === 'a' ? 'header-btn-active' : ''"
         @click="current = 'a'"
       >
-        <img class="inline-block" type="svg" src="" />
+        <NuxtImg class="inline-block mr-1" type="svg" :src="current === 'a' ? '/curators/black/add_reaction.svg' : '/curators/white/add_reaction.svg'" />
         <div class="max-sm:hidden">Заявки на стажировку</div>
       </div>
     </NuxtLink>
@@ -15,7 +15,11 @@
       :class="current === 's' ? 'header-btn-active' : ''"
       @click="current = 's'"
     >
-      <img class="inline-block" type="svg" src="/curators/leaderboard.svg" />
+      <NuxtImg
+        class="inline-block mr-1"
+        type="svg"
+        :src="current === 's' ? '/curators/black/leaderboard.svg' : '/curators/white/leaderboard.svg'"
+      />
       <span class="max-sm:hidden">Статистика</span>
     </div>
     <NuxtLink to="/curator/need-trainees">
@@ -24,7 +28,7 @@
         :class="current === 't' ? 'header-btn-active' : ''"
         @click="current = 't'"
       >
-        <img class="inline-block" type="svg" src="/curators/badge.svg" />
+        <NuxtImg class="inline-block mr-1" type="svg" :src="current === 't' ? '/curators/black/badge.svg' : '/curators/white/badge.svg'" />
         <span class="max-sm:hidden">Потребность в стажерах</span>
       </div>
     </NuxtLink>
@@ -32,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-const current = ref("a");
+const current = ref('a');
 </script>
 
 <style scoped></style>
