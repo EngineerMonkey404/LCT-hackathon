@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto text-center">
-    <RadioGroup class="mt-10" v-model="chosenRole">
+    <RadioGroup v-model="chosenRole" class="mt-10">
       <RadioGroupOption
         v-slot="{ checked }"
         class="radio-btn"
@@ -43,7 +43,11 @@
         Сгенерировать
       </button>
       <div class="flex justify-center max-xl:adaptive-flex-col">
-        <input v-model="path" type="text" class="w-1/2 max-xl:w-full text-center text-ellipsis max-xl:mb-3 px-3" />
+        <input
+          v-model="path"
+          type="text"
+          class="w-1/2 max-xl:w-full text-center text-ellipsis max-xl:mb-3 px-3"
+        />
         <button class="form-auth-input" @click="copy">Скопировать</button>
       </div>
       <div v-if="copied" class="text-center">Ссылка скопирована</div>
@@ -64,7 +68,7 @@ async function generateInvite() {
     method: "GET",
     query: { role: chosenRole },
   });
-  path.value = `http://localhost:3000/registration/${fetchedPath.value ?? ""}`;
+  path.value = `http://lct.wex-web.ru/registration/${fetchedPath.value ?? ""}`;
 }
 
 function copy() {

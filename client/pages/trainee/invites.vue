@@ -44,7 +44,22 @@
 import AvailableInvites from "~/components/trainee/AvailableInvites.vue";
 import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
 import { FrameApplicationFilter } from "~/types/types";
+import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
+import { useUserStore } from "~/stores/userStore";
 
+const frameApplicationsStore = useFrameApplicationsStore();
+const userStore = useUserStore();
+await frameApplicationsStore.getApprovedFrameApplications();
+
+if (userStore.user && userStore.user.userId)
+  await frameApplicationsStore.getTraineeFrameApplications(
+    userStore.user.userId
+  );
+console.log(frameApplicationsStore.traineeFrameApplicationIds);
+frameApplicationsStore.getFilteredFrameApplications(
+  FrameApplicationFilter.SENDED
+);
+console.log(frameApplicationsStore.currentApplication);
 const filter = ref<FrameApplicationFilter>(FrameApplicationFilter.AVAILABLE);
 </script>
 

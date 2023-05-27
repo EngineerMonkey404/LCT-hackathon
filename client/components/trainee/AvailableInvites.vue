@@ -19,16 +19,16 @@
           >
             {{ application.organization.name }}
           </div>
-          <div
-            v-if="filter === FrameApplicationFilter.SENDED"
-            class="category font-semibold"
-          >
-            {{
-              frameApplicationsStore.getApplicationStatus(
-                application.applicationId!
-              )
-            }}
-          </div>
+          <!--          <div-->
+          <!--            v-if="filter === FrameApplicationFilter.SENDED"-->
+          <!--            class="category font-semibold"-->
+          <!--          >-->
+          <!--            {{-->
+          <!--              frameApplicationsStore.getApplicationStatus(-->
+          <!--                application.applicationId!-->
+          <!--              )-->
+          <!--            }}-->
+          <!--          </div>-->
         </div>
         <hr class="w-full" />
         <div class="category mt-5 mb-3">Описание</div>
@@ -108,7 +108,7 @@ function setIsOpen(value: boolean, applicationId?: number) {
 }
 
 const props = defineProps<{ filter: FrameApplicationFilter }>();
-//need application withou trainee
+
 const frameApplicationsStore = useFrameApplicationsStore();
 const traineeStore = useTraineeStore();
 const userStore = useUserStore();
@@ -116,16 +116,10 @@ const applicationCurrent = ref<IFrameApplication>();
 const testStore = useTestStore();
 const map = ref<InstanceType<typeof MapComp> | null>(null);
 
-await frameApplicationsStore.getApprovedFrameApplications();
-if (userStore.user && userStore.user.userId)
-  await frameApplicationsStore.getTraineeFrameApplications(
-    userStore.user.userId
-  );
+// frameApplicationsStore.getFilteredFrameApplications(
+//   FrameApplicationFilter.SENDED
+// );
 
-await frameApplicationsStore.getFilteredFrameApplications(
-  FrameApplicationFilter.SENDED
-);
-//for modal dialog
 const currentApplicationId = ref<number>();
 
 function handleMap(application: IFrameApplication) {
