@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
     "nuxt-headlessui",
-    ["@nuxt/image-edge", { provider: "public" }],
     "@nuxt/devtools",
   ],
 

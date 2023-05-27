@@ -6,10 +6,14 @@
         :class="current === 'a' ? 'header-btn-active' : ''"
         @click="current = 'a'"
       >
-        <NuxtImg
+        <img
           class="inline-block"
           type="svg"
-          :src="current === 'a' ? '/candidate/black/assignment_ind.svg' : '/candidate/white/assignment_ind.svg'"
+          :src="
+            current === 'a'
+              ? '/candidate/black/assignment_ind.svg'
+              : '/candidate/white/assignment_ind.svg'
+          "
         />
         <span class="max-sm:hidden">Подать заявку</span>
       </button>
@@ -20,7 +24,15 @@
         :class="current === 's' ? 'header-btn-active' : ''"
         @click="current = 's'"
       >
-        <NuxtImg class="inline-block" type="svg" :src="current === 's' ?'/candidate/black/school.svg' : '/candidate/white/school.svg'" />
+        <img
+          class="inline-block"
+          type="svg"
+          :src="
+            current === 's'
+              ? '/candidate/black/school.svg'
+              : '/candidate/white/school.svg'
+          "
+        />
         <span class="max-sm:hidden">Карьерная школа</span>
       </button>
     </NuxtLink>
@@ -30,7 +42,15 @@
         :class="current === 't' ? 'header-btn-active' : ''"
         @click="current = 't'"
       >
-        <NuxtImg class="inline-block" type="svg" :src="current === 't' ?'/candidate/black/glyphs.svg' : '/candidate/white/glyphs.svg'" />
+        <img
+          class="inline-block"
+          type="svg"
+          :src="
+            current === 't'
+              ? '/candidate/black/glyphs.svg'
+              : '/candidate/white/glyphs.svg'
+          "
+        />
         <span class="max-sm:hidden">Тестирование</span>
       </button>
     </NuxtLink>

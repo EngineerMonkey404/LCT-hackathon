@@ -3,8 +3,7 @@
     <Menu as="div" class="relative inline-block text-left">
       <div>
         <MenuButton
-          class="flex w-full justify-center items-center gap-x-5 rounded-md border border-black text-black px-4 py-4 max-lg:py-1 font-medium hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75
-                 max-lg:border-none"
+          class="flex w-full justify-center items-center gap-x-5 rounded-md border border-black text-black px-4 py-4 max-lg:py-1 font-medium hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 max-lg:border-none"
         >
           <template v-if="userStore.user">
             <img
@@ -15,7 +14,12 @@
             <div class="max-lg:hidden">
               {{ userStore.user.firstName }}
             </div>
-            <NuxtImg type="svg" style="height: 25px;" class="lg:hidden" src="/mobile-header/person.svg" />
+            <img
+              type="svg"
+              style="height: 25px"
+              class="lg:hidden"
+              src="/mobile-header/person.svg"
+            />
           </template>
         </MenuButton>
       </div>
@@ -29,7 +33,7 @@
         leave-to-class="transform scale-95 opacity-0"
       >
         <MenuItems
-          class="absolute origin-top-right max-lg:-top-20 max-lg:-right-7 right-0 mt-2  w-56 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          class="absolute origin-top-right max-lg:-top-20 max-lg:-right-7 right-0 mt-2 w-56 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
         >
           <div class="px-1 py-1">
             <MenuItem
