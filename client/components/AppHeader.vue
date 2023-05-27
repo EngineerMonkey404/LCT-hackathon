@@ -1,9 +1,9 @@
 <template>
   <header>
     <div
-      class="flex py-2 justify-evenly items-center max-lg:text-base max-md:hidden"
+      class="flex py-2 justify-evenly items-center max-lg:text-base max-lg:hidden"
     >
-      <div class="me-40 flex gap-x-10">
+      <div class="me-40 flex gap-x-10 max-xl:me-16">
         <div>Главная</div>
         <div>Расписание</div>
         <div>Полезные материалы</div>
@@ -37,12 +37,6 @@ import { useUserStore } from "~/stores/userStore";
 import { Role } from "~/types/types";
 
 const userStore = useUserStore();
-const user = ref(userStore.user);
-
-async function handleLogout() {
-  await useApiFetch("auth/login", { method: "DELETE" });
-  return navigateTo("/auth");
-}
 </script>
 
 <style scoped></style>

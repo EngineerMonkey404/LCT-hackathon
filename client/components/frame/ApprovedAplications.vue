@@ -17,7 +17,7 @@
       <div class="font-semibold text-3xl mt-10 mb-5 max-md:text-xl">
         Опыт работы
       </div>
-      <div class="mb-10 flex gap-x-5">
+      <div class="mb-10 flex gap-x-5 flex-wrap">
         <div
           v-for="(exp, index) of application.workExperience"
           :key="index"

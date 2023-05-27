@@ -7,7 +7,7 @@
         @click="current = 'a'"
       >
         <NuxtImg class="inline-block" type="svg" src="/frames/invites.svg" />
-        <div>Заявки на стажировку</div>
+        <div class="max-sm:hidden">Заявки на стажировку</div>
       </div>
     </NuxtLink>
     <div
@@ -20,7 +20,7 @@
         type="svg"
         src="/curators/leaderboard.svg"
       />
-      Статистика
+      <span class="max-sm:hidden">Статистика</span>
     </div>
     <NuxtLink to="/curator/need-trainees">
       <div
@@ -29,7 +29,7 @@
         @click="current = 't'"
       >
         <NuxtImg class="inline-block" type="svg" src="/curators/badge.svg" />
-        Потребность в стажерах
+        <span class="max-sm:hidden">Потребность в стажерах</span>
       </div>
     </NuxtLink>
   </div>
