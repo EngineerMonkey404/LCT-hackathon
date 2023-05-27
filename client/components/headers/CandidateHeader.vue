@@ -7,7 +7,7 @@
         @click="current = 'a'"
       >
         <img
-          class="inline-block"
+          class="inline-block mr-1"
           type="svg"
           :src="
             current === 'a'
@@ -25,7 +25,7 @@
         @click="current = 's'"
       >
         <img
-          class="inline-block"
+          class="inline-block mr-1"
           type="svg"
           :src="
             current === 's'
