@@ -11,7 +11,7 @@
           type="svg"
           src="/frames/applications.svg"
         />
-        Заявки
+        <span class="hidden">Заявки</span>
       </button>
     </NuxtLink>
     <NuxtLink to="/frame/mentor-school">
@@ -21,7 +21,7 @@
         @click="current = 's'"
       >
         <NuxtImg class="inline-block" type="svg" src="/school.svg" />
-        Школа наставников
+        <span class="hidden">Школа наставников</span>
       </button>
     </NuxtLink>
   </div>

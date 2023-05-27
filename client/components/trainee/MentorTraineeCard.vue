@@ -104,7 +104,6 @@ import { ITrainee, FrameApplicationStatus, MentorStatus } from "~/types/types";
 import { declOfNum, getYears } from "public/scripts/getAge";
 import { useMentorApplicationStore } from "~/stores/mentorApplicationStore";
 
-const route = useRoute();
 const props = defineProps<{ trainee: ITrainee }>();
 </script>
 

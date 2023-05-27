@@ -2,7 +2,6 @@
   <div class="lg:container lg:mx-auto">
     <h2 class="text-center text-3xl my-8">
       <strong>Заявки</strong>
-      | Тестовые задания
     </h2>
     <div class="flex w-full max-md:adaptive-flex-col max-md:px-5">
       <div class="me-10 max-lg:ml-3 max-md:text-center">
