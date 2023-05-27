@@ -32,6 +32,7 @@ html {
 
     .header-btn {
         @apply px-8 pt-3 text-xl font-bold mr-10 rounded-t-3xl pb-0.5 hover:opacity-50 duration-300 ease-out bg-ultra-dark-purple text-white pb-3;
+        @apply flex items-center;
         @apply max-lg:rounded-3xl max-lg:text-base max-lg:px-3 max-lg:mr-3 max-sm:text-xs;
             /*pb может быть плохо*/
 
