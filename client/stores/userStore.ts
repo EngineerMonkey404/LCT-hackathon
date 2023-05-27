@@ -76,12 +76,10 @@ export const useUserStore = defineStore("counter", () => {
   }
 
   async function checkEmail(email: string) {
-    const { data: exists } = await useApiFetch<boolean>(
-      `auth/user/check-email`,
-      {
-        query: { email: email },
-      }
-    );
+    const { data: exists } = await useApiFetch(`auth/user/check-email`, {
+      method: "GET",
+      query: { email: email },
+    });
     return exists.value;
   }
 

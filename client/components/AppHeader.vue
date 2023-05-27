@@ -1,13 +1,17 @@
 <template>
   <header>
-    <div class="flex py-2 justify-evenly text-xl items-center max-lg:text-base max-md:hidden">
-      <div>Главная</div>
-      <div>Расписание</div>
-      <div>Полезные материалы</div>
-      <div>Форум</div>
-      <div>Нетворкинг</div>
-      <div>События</div>
-      <div>Новости</div>
+    <div
+      class="flex py-2 justify-evenly items-center max-lg:text-base max-md:hidden"
+    >
+      <div class="me-40 flex gap-x-10">
+        <div>Главная</div>
+        <div>Расписание</div>
+        <div>Полезные материалы</div>
+        <div>Форум</div>
+        <div>Нетворкинг</div>
+        <div>События</div>
+        <div>Новости</div>
+      </div>
       <div>
         <MenuComp />
       </div>

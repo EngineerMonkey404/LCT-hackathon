@@ -19,25 +19,37 @@
         class="block rounded-full"
         style="height: 100px; width: 100px"
         type="svg"
-        :src="`http://localhost:5000/api/image/${application.candidateId}`"
+        :src="`${config.public.baseURL}api/image/${application.candidateId}`"
       />
     </div>
     <hr class="w-full mt-5" />
     <div class="mt-5 flex justify-around">
       <div class="style-flex-col">
-        <div class="category text-lg text-center max-2xl:text-base">Русский<br>язык</div>
+        <div class="category text-lg text-center max-2xl:text-base">
+          Русский
+          <br />
+          язык
+        </div>
         <span class="form-auth-input text-center text-xl mt-3 self-center">
           {{ application.russianLanguageTestResult ?? 0 }}
         </span>
       </div>
       <div class="style-flex-col">
-        <div class="category text-lg text-center max-2xl:text-base">Анализ<br>информации</div>
+        <div class="category text-lg text-center max-2xl:text-base">
+          Анализ
+          <br />
+          информации
+        </div>
         <span class="form-auth-input text-center text-xl mt-3 self-center">
           {{ application.informationAnalysisTestResult ?? 0 }}
         </span>
       </div>
       <div class="style-flex-col">
-        <div class="category text-lg text-center max-2xl:text-base">Компюьтерная<br>грамотность</div>
+        <div class="category text-lg text-center max-2xl:text-base">
+          Компюьтерная
+          <br />
+          грамотность
+        </div>
         <span class="form-auth-input text-center text-xl mt-3 self-center">
           {{ application.computerLiteracyTestResult ?? 0 }}
         </span>
@@ -104,6 +116,7 @@ import {
 } from "~/types/types";
 const userStore = useUserStore();
 
+const config = useRuntimeConfig();
 const props = defineProps<{ application: ICandidateApplication }>();
 const candidateApplicationStore = useCandidateApplicationStore();
 const date = ref<Date>(new Date());

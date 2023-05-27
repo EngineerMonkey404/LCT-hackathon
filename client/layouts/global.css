@@ -8,6 +8,7 @@
 }
 html {
     font-family: "GTWalsheim";
+    @apply text-black
 }
 @layer base {
     .form-auth-input {
@@ -41,7 +42,7 @@ html {
     }
 
     .subheader {
-        @apply flex justify-center items-end bg-purple w-full h-44 max-md:hidden
+        @apply flex justify-center bg-header items-end w-full h-44 max-md:hidden
     }
 
     .black-btn {

@@ -46,6 +46,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     });
     if (fetchedApplications.value) {
       mentorApplications.value = fetchedApplications.value;
+      console.log(mentorApplications.value);
     }
   }
 

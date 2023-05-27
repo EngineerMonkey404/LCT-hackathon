@@ -163,6 +163,7 @@
         <span class="ml-3">Добавить место работы</span>
       </button>
     </div>
+    <div v-if="empty" class="text-red text-2xl mt-4">*Заполните все поля</div>
     <button
       class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover"
       @click="create"
@@ -201,27 +202,39 @@ const education = ["Нет высшего", "Неоконченное высше
 const courses = ["1 курс", "2 курс", "3 курс", "4 курс"];
 const numberJobs = ref(1);
 
+const empty = ref(false);
 //function converter date
 //mnogo zapisey
 //rabota int
 function create() {
-  application.value.candidateId = userStore.user?.userId; //no id in db
-  application.value.date = new Date();
-  application.value.date.setFullYear(
-    +date.value[2],
-    +date.value[1] - 1,
-    +date.value[0]
-  );
   if (
-    application.value.education === "Неоконченное высшее" &&
-    !application.value.course
+    !application.value.city ||
+    !date.value[0] ||
+    !date.value[1] ||
+    !date.value[2] ||
+    !application.value.nationality
   ) {
-    application.value.course = "1 курс";
+    empty.value = true;
+  } else {
+    application.value.candidateId = userStore.user?.userId; //no id in db
+    application.value.date = new Date();
+    application.value.date.setFullYear(
+      +date.value[2],
+      +date.value[1] - 1,
+      +date.value[0]
+    );
+    if (
+      application.value.education === "Неоконченное высшее" &&
+      !application.value.course
+    ) {
+      application.value.course = "1 курс";
+    }
+    application.value.date.setHours(application.value.date.getHours() + 3);
+    application.value.status = FrameApplicationStatus.PENDING;
+    candidateApplicationStore.createCandidateApplication(application.value);
+    empty.value = false;
+    return navigateTo("/candidate/application");
   }
-  application.value.date.setHours(application.value.date.getHours() + 3);
-  application.value.status = FrameApplicationStatus.PENDING;
-  candidateApplicationStore.createCandidateApplication(application.value);
-  return navigateTo("/candidate/application");
 }
 </script>
 

@@ -113,6 +113,7 @@
       </button>
     </NuxtLink>
 
+    <div v-if="empty" class="text-red mt-7 text-2xl">*Заполните все поля</div>
     <button
       class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover"
       @click="createApplication"
@@ -163,29 +164,38 @@ if (route.query?.["frame_id"]) {
   }
 }
 
+const empty = ref(false);
 function getMentorName(mentor: IUser) {
   return mentor.firstName + " " + mentor.secondName + " " + mentor.thirdName;
 }
 
 const createApplication = async () => {
-  console.log("user", userStore.user);
-  frameApplicationStore.creationApplication.mentorId = mentor.value.userId;
-  frameApplicationStore.creationApplication.organization = {
-    name: userStore.user?.organizationName ?? "",
-    address: userStore.user?.organizationAddress ?? "",
-    coordinates: [
-      userStore.user?.organizationCoordinateX ?? 0,
-      userStore.user?.organizationCoordinateY ?? 0,
-    ],
-  };
-  const id = await frameApplicationStore.createApplication(
-    frameApplicationStore.creationApplication
-  );
+  if (
+    !frameApplicationStore.creationApplication.position ||
+    !frameApplicationStore.creationApplication.description ||
+    !frameApplicationStore.creationApplication.workExperience.length
+  ) {
+    empty.value = true;
+  } else {
+    console.log("user", userStore.user);
+    frameApplicationStore.creationApplication.mentorId = mentor.value.userId;
+    frameApplicationStore.creationApplication.organization = {
+      name: userStore.user?.organizationName ?? "",
+      address: userStore.user?.organizationAddress ?? "",
+      coordinates: [
+        userStore.user?.organizationCoordinateX ?? 0,
+        userStore.user?.organizationCoordinateY ?? 0,
+      ],
+    };
+    const id = await frameApplicationStore.createApplication(
+      frameApplicationStore.creationApplication
+    );
 
-  if (id && testStore.creationTest.length)
-    await testStore.createTest(id, testStore.creationTest);
+    if (id && testStore.creationTest.length)
+      await testStore.createTest(id, testStore.creationTest);
 
-  return navigateTo("/frame/applications");
+    return navigateTo("/frame/applications");
+  }
 };
 </script>
 
