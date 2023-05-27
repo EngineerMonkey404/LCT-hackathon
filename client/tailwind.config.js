@@ -10,6 +10,7 @@ export default {
         "lime-400": "#B390EC",
         black: "#1A1230",
         header: "#E9EAEE",
+        red: "#FF0F43",
       },
     },
   },
