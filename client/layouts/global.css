@@ -54,7 +54,7 @@
 
     .category {
         @apply text-2xl font-semibold ;
-        @apply max-md:text-xl;
+        @apply max-xl:text-xl;
     }
 
     .style-flex-col {

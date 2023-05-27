@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto">
+  <div class="xl:container xl:mx-auto">
     <ListCandidates />
   </div>
 </template>

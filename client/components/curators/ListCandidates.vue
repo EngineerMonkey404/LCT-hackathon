@@ -1,6 +1,6 @@
 <template>
-  <div class="my-5">
-    <label for="filter" class="mb-2 font-semibold text-xl">Фильтер</label>
+  <div class="my-5 max-xl:px-3">
+    <label for="filter" class="mb-2 font-semibold text-xl">Фильтр</label>
     <div id="filter" class="w-full rounded-3xl mb-5 mt-3">
       <Listbox v-model="filter">
         <div class="relative">
@@ -54,10 +54,10 @@
 
       <div
         v-if="
-          candidateApplicationStore.getFilteredCandidateApplications(filter)
+          candidateApplicationStore.getFilteredCandidateApplications(filter)!
             .length
         "
-        class="grid grid-cols-3 gap-10 mt-20"
+        class="grid grid-cols-3 gap-10 mt-10 max-lg:grid-cols-2 max-xl:gap-x-5 max-sm:grid-cols-1"
       >
         <TransitionGroup name="list">
           <CandidateCard

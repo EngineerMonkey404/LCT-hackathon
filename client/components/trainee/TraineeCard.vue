@@ -13,22 +13,22 @@
       <NuxtImg class="block" type="svg" src="/candidate/faceCandidate.svg" />
     </div>
     <hr class="w-full mt-5" />
-    <div class="mt-10 grid grid-cols-3 max-lg:flex">
+    <div class="mt-5 flex justify-around">
       <div class="style-flex-col">
-        <div class="category text-lg text-center max-2xl:text-base">Русский язык</div>
-        <span class="form-auth-input text-center text-xl mt-3 self-center">
+        <div class="category text-lg text-center max-2xl:text-base">Русский<br>язык</div>
+        <span class="form-auth-input text-center text-xl self-center">
           {{ trainee.candidateApplication.russianLanguageTestResult ?? 0 }}
         </span>
       </div>
       <div class="style-flex-col">
-        <div class="category text-lg text-center max-2xl:text-base">Анализ информации</div>
-        <span class="form-auth-input text-center text-xl mt-3 self-center">
+        <div class="category text-lg text-center max-2xl:text-base">Анализ<br>информации</div>
+        <span class="form-auth-input text-center text-xl self-center">
           {{ trainee.candidateApplication.informationAnalysisTestResult ?? 0 }}
         </span>
       </div>
       <div class="style-flex-col">
-        <div class="category text-lg text-center max-2xl:text-base">Компюьтерная грамотность</div>
-        <span class="form-auth-input text-center text-xl mt-3 self-center">
+        <div class="category text-lg text-center max-2xl:text-base">Компюьтерная<br>грамотность</div>
+        <span class="form-auth-input text-center text-xl self-center">
           {{ trainee.candidateApplication.computerLiteracyTestResult ?? 0 }}
         </span>
       </div>
@@ -55,13 +55,12 @@
     </div>
     <div class="flex items-center gap-x-10 mt-5 max-lg:gap-x-5">
       <div @click="mentorApplicationStore.mentorSubmitApplication(+route.params.id,
-            trainee.userId!, FrameApplicationStatus.APPROVED)"
-          class="black-btn text-center py-1">
+        trainee.userId!, FrameApplicationStatus.APPROVED)" class="black-btn text-center py-1">
         Пригласить <span class="max-lg:hidden">на собеседование</span>
       </div>
       <div @click="mentorApplicationStore.mentorSubmitApplication(+route.params.id,
-            trainee.userId!, FrameApplicationStatus.DECLINED)"
-      class="black-btn text-center py-4 max-lg:py-1">Отказать</div>
+        trainee.userId!, FrameApplicationStatus.DECLINED)" class="black-btn text-center py-4 max-lg:py-1">Отказать
+      </div>
     </div>
   </div>
 </template>
@@ -76,4 +75,6 @@ const route = useRoute();
 const props = defineProps<{ trainee: ITrainee }>();
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

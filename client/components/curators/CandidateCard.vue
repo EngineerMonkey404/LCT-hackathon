@@ -23,27 +23,27 @@
       />
     </div>
     <hr class="w-full mt-5" />
-    <div class="mt-10 grid grid-cols-3 mb-5">
+    <div class="mt-5 flex justify-around">
       <div class="style-flex-col">
-        <div class="category text-lg text-center">Русский язык</div>
+        <div class="category text-lg text-center max-2xl:text-base">Русский<br>язык</div>
         <span class="form-auth-input text-center text-xl mt-3 self-center">
           {{ application.russianLanguageTestResult ?? 0 }}
         </span>
       </div>
       <div class="style-flex-col">
-        <div class="category text-lg text-center">Анализ информации</div>
+        <div class="category text-lg text-center max-2xl:text-base">Анализ<br>информации</div>
         <span class="form-auth-input text-center text-xl mt-3 self-center">
           {{ application.informationAnalysisTestResult ?? 0 }}
         </span>
       </div>
       <div class="style-flex-col">
-        <div class="category text-lg text-center">Компюьтерная грамотность</div>
+        <div class="category text-lg text-center max-2xl:text-base">Компюьтерная<br>грамотность</div>
         <span class="form-auth-input text-center text-xl mt-3 self-center">
           {{ application.computerLiteracyTestResult ?? 0 }}
         </span>
       </div>
     </div>
-    <div class="flex mt-3 justify-between">
+    <div class="flex mt-3 sm:justify-between max-sm:gap-x-10">
       <div class="mb-5">
         <div class="category">Гражданство</div>
         <div class="form-auth-input">{{ application.nationality }}</div>
@@ -53,7 +53,7 @@
         <div class="form-auth-input">{{ application.city }}</div>
       </div>
     </div>
-    <div class="category mt-5">Образование</div>
+    <div class="category">Образование</div>
     <div>
       <div class="form-auth-input mb-2">{{ application.education }}</div>
       <div
@@ -63,12 +63,12 @@
         {{ application.course }}
       </div>
     </div>
-    <div class="category mt-5 mb-3">Опыт работы</div>
+    <div class="category mt-5 mb-3 max-lg:mt-3">Опыт работы</div>
     <div v-if="!application.experience" class="text-xl">Нет опыта</div>
     <div v-for="job of application.position" class="mb-3">
       <div class="form-auth-input">{{ job.value }}</div>
     </div>
-    <div class="flex justify-between mt-10">
+    <div class="flex justify-between mt-10 max-lg:mt-3">
       <!--пофиксить кнопки-->
       <button
         @click="
