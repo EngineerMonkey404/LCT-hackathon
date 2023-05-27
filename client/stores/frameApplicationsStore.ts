@@ -17,6 +17,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
   const allApprovedFrameApplications = ref<IFrameApplication[]>([]);
   const currentApplication = ref<IFrameApplication[]>([]);
   const filteredApplications = ref<IFrameApplication[]>([]);
+  const mentorApplications = ref<IFrameApplication[]>([]);
   const traineeFrameApplicationIds = ref<number[]>([]);
   const traineeFrameApplications = ref<TraineeOnFrameApplication[]>([]);
   const creationApplication = ref<IFrameApplication>({
@@ -36,6 +37,17 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       (app) => app.status === FrameApplicationStatus.APPROVED
     );
   });
+
+  async function getMentorApplications(mentorId: number) {
+    const { data: fetchedApplications } = await useApiFetch<
+      IFrameApplication[]
+    >(`applications/frame-application/mentor/${mentorId}`, {
+      method: "GET",
+    });
+    if (fetchedApplications.value) {
+      mentorApplications.value = fetchedApplications.value;
+    }
+  }
 
   async function getMentorsByDirection(direction: Direction) {
     const { data: fetchedMentors } = await useApiFetch<IUser[]>(
@@ -63,6 +75,25 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       );
       traineeFrameApplications.value = fetchedApplications.value;
     }
+  }
+
+  async function frameSubmitApplication(
+    applicationId: number,
+    traineeId: number,
+    status: TraineeStatus
+  ) {
+    const { data: newApplication } = await useApiFetch<
+      number,
+      Error,
+      string,
+      "put"
+    >(
+      `applications/frame-application/${applicationId}/frame-submit/${traineeId}`,
+      {
+        method: "PUT",
+        query: { status: status },
+      }
+    );
   }
 
   function getApplicationStatus(applicationId: number) {
@@ -280,5 +311,8 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     traineeFrameApplicationIds,
     getApplicationStatus,
     getApplicationResult,
+    getMentorApplications,
+    mentorApplications,
+    frameSubmitApplication,
   };
 });

@@ -84,14 +84,14 @@
     <div class="flex items-center gap-x-10 mt-5 max-lg:gap-x-5">
       <div
         class="black-btn text-center py-1"
-        @click="$emit('sub', TraineeStatus.APPROVED)"
+        @click="$emit('sub', MentorStatus.APPROVED)"
       >
         Пригласить
         <span class="max-lg:hidden">на собеседование</span>
       </div>
       <div
         class="black-btn text-center py-4 max-lg:py-1"
-        @click="$emit('sub', TraineeStatus.DECLINED)"
+        @click="$emit('sub', MentorStatus.DECLINED)"
       >
         Отказать
       </div>
@@ -100,8 +100,9 @@
 </template>
 
 <script setup lang="ts">
-import { ITrainee, TraineeStatus } from "~/types/types";
+import { ITrainee, FrameApplicationStatus, MentorStatus } from "~/types/types";
 import { declOfNum, getYears } from "public/scripts/getAge";
+import { useMentorApplicationStore } from "~/stores/mentorApplicationStore";
 
 const route = useRoute();
 const props = defineProps<{ trainee: ITrainee }>();

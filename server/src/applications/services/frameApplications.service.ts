@@ -14,6 +14,7 @@ import { User } from '../../auth/models/user.model';
 import { CandidateApplication } from '../models/candidate/candidateApplication.model';
 import { Direction } from '../../auth/models/direction.enum';
 import { Role } from '../../auth/models/role.enum';
+import { Position } from '../models/candidate/positionModel';
 
 @Injectable()
 export class FrameApplicationsService {
@@ -160,21 +161,32 @@ export class FrameApplicationsService {
     );
   }
 
-  async getTraineesByApplicationId(id: number) {
+  async getTraineesForMentorByApplicationId(id: number) {
     const trainees = (
       await this.traineeOnFrameApplicationModel.findAll({
-        where: { applicationId: id },
+        where: { applicationId: id, mentorStatus: MentorStatus.PENDING },
       })
     ).map((element) => element.traineeId);
-    console.log(trainees);
-    console.log(
-      await this.userModel.findAll({
-        include: [CandidateApplication],
-      }),
-    );
     return (
       await this.userModel.findAll({
-        include: [CandidateApplication],
+        include: [{ model: CandidateApplication, include: [Position] }],
+      })
+    ).filter((user) => trainees.includes(user.userId));
+  }
+
+  async getTraineesForFrameByApplicationId(id: number) {
+    const trainees = (
+      await this.traineeOnFrameApplicationModel.findAll({
+        where: {
+          applicationId: id,
+          mentorStatus: MentorStatus.APPROVED,
+          traineeStatus: TraineeStatus.PENDING,
+        },
+      })
+    ).map((element) => element.traineeId);
+    return (
+      await this.userModel.findAll({
+        include: [{ model: CandidateApplication, include: [Position] }],
       })
     ).filter((user) => trainees.includes(user.userId));
   }

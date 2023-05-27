@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "nuxt-headlessui",
     "@nuxt/image-edge",
     "@nuxt/devtools",
+    "@vee-validate/nuxt",
   ],
 
   eslint: {

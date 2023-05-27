@@ -1,7 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@font-face {
+    font-family: "GTWalsheim";
+    src: local("GTWalsheim"),
+    url('GT-Walsheim-LC-Regular.ttf') format("truetype");
+}
+html {
+    font-family: "GTWalsheim";
+}
 @layer base {
     .form-auth-input {
         @apply border-black border py-2 px-4 rounded-full

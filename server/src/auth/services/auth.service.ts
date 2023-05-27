@@ -126,4 +126,9 @@ export class AuthService {
   async deleteToken(res: Response) {
     res.clearCookie(tokenKey);
   }
+
+  async checkEmail(email: string) {
+    const e = await this.userModel.findOne({ where: { email: email } });
+    return e;
+  }
 }

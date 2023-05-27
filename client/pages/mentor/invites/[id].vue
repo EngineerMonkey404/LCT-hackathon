@@ -1,43 +1,57 @@
 <template>
-    <div class="container mx-auto">
-      <div v-if="trainees?.length">
-        <div class="text-4xl text-center mb-20 mt-10">
-          На эту стажировку откликнулись
-        </div>
-        <div class="grid grid-cols-3 gap-10">
-          <div v-for="trainee of trainees">
-            <TraineeCard :trainee="trainee" />
-          </div>
-        </div>
+  <div class="container mx-auto">
+    <div v-if="trainees?.length">
+      <div class="text-4xl text-center mb-20 mt-10">
+        На эту стажировку откликнулись
       </div>
-      <div v-else class="text-4xl text-center mb-20 mt-10">
-        На эту стажировку пока не откликнулись
+      <div class="grid grid-cols-3 gap-10">
+        <div v-for="(trainee, index) of trainees" :key="index">
+          <MentorTraineeCard
+            :trainee="trainee"
+            @sub="handleSubmitTrainee($event, trainee)"
+          />
+        </div>
       </div>
     </div>
-  </template>
-  
-  <script setup lang="ts">
-  import { IFrameApplication, ITrainee } from "~/types/types";
-  import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
-  import { useTraineeStore } from "~/stores/traineeStore";
-  import TraineeCard from "~/components/trainee/TraineeCard.vue";
-  
-  const route = useRoute();
-  const frameApplicationStore = useFrameApplicationsStore();
-  const application: IFrameApplication | null =
-    await frameApplicationStore.getFrameApplicationById(+route.params.id);
-  
-  const traineeStore = useTraineeStore();
-  const trainees = ref<ITrainee[] | null>([]);
-  
-  onMounted(async () => {
-    trainees.value = await traineeStore.getTraineesByApplicationId(
-      application?.applicationId ?? 0
-    );
-    console.log('eto', trainees.value);
-  });
-  console.log(+route.query.application_id!);
-  console.log(application);
-  </script>
-  
-  <style scoped></style>
+    <div v-else class="text-4xl text-center mb-20 mt-10">
+      На эту стажировку пока не откликнулись
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { IFrameApplication, ITrainee, MentorStatus } from "~/types/types";
+import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
+import { useTraineeStore } from "~/stores/traineeStore";
+import MentorTraineeCard from "~/components/trainee/MentorTraineeCard.vue";
+import { useMentorApplicationStore } from "~/stores/mentorApplicationStore";
+
+const route = useRoute();
+const frameApplicationStore = useFrameApplicationsStore();
+const application: IFrameApplication | null =
+  await frameApplicationStore.getFrameApplicationById(+route.params.id);
+const mentorApplicationStore = useMentorApplicationStore();
+const traineeStore = useTraineeStore();
+const trainees = ref<ITrainee[] | null>([]);
+
+trainees.value = await traineeStore.getTraineesForMentorByApplicationId(
+  application?.applicationId ?? 0
+);
+
+async function handleSubmitTrainee(status: MentorStatus, trainee: ITrainee) {
+  await mentorApplicationStore.mentorSubmitApplication(
+    +route.params.id,
+    trainee.userId!,
+    status
+  );
+
+  trainees.value = await traineeStore.getTraineesForMentorByApplicationId(
+    application?.applicationId ?? 0
+  );
+}
+console.log("eto", trainees.value);
+console.log(+route.query.application_id!);
+console.log(application);
+</script>
+
+<style scoped></style>

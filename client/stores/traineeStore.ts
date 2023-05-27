@@ -55,13 +55,25 @@ export const useTraineeStore = defineStore("traineeStore", () => {
     );
   }
 
-  async function getTraineesByApplicationId(applicationId: number) {
+  async function getTraineesForMentorByApplicationId(applicationId: number) {
     const { data: fetchedTrainees } = await useApiFetch<
       ITrainee[],
       Error,
       string,
       "get"
-    >(`applications/frame-application/${applicationId}/trainees`, {
+    >(`applications/frame-application/${applicationId}/mentor-trainees`, {
+      method: "GET",
+    });
+    return fetchedTrainees.value;
+  }
+
+  async function getTraineesForFrameByApplicationId(applicationId: number) {
+    const { data: fetchedTrainees } = await useApiFetch<
+      ITrainee[],
+      Error,
+      string,
+      "get"
+    >(`applications/frame-application/${applicationId}/frame-trainees`, {
       method: "GET",
     });
     return fetchedTrainees.value;
@@ -74,7 +86,8 @@ export const useTraineeStore = defineStore("traineeStore", () => {
 
   return {
     submitTraineeRespond,
-    getTraineesByApplicationId,
+    getTraineesForMentorByApplicationId,
+    getTraineesForFrameByApplicationId,
     getApplicationsByTraineeId,
     getApplicationsWithoutTrainee,
     allFrameApplications,
