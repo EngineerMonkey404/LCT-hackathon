@@ -1,12 +1,12 @@
 <template>
-  <div class="container mx-auto">
+  <div class="sm:container mx-auto">
     <div class="flex justify-center mt-10">
-      <div class="mr-10 black-btn text-3xl" @click="showQuestions = true">
+      <div class="mr-10 black-btn text-3xl max-md:text-xl" @click="showQuestions = true">
         Создать тест
       </div>
       <input id="loadFile" type="file" />
       <label
-        class="black-btn text-3xl"
+        class="black-btn text-3xl max-md:text-xl"
         for="loadFile"
         @click="showQuestions = false"
       >
@@ -17,7 +17,7 @@
       <CreateQuestion
         v-for="i in quantityQuestions"
         :number="i"
-        @newQuestion="(newQuestion: object) => listQuestions[i - 1] = newQuestion"
+        @newQuestion="(newQuestion: IQuestion) => listQuestions[i - 1] = newQuestion"
       >
         {{ i }}
       </CreateQuestion>

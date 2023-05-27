@@ -6,13 +6,13 @@
     </div>
     <textarea
       v-model="variants.question"
-      class="rounded-3xl p-5 border border-black text-2xl mt-3 w-full"
+      class="rounded-3xl p-5 border border-black text-2xl mt-3 w-full max-md:text-xl"
       rows="5"
     ></textarea>
     <div class="category mt-10">Варианты ответов</div>
     <div class="text-xl">Нажмите на правильный ответ</div>
-    <div class="variants grid grid-cols-2 gap-y-5 w-full mt-5">
-      <div>
+    <div class="variants grid grid-cols-2 gap-y-5 w-full mt-5 max-sm:grid-cols-1">
+      <div class="flex">
         <div
           class="black-btn"
           :class="variants.rightAnswer === 'a' ? 'bg-lime-400' : ''"
@@ -20,13 +20,13 @@
         >
           A
         </div>
-        <input
+        <input class="max-sm:w-full"
           v-model="variants.variantA"
           type="text"
           placeholder="Вариант А"
         />
       </div>
-      <div>
+      <div class="flex">
         <div
           class="black-btn"
           :class="variants.rightAnswer === 'b' ? 'bg-lime-400' : ''"
@@ -34,13 +34,13 @@
         >
           Б
         </div>
-        <input
+        <input class="max-sm:w-full"
           v-model="variants.variantB"
           type="text"
           placeholder="Вариант Б"
         />
       </div>
-      <div>
+      <div class="flex">
         <div
           class="black-btn"
           :class="variants.rightAnswer === 'c' ? 'bg-lime-400' : ''"
@@ -48,13 +48,13 @@
         >
           В
         </div>
-        <input
+        <input class="max-sm:w-full"
           v-model="variants.variantC"
           type="text"
           placeholder="Вариант В"
         />
       </div>
-      <div>
+      <div class="flex">
         <div
           class="black-btn"
           :class="variants.rightAnswer === 'd' ? 'bg-lime-400' : ''"
@@ -62,7 +62,7 @@
         >
           Г
         </div>
-        <input
+        <input class="max-sm:w-full"
           v-model="variants.variantD"
           type="text"
           placeholder="Вариант Г"

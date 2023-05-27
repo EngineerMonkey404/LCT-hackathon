@@ -1,5 +1,5 @@
 <template>
-  <div
+  <div 
     v-for="application of frameApplicationsStore.getFilteredFrameApplications(
       props.filter
     )"
@@ -7,47 +7,47 @@
     <div
       v-if="application"
       class="relative shadow-slate-500 shadow-lg border-black border rounded-3xl w-full mb-20"
-      style="height: 800px"
     >
-      <div class="p-10">
+      <div class="p-10 max-md:p-5">
         <div class="flex flex-col">
           <div class="mb-4 text-3xl font-bold">
             {{ application.position }}
           </div>
-          <div class="text-2xl mb-4">{{ application.organization.name }}</div>
+          <div class="category mb-4 text-height" style="line-height: 1.2; height: 3.6em; text-overflow: clip;">
+            {{ application.organization.name }}
+          </div>
           <div
             v-if="filter === FrameApplicationFilter.SENDED"
-            class="text-2xl font-semibold"
+            class="category font-semibold"
           >
             {{
               frameApplicationsStore.getApplicationStatus(
-                application.applicationId
+                application.applicationId!
               )
             }}
           </div>
         </div>
-        <hr class="mt-5 w-full" />
-        <div class="font-semibold text-3xl mt-10 mb-3">Описание</div>
-        <p class="text-2xl break-words">{{ application.description }}</p>
-        <div class="font-semibold text-3xl mt-10 mb-5">Опыт работы</div>
-        <div class="mb-10 flex gap-x-5">
-          <div
+        <hr class="w-full" />
+        <div class="category mt-5 mb-3">Описание</div>
+        <div class="text-xl text-height max-md:text-lg">{{ application.description }}</div>
+        <div class="category mt-5">Опыт работы</div>
+        <div class="flex gap-x-5 max-md:gap-x-2 flex-wrap">
+          <div class="mt-5"
             v-for="(exp, index) of application.workExperience"
             :key="index"
-            class="mb-8"
           >
-            <span class="form-auth-input text-xl">{{ exp.value }}</span>
+            <span class="form-auth-input text-base">{{ exp.value }}</span>
           </div>
         </div>
       </div>
-      <div class="mb-20 mx-10 flex justify-between">
-        <button
+      <div class="mb-10 mx-10 flex justify-between max-lg:adaptive-flex-col max-lg:gap-y-3">
+        <button class="max-lg:w-full"
           v-if="props.filter === FrameApplicationFilter.AVAILABLE"
           @click="handleApplication(application.applicationId!)"
         >
           Оставить заявку
         </button>
-        <button @click="handleMap(application)">Посмотреть на карте</button>
+        <button class="max-lg:w-full" @click="handleMap(application)">Посмотреть на карте</button>
       </div>
     </div>
   </div>
@@ -65,7 +65,7 @@
       <DialogPanel
         class="card-style w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle transition-all"
       >
-        <div class="text-3xl font-semibold text-center">
+        <div class="text-3xl font-semibold text-center max-md:text-xl">
           Для отклика на эту стажировку Вам необходимо пройти тестовое задание
         </div>
         <div class="flex justify-between mt-10 px-10">

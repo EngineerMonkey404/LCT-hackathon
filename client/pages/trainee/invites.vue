@@ -1,7 +1,7 @@
 <template>
-  <div class="container mx-auto flex justify-between mt-10">
-    <div class="text-xl font-medium mr-20">
-      <RadioGroup v-model="filter">
+  <div class="lg:container lg:mx-auto flex justify-between mt-10 max-xl:adaptive-flex-col max-lg:px-3">
+    <div class="text-xl font-medium mr-20 max-xl:mr-0">
+      <RadioGroup v-model="filter" class="max-xl:flex max-xl:gap-x-5">
         <RadioGroupOption
           v-slot="{ checked }"
           class="mb-5"
@@ -18,7 +18,7 @@
         </RadioGroupOption>
       </RadioGroup>
     </div>
-    <div class="w-full grid grid-cols-2 gap-10">
+    <div class="w-full grid grid-cols-2 gap-10 max-lg:gap-5 max-sm:grid-cols-1">
       <AvailableInvites :filter="filter" />
     </div>
   </div>
