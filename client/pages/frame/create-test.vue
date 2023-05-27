@@ -26,7 +26,7 @@
       </CreateQuestion>
 
       <button class="mt-10" @click="quantityQuestions += 1">
-        <NuxtImg
+        <img
           class="inline-block"
           format="svg"
           src="/candidate/add_circle.svg"

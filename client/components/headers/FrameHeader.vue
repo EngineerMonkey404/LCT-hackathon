@@ -6,11 +6,7 @@
         :class="current === 'a' ? 'header-btn-active' : ''"
         @click="current = 'a'"
       >
-        <NuxtImg
-          class="inline-block"
-          type="svg"
-          src="/frames/applications.svg"
-        />
+        <img class="inline-block" type="svg" src="/frames/applications.svg" />
         <span class="hidden">Заявки</span>
       </button>
     </NuxtLink>
@@ -20,7 +16,7 @@
         :class="current === 's' ? 'header-btn-active' : ''"
         @click="current = 's'"
       >
-        <NuxtImg class="inline-block" type="svg" src="/school.svg" />
+        <img class="inline-block" type="svg" src="/school.svg" />
         <span class="hidden">Школа наставников</span>
       </button>
     </NuxtLink>

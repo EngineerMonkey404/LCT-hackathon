@@ -10,17 +10,21 @@
             class="black-btn text-2xl font-semibold mb-3 max-md:text-xl max-md:w-full"
             @click="testStore.creationTest.length = 0"
           >
-            Создать заявку <span class="max-md:hidden">на стажера</span>
+            Создать заявку
+            <span class="max-md:hidden">на стажера</span>
           </button>
         </NuxtLink>
-        <RadioGroup class="max-md:flex max-md:gap-x-3" v-model="filterApplications">
+        <RadioGroup
+          v-model="filterApplications"
+          class="max-md:flex max-md:gap-x-3"
+        >
           <RadioGroupOption
             v-slot="{ checked }"
             class="mb-4"
             :value="FilterApplications.ALL"
           >
             <div :class="checked ? 'radio-btn font-bold' : 'radio-btn'">
-              <NuxtImg type="svg" src="/frames/cases.svg" class="inline" />
+              <img type="svg" src="/frames/cases.svg" class="inline" />
               Ваши заявки
             </div>
           </RadioGroupOption>
@@ -29,7 +33,7 @@
             :value="FilterApplications.APPROVED"
           >
             <div :class="checked ? 'radio-btn font-bold' : 'radio-btn'">
-              <NuxtImg
+              <img
                 type="svg"
                 src="/frames/library_add_check.svg"
                 class="inline"

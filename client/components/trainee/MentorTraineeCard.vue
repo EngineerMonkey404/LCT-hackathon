@@ -16,7 +16,7 @@
           }}
         </div>
       </div>
-      <NuxtImg class="block" type="svg" src="/candidate/faceCandidate.svg" />
+      <img class="block" type="svg" src="/candidate/faceCandidate.svg" />
     </div>
     <hr class="w-full mt-5" />
     <div class="mt-5 flex justify-around">

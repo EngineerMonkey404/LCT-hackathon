@@ -6,7 +6,7 @@
         :class="current === 'a' ? 'header-btn-active' : ''"
         @click="current = 'a'"
       >
-        <NuxtImg class="inline-block" type="svg" src="/frames/invites.svg" />
+        <img class="inline-block" type="svg" src="" />
         <div class="max-sm:hidden">Заявки на стажировку</div>
       </div>
     </NuxtLink>
@@ -15,11 +15,7 @@
       :class="current === 's' ? 'header-btn-active' : ''"
       @click="current = 's'"
     >
-      <NuxtImg
-        class="inline-block"
-        type="svg"
-        src="/curators/leaderboard.svg"
-      />
+      <img class="inline-block" type="svg" src="/curators/leaderboard.svg" />
       <span class="max-sm:hidden">Статистика</span>
     </div>
     <NuxtLink to="/curator/need-trainees">
@@ -28,7 +24,7 @@
         :class="current === 't' ? 'header-btn-active' : ''"
         @click="current = 't'"
       >
-        <NuxtImg class="inline-block" type="svg" src="/curators/badge.svg" />
+        <img class="inline-block" type="svg" src="/curators/badge.svg" />
         <span class="max-sm:hidden">Потребность в стажерах</span>
       </div>
     </NuxtLink>

@@ -15,7 +15,7 @@
           }}
         </div>
       </div>
-      <NuxtImg
+      <img
         class="block rounded-full"
         style="height: 100px; width: 100px"
         type="svg"
@@ -90,7 +90,7 @@
           )
         "
       >
-        <NuxtImg type="svg" src="/curators/check.svg" />
+        <img type="svg" src="/curators/check.svg" />
       </button>
       <button
         @click="
@@ -100,7 +100,7 @@
           )
         "
       >
-        <NuxtImg type="svg" src="/curators/close.svg" />
+        <img type="svg" src="/curators/close.svg" />
       </button>
     </div>
   </div>
