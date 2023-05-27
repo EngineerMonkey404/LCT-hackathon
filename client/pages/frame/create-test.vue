@@ -1,7 +1,10 @@
 <template>
   <div class="sm:container mx-auto">
     <div class="flex justify-center mt-10">
-      <div class="mr-10 black-btn text-3xl max-md:text-xl" @click="showQuestions = true">
+      <div
+        class="mr-10 black-btn text-3xl max-md:text-xl"
+        @click="showQuestions = true"
+      >
         Создать тест
       </div>
       <input id="loadFile" type="file" />
@@ -23,7 +26,7 @@
       </CreateQuestion>
 
       <button class="mt-10" @click="quantityQuestions += 1">
-        <NuxtImg
+        <img
           class="inline-block"
           format="svg"
           src="/candidate/add_circle.svg"
@@ -41,7 +44,6 @@
         </button>
       </NuxtLink>
     </div>
-    {{ listQuestions }}
   </div>
 </template>
 

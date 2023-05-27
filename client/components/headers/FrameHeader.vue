@@ -6,12 +6,16 @@
         :class="current === 'a' ? 'header-btn-active' : ''"
         @click="current = 'a'"
       >
-        <NuxtImg
-          class="inline-block"
+        <img
+          class="inline-block mr-1"
           type="svg"
-          src="/frames/applications.svg"
+          :src="
+            current === 'a'
+              ? '/mentor/black/add_reaction.svg'
+              : '/mentor/white/add_reaction.svg'
+          "
         />
-        <span class="hidden">Заявки</span>
+        <span class="max-md:hidden">Заявки</span>
       </button>
     </NuxtLink>
     <NuxtLink to="/frame/mentor-school">
@@ -20,8 +24,16 @@
         :class="current === 's' ? 'header-btn-active' : ''"
         @click="current = 's'"
       >
-        <NuxtImg class="inline-block" type="svg" src="/school.svg" />
-        <span class="hidden">Школа наставников</span>
+        <img
+          class="inline-block mr-1"
+          type="svg"
+          :src="
+            current === 's'
+              ? '/mentor/black/school.svg'
+              : '/mentor/white/school.svg'
+          "
+        />
+        <span class="max-md:hidden">Школа наставников</span>
       </button>
     </NuxtLink>
   </div>

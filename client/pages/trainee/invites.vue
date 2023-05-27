@@ -1,5 +1,7 @@
 <template>
-  <div class="lg:container lg:mx-auto flex justify-between mt-10 max-xl:adaptive-flex-col max-lg:px-3">
+  <div
+    class="lg:container lg:mx-auto flex justify-between mt-10 max-xl:adaptive-flex-col max-lg:px-3"
+  >
     <div class="text-xl font-medium mr-20 max-xl:mr-0">
       <RadioGroup v-model="filter" class="max-xl:flex max-xl:gap-x-5">
         <RadioGroupOption
@@ -8,6 +10,11 @@
           :value="FrameApplicationFilter.AVAILABLE"
         >
           <span :class="checked ? 'font-bold' : ''" class="cursor-pointer">
+            <img
+              class="inline"
+              type="svg"
+              src="/trainee/approval_delegation.svg"
+            />
             Доступные места
           </span>
         </RadioGroupOption>
@@ -17,6 +24,11 @@
           :value="FrameApplicationFilter.SENDED"
         >
           <span :class="checked ? 'font-bold' : ''" class="cursor-pointer">
+            <img
+              class="inline"
+              type="svg"
+              src="/trainee/markunread_mailbox.svg"
+            />
             Отправленные заявки
           </span>
         </RadioGroupOption>

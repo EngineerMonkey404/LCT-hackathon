@@ -9,7 +9,9 @@
       </div>
       <hr class="mt-5 w-full" />
       <div class="category mt-3 mb-3">Описание</div>
-      <p class="text-2xl break-words max-lg:text-xl">{{ props.application.description }}</p>
+      <p class="text-2xl break-words max-lg:text-xl">
+        {{ props.application.description }}
+      </p>
       <div class="category mt-3 mb-5">Опыт работы</div>
       <div class="mb-3 flex gap-x-5">
         <div
@@ -29,7 +31,11 @@
             )
           "
         >
-          <NuxtImg style="height: 20px !important;" type="svg" src="/curators/check.svg" />
+          <img
+            style="height: 20px !important"
+            type="svg"
+            src="/curators/check.svg"
+          />
         </button>
         <button
           @click="
@@ -39,7 +45,11 @@
             )
           "
         >
-          <NuxtImg style="height: 20px !important;" type="svg" src="/curators/close.svg" />
+          <img
+            style="height: 20px !important"
+            type="svg"
+            src="/curators/close.svg"
+          />
         </button>
       </div>
     </div>

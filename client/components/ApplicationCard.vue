@@ -18,7 +18,7 @@
           <span
             v-if="props.application.status === FrameApplicationStatus.APPROVED"
           >
-            <NuxtImg
+            <img
               class="bg-lime-400 rounded-full inline py-3 px-5 mr-5 my-2"
               type="svg"
               src="/curators/check.svg"
