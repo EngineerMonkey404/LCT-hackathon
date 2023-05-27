@@ -185,12 +185,10 @@
       />
     </form>
 
-    <div v-if="emailExists" class="text-2xl text-red-500 mb-4">
+    <div v-if="emailExists" class="text-2xl text-red mb-4">
       *Пользователь с таким email уже существует
     </div>
-    <div v-if="empty" class="text-2xl text-red-500 mb-4">
-      *Заполните все поля
-    </div>
+    <div v-if="empty" class="text-2xl text-red mb-4">*Заполните все поля</div>
     <button
       class="form-auth-input bg-black text-white font-semibold black-btn-hover"
       @click="handleRegistration"
