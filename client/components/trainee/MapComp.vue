@@ -37,8 +37,6 @@ const close = () => {
   showMap.value = false;
 };
 
-onUpdated(() => console.log(showMap.value));
-
 defineExpose({
   open,
 });

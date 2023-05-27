@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ testStore.currentTest }}
     <div
       v-for="(question, i) of testStore.currentTest"
       :key="question.question"

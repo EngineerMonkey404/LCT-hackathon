@@ -64,7 +64,6 @@ export class AuthController {
   @UseGuards(JwtGuard)
   @Get('login')
   loginCheck(@Req() req) {
-    console.log(req.user);
     return req.user;
   }
 
@@ -79,9 +78,8 @@ export class AuthController {
     return await this.authService.getUserById(id);
   }
 
-  @Get('user/check-email')
-  async checkEmail(@Query('email') email: string) {
-    console.log(email);
+  @Get('user/check-email/:email')
+  async checkEmail(@Param('email') email: string) {
     return await this.authService.checkEmail(email);
   }
 }

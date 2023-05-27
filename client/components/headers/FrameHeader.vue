@@ -31,7 +31,6 @@
 const router = useRouter();
 
 const current = ref("a");
-console.log("route", router.currentRoute.value.fullPath);
 </script>
 
 <style scoped></style>

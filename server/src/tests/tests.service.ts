@@ -14,7 +14,6 @@ export class TestsService {
   ) {}
 
   async createTest(applicationId: number, questions: IQuestion[]) {
-    console.log('questions', questions);
     const test = await this.testModel.create(
       {
         applicationId: applicationId,

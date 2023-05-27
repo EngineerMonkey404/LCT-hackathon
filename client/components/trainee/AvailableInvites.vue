@@ -1,5 +1,5 @@
 <template>
-  <div 
+  <div
     v-for="application of frameApplicationsStore.getFilteredFrameApplications(
       props.filter
     )"
@@ -13,7 +13,10 @@
           <div class="mb-4 text-3xl font-bold">
             {{ application.position }}
           </div>
-          <div class="category mb-4 text-height" style="line-height: 1.2; height: 3.6em; text-overflow: clip;">
+          <div
+            class="category mb-4 text-height"
+            style="line-height: 1.2; height: 3.6em; text-overflow: clip"
+          >
             {{ application.organization.name }}
           </div>
           <div
@@ -29,25 +32,33 @@
         </div>
         <hr class="w-full" />
         <div class="category mt-5 mb-3">Описание</div>
-        <div class="text-xl text-height max-md:text-lg">{{ application.description }}</div>
+        <div class="text-xl text-height max-md:text-lg">
+          {{ application.description }}
+        </div>
         <div class="category mt-5">Опыт работы</div>
         <div class="flex gap-x-5 max-md:gap-x-2 flex-wrap">
-          <div class="mt-5"
+          <div
             v-for="(exp, index) of application.workExperience"
             :key="index"
+            class="mt-5"
           >
             <span class="form-auth-input text-base">{{ exp.value }}</span>
           </div>
         </div>
       </div>
-      <div class="mb-10 mx-10 flex justify-between max-lg:adaptive-flex-col max-lg:gap-y-3">
-        <button class="max-lg:w-full"
+      <div
+        class="mb-10 mx-10 flex justify-between max-lg:adaptive-flex-col max-lg:gap-y-3"
+      >
+        <button
           v-if="props.filter === FrameApplicationFilter.AVAILABLE"
+          class="max-lg:w-full"
           @click="handleApplication(application.applicationId!)"
         >
           Оставить заявку
         </button>
-        <button class="max-lg:w-full" @click="handleMap(application)">Посмотреть на карте</button>
+        <button class="max-lg:w-full" @click="handleMap(application)">
+          Посмотреть на карте
+        </button>
       </div>
     </div>
   </div>
@@ -120,7 +131,6 @@ const currentApplicationId = ref<number>();
 function handleMap(application: IFrameApplication) {
   map.value?.open();
   applicationCurrent.value = application;
-  console.log(applicationCurrent.value);
 }
 
 async function handleApplication(applicationId: number) {

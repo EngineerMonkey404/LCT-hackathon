@@ -47,7 +47,6 @@ export class ImageController {
     @Param('userId', ParseIntPipe) userId: number,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    console.log('FILE', file);
     return await this.imageService.addImage({
       userId: userId,
       path: file.filename,

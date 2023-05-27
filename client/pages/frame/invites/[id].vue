@@ -50,9 +50,6 @@ async function handleSubmitTrainee(status: TraineeStatus, trainee: ITrainee) {
     application?.applicationId ?? 0
   );
 }
-
-console.log(+route.query.application_id!);
-console.log(application);
 </script>
 
 <style scoped></style>

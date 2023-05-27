@@ -19,7 +19,7 @@
         class="block rounded-full"
         style="height: 100px; width: 100px"
         type="svg"
-        :src="`${config.public.baseURL}api/image/${application.candidateId}`"
+        :src="`${config.public.baseURL}/image/${application.candidateId}`"
       />
     </div>
     <hr class="w-full mt-5" />
@@ -125,7 +125,6 @@ const user: IUser =
 if (props.application) {
   date.value = props.application.date ?? new Date();
 }
-console.log(user);
 
 function getYears(dob: Date) {
   const month_diff = Date.now() - dob.getTime();

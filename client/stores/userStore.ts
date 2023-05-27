@@ -7,7 +7,6 @@ export const useUserStore = defineStore("counter", () => {
   async function registerUser(registerData: RegisterData, path?: string) {
     const user = ref();
     if (path) {
-      console.log("with path");
       const { data: data } = await useApiFetch<
         IUser,
         Error,
@@ -63,8 +62,6 @@ export const useUserStore = defineStore("counter", () => {
       if (fetchedUser.value) {
         user.value = fetchedUser.value;
       }
-
-      console.log("fetchedUser", fetchedUser.value);
     } catch {}
   }
 
@@ -76,11 +73,13 @@ export const useUserStore = defineStore("counter", () => {
   }
 
   async function checkEmail(email: string) {
-    const { data: exists } = await useApiFetch(`auth/user/check-email`, {
-      method: "GET",
-      query: { email: email },
-    });
-    return exists.value;
+    const { data: exists } = await useApiFetch<boolean>(
+      `auth/user/check-email/${email}`,
+      {
+        method: "GET",
+      }
+    );
+    return !exists.value;
   }
 
   return { user: user, login, getUser, registerUser, getUserById, checkEmail };

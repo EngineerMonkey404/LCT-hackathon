@@ -191,12 +191,6 @@ import { useCandidateApplicationStore } from "~/stores/candidateApplicationStore
 import { FrameApplicationStatus } from "~/types/types";
 
 const candidateApplicationStore = useCandidateApplicationStore();
-console.log(candidateApplicationStore.personalCandidateApplication);
-console.log(
-  new Date(
-    candidateApplicationStore.personalCandidateApplication!.date!
-  ).getMonth()
-);
 const date = ref<string[]>([]);
 const position = ref<string[]>(
   candidateApplicationStore.personalCandidateApplication!.position!.map(

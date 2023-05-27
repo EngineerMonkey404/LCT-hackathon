@@ -4,9 +4,9 @@
 */.nitro
 */.cache
 */.output
-*/.env
 */dist
 */.DS_Store
+server/storage
 
 # Logs
 server/logs

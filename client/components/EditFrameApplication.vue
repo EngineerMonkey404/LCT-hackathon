@@ -79,10 +79,6 @@ const application: IFrameApplication | null =
   );
 
 const numberWork = ref(application?.workExperience?.length ?? 1);
-console.log(+route.query.application_id!);
-console.log(application);
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

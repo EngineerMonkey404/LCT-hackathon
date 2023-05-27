@@ -66,7 +66,6 @@ const loginData: { email: string; password: string } = reactive({
 async function handleLogin() {
   try {
     await userStore.login(loginData);
-    console.log(userStore.user?.role);
     if (userStore.user) {
       if (userStore.user.role === Role.FRAME)
         return navigateTo("/frame/applications");

@@ -73,7 +73,6 @@ export class CandidateApplicationsService {
     id: number,
     application: ICandidateApplication,
   ) {
-    console.log('APPLICATION', application);
     await this.candidateApplicationModel.update(application, {
       where: { candidateId: id },
     });
@@ -89,7 +88,6 @@ export class CandidateApplicationsService {
           },
         );
       else {
-        console.log('CREATED');
         await this.positionModel.create({
           value: pos.value,
           applicationId: application.applicationId,

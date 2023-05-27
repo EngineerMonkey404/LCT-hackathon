@@ -4,7 +4,9 @@
       <div class="text-4xl text-center mb-20 mt-10 max-lg:mt-5">
         На эту стажировку откликнулись
       </div>
-      <div class="grid grid-cols-3 gap-10 max-lg:grid-cols-2 max-md:grid-cols-1 max-lg:gap-x-5">
+      <div
+        class="grid grid-cols-3 gap-10 max-lg:grid-cols-2 max-md:grid-cols-1 max-lg:gap-x-5"
+      >
         <div v-for="(trainee, index) of trainees" :key="index">
           <MentorTraineeCard
             :trainee="trainee"
@@ -49,9 +51,6 @@ async function handleSubmitTrainee(status: MentorStatus, trainee: ITrainee) {
     application?.applicationId ?? 0
   );
 }
-console.log("eto", trainees.value);
-console.log(+route.query.application_id!);
-console.log(application);
 </script>
 
 <style scoped></style>

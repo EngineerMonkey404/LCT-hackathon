@@ -8,7 +8,6 @@ async function bootstrap() {
   const PORT = process.env.PORT || 5000;
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
-  console.log(process.env.CLIENT);
   app.enableCors({ credentials: true, origin: process.env.CLIENT });
   app.use(cookieParser(process.env.SECRET));
   app.use(express.json({ limit: '50mb' }));

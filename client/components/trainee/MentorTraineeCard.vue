@@ -51,8 +51,8 @@
         </span>
       </div>
     </div>
-    <div class="flex mt-5 ">
-      <div class="mr-20 ">
+    <div class="flex mt-5">
+      <div class="mr-20">
         <div class="category mb-3">Гражданство</div>
         <div class="form-auth-input">
           {{ trainee.candidateApplication.nationality }}
@@ -71,7 +71,7 @@
         {{ trainee.candidateApplication.education }}
       </div>
       <div class="form-auth-input">
-        {{ trainee.candidateApplication.course }}
+        {{ trainee.candidateApplication.course }} курс
       </div>
     </div>
     <div class="category mt-5 mb-3">Опыт работы</div>
