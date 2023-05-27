@@ -6,6 +6,7 @@
 */.output
 */dist
 */.DS_Store
+server/storage
 
 # Logs
 server/logs
