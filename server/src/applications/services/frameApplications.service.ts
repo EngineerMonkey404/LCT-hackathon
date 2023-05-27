@@ -86,6 +86,7 @@ export class FrameApplicationsService {
   async getApplicationsByMentorId(mentorId: number) {
     return await this.frameApplicationModel.findAll({
       where: { mentorId: mentorId },
+      include: [WorkExperience],
     });
   }
 

@@ -8,6 +8,7 @@
 }
 html {
     font-family: "GTWalsheim";
+    @apply text-black
 }
 @layer base {
     .form-auth-input {
@@ -33,7 +34,6 @@ html {
 
     .header-btn {
         @apply px-8 pt-3 text-xl font-bold mr-10 rounded-t-3xl pb-0.5  hover:opacity-50 duration-300 ease-out bg-ultra-dark-purple text-white pb-3/*pb может быть плохо*/
-
     }
 
     .header-btn-active {
@@ -41,8 +41,12 @@ html {
 
     }
 
+    .header-btn-active svg path {
+        fill:#1A1230;
+    }
+
     .subheader {
-        @apply flex justify-center items-end bg-purple w-full h-44 max-md:hidden
+        @apply flex justify-center bg-header items-end w-full h-44 max-md:hidden
     }
 
     .black-btn {

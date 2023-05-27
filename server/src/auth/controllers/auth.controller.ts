@@ -81,6 +81,7 @@ export class AuthController {
 
   @Get('user/check-email')
   async checkEmail(@Query('email') email: string) {
+    console.log(email);
     return await this.authService.checkEmail(email);
   }
 }

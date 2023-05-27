@@ -1,17 +1,33 @@
 <template>
   <div class="subheader">
     <NuxtLink to="/curator/applications">
-      <div class="header-btn">
+      <div
+        class="header-btn flex items-center"
+        :class="current === 'a' ? 'header-btn-active' : ''"
+        @click="current = 'a'"
+      >
         <NuxtImg class="inline-block" type="svg" src="/frames/invites.svg" />
-        Заявки на стажировку
+        <div>Заявки на стажировку</div>
       </div>
     </NuxtLink>
-    <div class="header-btn">
-      <NuxtImg class="inline-block" type="svg" src="/curators/leaderboard.svg" />
+    <div
+      class="header-btn"
+      :class="current === 's' ? 'header-btn-active' : ''"
+      @click="current = 's'"
+    >
+      <NuxtImg
+        class="inline-block"
+        type="svg"
+        src="/curators/leaderboard.svg"
+      />
       Статистика
     </div>
     <NuxtLink to="/curator/need-trainees">
-      <div class="header-btn">
+      <div
+        class="header-btn"
+        :class="current === 't' ? 'header-btn-active' : ''"
+        @click="current = 't'"
+      >
         <NuxtImg class="inline-block" type="svg" src="/curators/badge.svg" />
         Потребность в стажерах
       </div>
@@ -19,6 +35,8 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const current = ref("a");
+</script>
 
 <style scoped></style>

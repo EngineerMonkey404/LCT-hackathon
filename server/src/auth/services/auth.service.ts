@@ -129,6 +129,7 @@ export class AuthService {
 
   async checkEmail(email: string) {
     const e = await this.userModel.findOne({ where: { email: email } });
-    return e;
+    console.log('EMAIL', e);
+    return !!e;
   }
 }
