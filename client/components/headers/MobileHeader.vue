@@ -1,15 +1,17 @@
 <template>
-    <footer class="flex bg-white justify-between rounded-t-3xl">
-        
+    <footer class="fixed bottom-0 w-full flex bg-white justify-between rounded-t-3xl px-10 py-3 shadow-slate-500 shadow-xl border-t border-black items-center lg:hidden">
+        <NuxtImg type="svg" style="height: 25px;" src="/mobile-header/menu.svg" />
+        <NuxtImg type="svg" style="height: 25px;" src="/mobile-header/help.svg" />
+        <NuxtImg type="svg" style="height: 25px;" src="/mobile-header/sentiment_dissatisfied.svg" />
+        <NuxtImg type="svg" style="height: 25px;" src="/mobile-header/notifications.svg" />
+        <MenuComp />
     </footer>
 </template>
   
 <script setup lang="ts">
-import MenuComp from "./headers/MenuComp.vue";
+import MenuComp from "./MenuComp.vue";
 import { useUserStore } from "~/stores/userStore";
-import { Role } from "~/types/types";
 
-const userStore = useUserStore();
 </script>
   
 <style scoped></style>

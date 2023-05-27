@@ -8,6 +8,7 @@
           :value="FrameApplicationFilter.AVAILABLE"
         >
           <span :class="checked ? 'font-bold' : ''" class="cursor-pointer">
+            <NuxtImg class="inline" type="svg" src="/trainee/approval_delegation.svg" />
             Доступные места
           </span>
         </RadioGroupOption>
@@ -17,6 +18,7 @@
           :value="FrameApplicationFilter.SENDED"
         >
           <span :class="checked ? 'font-bold' : ''" class="cursor-pointer">
+            <NuxtImg class="inline" type="svg" src="/trainee/markunread_mailbox.svg" />
             Отправленные заявки
           </span>
         </RadioGroupOption>
