@@ -121,7 +121,6 @@ export class FrameApplicationsService {
     traineeId: number,
     result: number,
   ) {
-    console.log('SUBMIT', applicationId, traineeId, result);
     await this.traineeOnFrameApplicationModel.create({
       traineeId: traineeId,
       applicationId: applicationId,

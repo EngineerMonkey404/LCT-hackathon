@@ -9,7 +9,11 @@
         <NuxtImg
           class="inline-block"
           type="svg"
-          src="/candidate/assignment_ind.svg"
+          :src="
+            current === 'a'
+              ? `/candidate/black/assignment_ind.svg`
+              : '/candidate/white/assingment_ind.svg'
+          "
         />
         Подать заявку
       </button>

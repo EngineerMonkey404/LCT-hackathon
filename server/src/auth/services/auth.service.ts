@@ -94,23 +94,27 @@ export class AuthService {
     const user = await this.userModel.findOne({
       where: { email: email },
     });
-    const valid = await bcrypt.compare(password, user.pwd_hash);
-    if (user && valid) {
-      delete user.dataValues.pwd_hash;
-      const u = {
-        ...user.dataValues,
-        organization: {
-          name: user.organizationName,
-          address: user.organizationAddress,
-          coordinates: [
-            user.organizationCoordinateX,
-            user.organizationCoordinateY,
-          ],
-        },
-      };
-      delete u.organization;
-      return u;
+    if (user) {
+      const valid = await bcrypt.compare(password, user.pwd_hash);
+
+      if (valid) {
+        delete user.dataValues.pwd_hash;
+        const u = {
+          ...user.dataValues,
+          organization: {
+            name: user.organizationName,
+            address: user.organizationAddress,
+            coordinates: [
+              user.organizationCoordinateX,
+              user.organizationCoordinateY,
+            ],
+          },
+        };
+        delete u.organization;
+        return u;
+      }
     }
+
     return null;
   }
 
@@ -129,7 +133,6 @@ export class AuthService {
 
   async checkEmail(email: string) {
     const e = await this.userModel.findOne({ where: { email: email } });
-    console.log('EMAIL', e);
     return !!e;
   }
 }

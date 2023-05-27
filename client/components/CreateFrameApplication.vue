@@ -177,7 +177,6 @@ const createApplication = async () => {
   ) {
     empty.value = true;
   } else {
-    console.log("user", userStore.user);
     frameApplicationStore.creationApplication.mentorId = mentor.value.userId;
     frameApplicationStore.creationApplication.organization = {
       name: userStore.user?.organizationName ?? "",

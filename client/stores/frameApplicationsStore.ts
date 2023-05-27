@@ -46,7 +46,6 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     });
     if (fetchedApplications.value) {
       mentorApplications.value = fetchedApplications.value;
-      console.log(mentorApplications.value);
     }
   }
 
@@ -70,7 +69,6 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       method: "GET",
     });
     if (fetchedApplications.value) {
-      console.log(fetchedApplications.value);
       traineeFrameApplicationIds.value = fetchedApplications.value.map(
         (application) => application.applicationId
       );
@@ -231,7 +229,6 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
       workExperience: [],
       frameId: userStore.user!.userId!,
     };
-    console.log("ID", appId.value);
     return appId.value;
     // if (newApplication.value) {
     //   newApplication.value.status = FrameApplicationStatus.PENDING;

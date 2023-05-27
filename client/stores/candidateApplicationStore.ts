@@ -117,7 +117,6 @@ export const useCandidateApplicationStore = defineStore(
     async function updateCandidateApplication(
       application: ICandidateApplication
     ) {
-      console.log("Application", application);
       const { data: newApplication } = await useApiFetch<
         ICandidateApplication,
         Error,

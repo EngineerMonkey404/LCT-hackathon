@@ -16,7 +16,6 @@ export const useTestStore = defineStore("test_store", () => {
     const { data: test } = await useApiFetch<ITest>(`tests/test/${id}`, {
       method: "GET",
     });
-    console.log("test", test.value);
     if (test.value) currentTest.value = test.value.questions;
   }
 

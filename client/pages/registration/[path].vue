@@ -16,7 +16,6 @@ const path = router.currentRoute.value.fullPath.split("/")[2];
 const { data: role } = await useApiFetch<Role>(`auth/invite/${path}`, {
   method: "GET",
 });
-console.log(role);
 </script>
 
 <style scoped></style>

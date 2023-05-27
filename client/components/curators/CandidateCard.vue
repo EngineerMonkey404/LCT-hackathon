@@ -125,7 +125,6 @@ const user: IUser =
 if (props.application) {
   date.value = props.application.date ?? new Date();
 }
-console.log(user);
 
 function getYears(dob: Date) {
   const month_diff = Date.now() - dob.getTime();

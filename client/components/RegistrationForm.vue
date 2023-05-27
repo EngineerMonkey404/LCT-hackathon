@@ -2,7 +2,7 @@
   <div
     class="container mx-auto flex flex-col w-1/3 bg-white py-10 px-20 rounded-3xl shadow-2xl max-lg:w-full max-md:mx-10"
   >
-    <div>{{ emailExists }}</div>
+    <div>email {{ emailExists }}</div>
     <div>em{{ empty }}</div>
     <form class="flex flex-col">
       <h2 class="text-center text-2xl font-semibold">
@@ -232,8 +232,9 @@ const props = withDefaults(defineProps<{ role?: Role; path: string }>(), {
 });
 
 async function handleRegistration() {
-  console.log(await userStore.checkEmail(registerData.email));
   emailExists.value = (await userStore.checkEmail(registerData.email)) ?? false;
+
+  empty.value = false;
   if (
     !registerData.firstName ||
     !registerData.secondName ||
@@ -243,7 +244,7 @@ async function handleRegistration() {
   ) {
     empty.value = true;
   } else {
-    if (!emailExists) {
+    if (!emailExists.value) {
       if (props.role === Role.FRAME) {
         registerData.direction = direction.value;
         registerData.organization = organizations.filter(
@@ -254,7 +255,9 @@ async function handleRegistration() {
       if (props.path) {
         registerData.role = props.role;
         await userStore.registerUser(registerData, props.path);
-      } else await userStore.registerUser(registerData);
+      } else {
+        await userStore.registerUser(registerData);
+      }
       return navigateTo("/");
     }
   }

@@ -32,17 +32,6 @@ export const useTraineeStore = defineStore("traineeStore", () => {
         }
       );
   }
-  //need traineesId[] in frameApplication как будет сделаю получение заявок из стора со статусом апрувд
-  // и далее геттеры для таких заявок
-  /* function submitTraineeRespond(application: IFrameApplication, traineeId: number) {
-        if (application.traineesId) {
-            application.traineesId.push(traineeId)
-        } else {
-            application.traineesId = [traineeId]
-        }
-        console.log(application)
-    } */
-
   function getApplicationsByTraineeId(traineeId: number) {
     return allFrameApplications.value?.filter((element) =>
       element.traineesId?.includes(traineeId)
