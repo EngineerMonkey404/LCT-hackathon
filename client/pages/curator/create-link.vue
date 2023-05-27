@@ -1,7 +1,6 @@
 <template>
   <div class="container mx-auto text-center">
     <RadioGroup v-model="chosenRole">
-      <RadioGroupLabel class="block text-2xl my-3">Plan</RadioGroupLabel>
       <RadioGroupOption
         v-slot="{ checked }"
         class="radio-btn"
@@ -53,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { RadioGroup, RadioGroupLabel, RadioGroupOption } from "@headlessui/vue";
+import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
 import { Role } from "~/types/types";
 const chosenRole = ref<Role>();
 const path = ref("");

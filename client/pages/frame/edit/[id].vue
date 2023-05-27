@@ -1,75 +1,28 @@
 <template>
-  <div
-    v-if="application"
-    class="text-2xl py-5 px-10 w-1/2 mx-auto shadow-slate-950 shadow-2xl rounded-3xl mt-10 max-xl:w-full"
-  >
+  <div v-if="application"
+    class="text-2xl py-5 px-10 w-1/2 mx-auto shadow-slate-950 shadow-2xl rounded-3xl mt-10 max-xl:w-full">
     <h1 class="text-3xl mb-10 font-bold">Создание заявки</h1>
-    <div class="flex justify-between row-input max-sm:adaptive-flex-col">
-      <div>
-        <label class="block mb-2 font-semibold" for="job">Должность</label>
-        <input
-          id="job"
-          v-model="application.position"
-          class="form-auth-input mb-5"
-        />
-      </div>
-      <div>
-        <label class="block mb-2 font-semibold" for="organiztion">
-          Организация
-        </label>
-        <input
-          id="organization"
-          v-model="application.organization"
-          class="form-auth-input mb-5"
-        />
-      </div>
-      <div>
-        <label class="block mb-2 font-semibold" for="adrees">
-          Адрес
-        </label>
-        <input
-          id="adress"
-          v-model="application.address"
-          class="form-auth-input mb-5"
-        />
-      </div>
+    <div>
+      <label class="block mb-2 font-semibold" for="job">Должность</label>
+      <input id="job" v-model="application.position" class="form-auth-input mb-5 w-full" />
     </div>
     <hr class="w-full" />
     <label class="block mb-2 font-semibold" for="description">Описание</label>
-    <textarea
-      id="description"
-      v-model="application.description"
-      class="form-auth-input rounded-3xl text-2xl w-full"
-      rows="5"
-    ></textarea>
+    <textarea id="description" v-model="application.description" class="form-auth-input rounded-3xl text-2xl w-full"
+      rows="5"></textarea>
     <label class="block mb-2 font-semibold mt-10" for="workExpirience">
       Опыт работы
     </label>
-    <input
-      v-for="(n, i) in numberWork"
-      :key="i"
-      v-model="workExperience[n - 1]"
-      class="form-auth-input mb-5 w-full"
-    />
-    <button
-      class="mb-5 block"
-      @click="() => {
-                    if (application!.workExperience[numberWork - 1]) numberWork += 1;
-                }
-                "
-    >
-      <NuxtImg
-        class="inline-block"
-        format="svg"
-        src="/candidate/add_circle.svg"
-        style="height: 15px"
-      />
+    <input v-for="(n, i) in numberWork" :key="i" v-model="workExperience[n - 1]" class="form-auth-input mb-5 w-full" />
+    <button class="mb-5 block" @click="() => {
+      if (application!.workExperience[numberWork - 1]) numberWork += 1;
+    }
+      ">
+      <NuxtImg class="inline-block" format="svg" src="/candidate/add_circle.svg" style="height: 15px" />
       <span class="ml-3">Добавить требуемый опыт работы</span>
     </button>
-    <button
-      class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover"
-      @click="handleApplicationUpdate"
-    >
+    <button class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover"
+      @click="handleApplicationUpdate">
       Обновить данные
     </button>
   </div>
@@ -106,7 +59,7 @@ async function handleApplicationUpdate() {
 
 <style scoped>
 .row-input input {
-  width: 80%;
+
   /* Убираем влияние padding и border на конечную ширину input */
   box-sizing: border-box;
   /* Обнуляем margin */

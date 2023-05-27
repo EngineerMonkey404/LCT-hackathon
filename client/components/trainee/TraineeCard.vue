@@ -13,58 +13,54 @@
       <NuxtImg class="block" type="svg" src="/candidate/faceCandidate.svg" />
     </div>
     <hr class="w-full mt-5" />
-    <div class="mt-10 grid grid-cols-3">
+    <div class="mt-5 flex justify-around">
       <div class="style-flex-col">
-        <div class="category text-lg text-center">Русский язык</div>
-        <span class="form-auth-input text-center text-xl mt-3 self-center">
+        <div class="category text-lg text-center max-2xl:text-base">Русский<br>язык</div>
+        <span class="form-auth-input text-center text-xl self-center">
           {{ trainee.candidateApplication.russianLanguageTestResult ?? 0 }}
         </span>
       </div>
       <div class="style-flex-col">
-        <div class="category text-lg text-center">Анализ информации</div>
-        <span class="form-auth-input text-center text-xl mt-3 self-center">
+        <div class="category text-lg text-center max-2xl:text-base">Анализ<br>информации</div>
+        <span class="form-auth-input text-center text-xl self-center">
           {{ trainee.candidateApplication.informationAnalysisTestResult ?? 0 }}
         </span>
       </div>
       <div class="style-flex-col">
-        <div class="category text-lg text-center">Компюьтерная грамотность</div>
-        <span class="form-auth-input text-center text-xl mt-3 self-center">
+        <div class="category text-lg text-center max-2xl:text-base">Компюьтерная<br>грамотность</div>
+        <span class="form-auth-input text-center text-xl self-center">
           {{ trainee.candidateApplication.computerLiteracyTestResult ?? 0 }}
         </span>
       </div>
     </div>
     <div class="flex mt-5">
-      <div class="mr-20">
-        <div class="text-2xl font-semibold">Гражданство</div>
+      <div class="mr-20 max-md:mr-10">
+        <div class="category mb-3">Гражданство</div>
         <div class="form-auth-input">{{ trainee.candidateApplication.nationality }}</div>
       </div>
       <div>
-        <div class="text-2xl font-semibold">Город</div>
+        <div class="category mb-3">Город</div>
         <div class="form-auth-input">{{ trainee.candidateApplication.city }}</div>
       </div>
     </div>
-    <div class="text-2xl font-semibold mt-5 mb-2">Образование</div>
+    <div class="category mt-5 mb-2">Образование</div>
     <div class="flex">
       <div class="form-auth-input mr-20">{{ trainee.candidateApplication.education }}</div>
       <div class="form-auth-input">{{ trainee.candidateApplication.course }}</div>
     </div>
-    <div class="text-2xl font-semibold mt-5 mb-3">Опыт работы</div>
+    <div class="category mt-5 mb-3">Опыт работы</div>
     <div v-if="!trainee.candidateApplication.experience" class="text-xl">Нет опыта</div>
-    <div class="text-xl" v-else>Есть опыт</div>
-    <!-- need position -->
-    <!-- <div v-for="job of trainee.candidateApplication.position" class="mb-3">
-      <div class="form-auth-input">{{ job.value }}</div>
-    </div> -->
-    {{ trainee.userId }}
-    <div class="flex items-center gap-x-10 mt-5">
+    <div v-for="job of trainee.candidateApplication.position" class="mb-3">
+      <div class="form-auth-input">{{ job }}</div>
+    </div>
+    <div class="flex items-center gap-x-10 mt-5 max-lg:gap-x-5">
       <div @click="mentorApplicationStore.mentorSubmitApplication(+route.params.id,
-            trainee.userId!, FrameApplicationStatus.APPROVED)"
-          class="black-btn text-center py-1">
-        Пригласить на собеседование
+        trainee.userId!, FrameApplicationStatus.APPROVED)" class="black-btn text-center py-1">
+        Пригласить <span class="max-lg:hidden">на собеседование</span>
       </div>
       <div @click="mentorApplicationStore.mentorSubmitApplication(+route.params.id,
-            trainee.userId!, FrameApplicationStatus.DECLINED)"
-      class="black-btn text-center py-4">Отказать</div>
+        trainee.userId!, FrameApplicationStatus.DECLINED)" class="black-btn text-center py-4 max-lg:py-1">Отказать
+      </div>
     </div>
   </div>
 </template>
@@ -79,4 +75,6 @@ const route = useRoute();
 const props = defineProps<{ trainee: ITrainee }>();
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
