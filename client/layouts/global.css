@@ -74,16 +74,21 @@ html {
         height: 700px;
         width: 700px;
 
-        @media (max-width: 1280px) {
-            height: 500px;
-            width: 500px;
+
+    }
+    @media (max-width: 1280px) {
+        .yandex-container{
+
+            height:500px;
+            width:500px;
+        }
         }
         @media (max-width: 640px) {
+            .yandex.container. {
+
             height: 600px;
             width: 300px;
-        }
-    }
-
+        }}
         .yandex-balloon {
             width: 350px !important;
             height: 500px !important;
