@@ -4,9 +4,14 @@
       <div class="text-4xl text-center mb-20 mt-10">
         На эту стажировку откликнулись
       </div>
-      <div class="grid grid-cols-3 gap-10 max-xl:grid-cols-2 max-xl:px-3 max-md:gap-5 max-sm:grid-cols-1">
+      <div
+        class="grid grid-cols-3 gap-10 max-xl:grid-cols-2 max-xl:px-3 max-md:gap-5 max-sm:grid-cols-1"
+      >
         <div v-for="trainee of trainees">
-          <TraineeCard :trainee="trainee" />
+          <TraineeCard
+            :trainee="trainee"
+            @sub="handleSubmitTrainee($event, trainee)"
+          />
         </div>
       </div>
     </div>
@@ -17,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { IFrameApplication, ITrainee } from "~/types/types";
+import { IFrameApplication, ITrainee, TraineeStatus } from "~/types/types";
 import { useFrameApplicationsStore } from "~/stores/frameApplicationsStore";
 import { useTraineeStore } from "~/stores/traineeStore";
 import TraineeCard from "~/components/trainee/TraineeCard.vue";
@@ -30,12 +35,22 @@ const application: IFrameApplication | null =
 const traineeStore = useTraineeStore();
 const trainees = ref<ITrainee[] | null>([]);
 
-onMounted(async () => {
-  trainees.value = await traineeStore.getTraineesByApplicationId(
+trainees.value = await traineeStore.getTraineesForFrameByApplicationId(
+  application?.applicationId ?? 0
+);
+
+async function handleSubmitTrainee(status: TraineeStatus, trainee: ITrainee) {
+  await frameApplicationStore.frameSubmitApplication(
+    +route.params.id,
+    trainee.userId!,
+    status
+  );
+
+  trainees.value = await traineeStore.getTraineesForFrameByApplicationId(
     application?.applicationId ?? 0
   );
-  console.log('eto', trainees.value);
-});
+}
+
 console.log(+route.query.application_id!);
 console.log(application);
 </script>

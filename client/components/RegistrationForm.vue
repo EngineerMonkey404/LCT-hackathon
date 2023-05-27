@@ -184,14 +184,19 @@
         placeholder="Пароль"
       />
     </form>
-    <NuxtLink to="/">
-      <button
-        class="form-auth-input bg-black text-white font-semibold black-btn-hover"
-        @click="handleRegistration"
-      >
-        Зарегистрироваться
-      </button>
-    </NuxtLink>
+
+    <div v-if="emailExists" class="text-2xl text-red-500 mb-4">
+      *Пользователь с таким email уже существует
+    </div>
+    <div v-if="empty" class="text-2xl text-red-500 mb-4">
+      *Заполните все поля
+    </div>
+    <button
+      class="form-auth-input bg-black text-white font-semibold black-btn-hover"
+      @click="handleRegistration"
+    >
+      Зарегистрироваться
+    </button>
   </div>
 </template>
 
@@ -216,24 +221,40 @@ const registerData: RegisterData = reactive({
   image: { url: "", file: null },
 });
 
+const empty = ref(false);
+const emailExists = ref(false);
 const organization = ref(organizations[0].name);
 const direction = ref(Direction.HR);
-const props = withDefaults(defineProps<{ role: Role; path: string }>(), {
+const props = withDefaults(defineProps<{ role?: Role; path: string }>(), {
   role: Role.CANDIDATE,
 });
 
 async function handleRegistration() {
-  if (props.role === Role.FRAME) {
-    registerData.direction = direction.value;
-    registerData.organization = organizations.filter(
-      (org) => (org.name = organization.value)
-    )[0];
-  } else if (props.role === Role.MENTOR)
-    registerData.direction = direction.value;
-  if (props.path) {
-    registerData.role = props.role;
-    await userStore.registerUser(registerData, props.path);
-  } else await userStore.registerUser(registerData);
+  emailExists.value = (await userStore.checkEmail(registerData.email)) ?? false;
+  if (
+    !registerData.firstName ||
+    !registerData.secondName ||
+    !registerData.secondName ||
+    !registerData.email ||
+    !registerData.password
+  ) {
+    empty.value = true;
+  } else {
+    if (!emailExists) {
+      if (props.role === Role.FRAME) {
+        registerData.direction = direction.value;
+        registerData.organization = organizations.filter(
+          (org) => (org.name = organization.value)
+        )[0];
+      } else if (props.role === Role.MENTOR)
+        registerData.direction = direction.value;
+      if (props.path) {
+        registerData.role = props.role;
+        await userStore.registerUser(registerData, props.path);
+      } else await userStore.registerUser(registerData);
+      return navigateTo("/");
+    }
+  }
 }
 
 async function addImageFile(event: Event) {

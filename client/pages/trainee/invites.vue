@@ -7,14 +7,18 @@
           class="mb-5"
           :value="FrameApplicationFilter.AVAILABLE"
         >
-          <span :class="checked ? 'font-bold' : ''">Доступные места</span>
+          <span :class="checked ? 'font-bold' : ''" class="cursor-pointer">
+            Доступные места
+          </span>
         </RadioGroupOption>
         <RadioGroupOption
           v-slot="{ checked }"
           class="mb-5"
           :value="FrameApplicationFilter.SENDED"
         >
-          <span :class="checked ? 'font-bold' : ''">Отправленные заявки</span>
+          <span :class="checked ? 'font-bold' : ''" class="cursor-pointer">
+            Отправленные заявки
+          </span>
         </RadioGroupOption>
       </RadioGroup>
     </div>

@@ -49,7 +49,7 @@ export class FrameApplicationsController {
 
   @ApiOperation({ summary: 'Получение всех заявок по id ментора' })
   @Get('frame-application/mentor/:mentor_id')
-  async getApplicationsByMentorId(@Param('id') id: number) {
+  async getApplicationsByMentorId(@Param('mentor_id') id: number) {
     return await this.applicationService.getApplicationsByMentorId(id);
   }
 
@@ -145,11 +145,20 @@ export class FrameApplicationsController {
     await this.applicationService.submitCuratorRespond(applicationId, status);
   }
 
-  @Get('frame-application/:id/trainees')
-  async getTraineesByApplicationId(
+  @Get('frame-application/:id/mentor-trainees')
+  async getTraineesForMentorByApplicationId(
     @Param('id', ParseIntPipe) applicationId: number,
   ) {
-    return await this.applicationService.getTraineesByApplicationId(
+    return await this.applicationService.getTraineesForMentorByApplicationId(
+      applicationId,
+    );
+  }
+
+  @Get('frame-application/:id/frame-trainees')
+  async getTraineesForFrameByApplicationId(
+    @Param('id', ParseIntPipe) applicationId: number,
+  ) {
+    return await this.applicationService.getTraineesForFrameByApplicationId(
       applicationId,
     );
   }

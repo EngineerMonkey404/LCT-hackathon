@@ -78,4 +78,9 @@ export class AuthController {
   async getUserById(@Param('id') id: number) {
     return await this.authService.getUserById(id);
   }
+
+  @Get('user/check-email')
+  async checkEmail(@Query('email') email: string) {
+    return await this.authService.checkEmail(email);
+  }
 }
