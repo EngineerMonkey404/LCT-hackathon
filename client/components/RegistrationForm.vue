@@ -2,8 +2,6 @@
   <div
     class="container mx-auto flex flex-col w-1/3 bg-white py-10 px-20 rounded-3xl shadow-2xl max-lg:w-full max-md:mx-10"
   >
-    <div>email {{ emailExists }}</div>
-    <div>em{{ empty }}</div>
     <form class="flex flex-col">
       <h2 class="text-center text-2xl font-semibold">
         Регистрация

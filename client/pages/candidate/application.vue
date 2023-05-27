@@ -1,5 +1,5 @@
 <template>
-  <div class="lg:container lg:mx-auto mt-10 flex justify-center xl:items-stretch max-xl:adaptive-flex-col">
+  <div class="lg:container lg:mx-auto mt-10 flex justify-center xl:items-stretch max-xl:adaptive-flex-col max-xl:flex-col-reverse max-xl:mx-3">
     <div class="mr-10 max-xl:mr-0">
       <EditCandidateApplication
         v-if="
@@ -9,7 +9,7 @@
       />
       <CandidateApplication class="" v-else/>
     </div>
-    <component
+    <component class="mb-5"
       :is="listStatus[candidateApplicationStore.personalCandidateApplication?.status as keyof typeof listStatus]"
     />
   </div>
@@ -26,8 +26,6 @@ import EditCandidateApplication from "~/components/candidate/EditCandidateApplic
 
 const candidateApplicationStore = useCandidateApplicationStore();
 const userStore = useUserStore();
-
-//Todo BLUR BLUR BLUR BLUR
 
 const listStatus = {
   [FrameApplicationStatus.APPROVED]: ApprovedStatus,

@@ -7,7 +7,7 @@
                         router.currentRoute.value.fullPath === `mentor/${route.route}`,
                 }">
                     <NuxtImg class="inline-block" type="svg" :src="route.svg" />
-                    {{ route.title }}
+                    <span class="max-sm:hidden">{{ route.title }}</span>
                 </div>
             </NuxtLink>
         </template>
