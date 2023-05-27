@@ -23,9 +23,7 @@ html {
         @apply hover:bg-slate-400 transition duration-150 ease-out
     }
 
-    .candidate-radio-btn {
-
-    }
+    /* .candidate-radio-btn {} */
 
     .radio-btn {
         @apply hover:opacity-50 duration-150 ease-out text-2xl inline max-md:text-xl
@@ -33,16 +31,14 @@ html {
 
 
     .header-btn {
-        @apply px-8 pt-3 text-xl font-bold mr-10 rounded-t-3xl pb-0.5  hover:opacity-50 duration-300 ease-out bg-ultra-dark-purple text-white pb-3/*pb может быть плохо*/
+        @apply px-8 pt-3 text-xl font-bold mr-10 rounded-t-3xl pb-0.5 hover:opacity-50 duration-300 ease-out bg-ultra-dark-purple text-white pb-3
+            /*pb может быть плохо*/
+
     }
 
     .header-btn-active {
         @apply bg-white text-black;
 
-    }
-
-    .header-btn-active svg path {
-        fill:#1A1230;
     }
 
     .subheader {
@@ -52,7 +48,7 @@ html {
     .black-btn {
         @apply py-2 px-4 rounded-full text-white bg-black text-xl hover:cursor-pointer;
         @apply hover:opacity-60 transition duration-150 ease-out;
-        @apply  max-sm:px-2 max-sm:text-base max-lg:text-lg;
+        @apply max-md:px-2 max-sm:text-base max-lg:text-lg;
     }
 
     .card-style {
@@ -60,36 +56,58 @@ html {
         @apply max-md:p-5;
     }
 
-    .invite-button{
-        @apply py-5 px-10 bg-black text-white rounded-3xl;
+    .invite-button {
+        @apply py-5 px-10 bg-black text-white rounded-3xl max-lg:px-3;
     }
 
     .category {
-        @apply text-2xl font-semibold ;
+        @apply text-2xl font-semibold;
         @apply max-xl:text-xl;
     }
 
     .style-flex-col {
-        @apply flex flex-col h-full place-content-center ;
+        @apply flex flex-col h-full place-content-center;
     }
 
     .yandex-container {
-        height: 1000px;
-        width: 1000px;
+        height: 700px;
+        width: 700px;
+
+        @media (max-width: 1280px) {
+            height: 500px;
+            width: 500px;
+        }
+        @media (max-width: 640px) {
+            height: 600px;
+            width: 300px;
+        }
     }
 
-    .yandex-balloon {
-        width: 350px !important;
-        height: 500px !important;
-        overflow-x:hidden;
-    }
+        .yandex-balloon {
+            width: 350px !important;
+            height: 500px !important;
+            overflow-x: hidden;
+            /* @media (max-width: 640px) {
+                width: 150px;
+                height: 200px;
+            } */
+        }
 
-    .adaptive-flex-col {
-        @apply flex flex-col items-center;
-    }
-    /*.ymaps-2-1-79-balloon {*/
-    /*    width: 800px !important;*/
-    /*    height: 800px !important;*/
-    /*}*/
+        .adaptive-flex-col {
+            @apply flex flex-col items-center;
+        }
 
-}
+        .text-height {
+            line-height: 1.2;
+            height: 6em;
+            word-break: break-word;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        /*.ymaps-2-1-79-balloon {*/
+        /*    width: 800px !important;*/
+        /*    height: 800px !important;*/
+        /*}*/
+
+    }

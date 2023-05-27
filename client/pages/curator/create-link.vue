@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto text-center">
-    <RadioGroup v-model="chosenRole">
+    <RadioGroup class="mt-10" v-model="chosenRole">
       <RadioGroupOption
         v-slot="{ checked }"
         class="radio-btn"
@@ -8,7 +8,7 @@
       >
         <span
           :class="checked ? 'bg-blue-200 text-black' : ''"
-          class="invite-button"
+          class="invite-button max-sm:block max-sm:mx-3"
         >
           Ссылка для куратора
         </span>
@@ -20,7 +20,7 @@
       >
         <span
           :class="checked ? 'bg-blue-200 text-black' : ''"
-          class="invite-button"
+          class="invite-button max-sm:block max-sm:mx-3"
         >
           Ссылка для наставника
         </span>
@@ -32,7 +32,7 @@
       >
         <span
           :class="checked ? 'bg-blue-200 text-black' : ''"
-          class="invite-button"
+          class="invite-button max-sm:block max-sm:mx-3"
         >
           Ссылка для кадра
         </span>
@@ -42,8 +42,8 @@
       <button class="invite-button mb-10" @click="generateInvite">
         Сгенерировать
       </button>
-      <div class="">
-        <input v-model="path" type="text" class="w-1/2" />
+      <div class="flex justify-center max-xl:adaptive-flex-col">
+        <input v-model="path" type="text" class="w-1/2 max-xl:w-full text-center text-ellipsis max-xl:mb-3 px-3" />
         <button class="form-auth-input" @click="copy">Скопировать</button>
       </div>
       <div v-if="copied" class="text-center">Ссылка скопирована</div>
@@ -58,7 +58,6 @@ const chosenRole = ref<Role>();
 const path = ref("");
 const copied = ref(false);
 
-const config = useRuntimeConfig;
 async function generateInvite() {
   copied.value = false;
   const { data: fetchedPath } = await useApiFetch<string>(`invites/generate`, {
@@ -76,6 +75,6 @@ function copy() {
 
 <style scoped>
 .radio-btn {
-  @apply me-10;
+  @apply me-10 max-xl:me-4 max-lg:text-lg;
 }
 </style>
