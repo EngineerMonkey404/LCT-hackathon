@@ -21,6 +21,7 @@ import { IFrameApplication } from '../models/frame/frameApplication.interface';
 import {
   FrameApplicationStatus,
   MentorStatus,
+  TraineeStatus,
 } from '../models/frame/frameApplicationStatus.enum';
 import { User } from '../../auth/models/user.model';
 import { InjectModel } from '@nestjs/sequelize';
@@ -54,8 +55,8 @@ export class FrameApplicationsController {
 
   @ApiOperation({ summary: 'Получение всех заявок по id trainee' })
   @Get('frame-application/trainee/:trainee_id')
-  async getMentorsByApplicationId(@Param('id') id: number) {
-    return await this.applicationService.getTraineeFrameApplicationIds(id);
+  async getMentorsByApplicationId(@Param('trainee_id') id: number) {
+    return await this.applicationService.getTraineeFrameApplication(id);
   }
 
   @ApiOperation({ summary: 'Подтверждение отклика ментором' })
@@ -77,9 +78,9 @@ export class FrameApplicationsController {
   async submitTraineeByFrame(
     @Param('application_id') applicationId: number,
     @Param('trainee_id') traineeId: number,
-    @Query('status') status: MentorStatus,
+    @Query('status') status: TraineeStatus,
   ) {
-    await this.applicationService.submitTraineeByMentor(
+    await this.applicationService.submitTraineeByFrame(
       traineeId,
       applicationId,
       status,
@@ -127,10 +128,12 @@ export class FrameApplicationsController {
   async submitTraineeRespond(
     @Param('application_id', ParseIntPipe) applicationId: number,
     @Param('trainee_id', ParseIntPipe) traineeId: number,
+    @Query('result') result: number,
   ) {
     await this.applicationService.submitTraineeRespond(
       applicationId,
       traineeId,
+      result,
     );
   }
 

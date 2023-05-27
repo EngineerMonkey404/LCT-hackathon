@@ -9,7 +9,13 @@ import { QuestionsOnTest } from './models/questionsOnTest.model';
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([Question, Test, TestResult, QuestionsOnTest]),
+    SequelizeModule.forFeature([
+      Question,
+      Test,
+      TestResult,
+      QuestionsOnTest,
+      TestResult,
+    ]),
   ],
   controllers: [TestsController],
   providers: [TestsService],

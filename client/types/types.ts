@@ -154,3 +154,23 @@ export interface ITest {
   applicationId: number;
   testId: number;
 }
+
+export enum TraineeStatus {
+  APPROVED = "approved",
+  DECLINED = "declined",
+  PENDING = "pending",
+}
+
+export enum MentorStatus {
+  APPROVED = "approved",
+  DECLINED = "declined",
+  PENDING = "pending",
+}
+
+export interface TraineeOnFrameApplication {
+  traineeId: number;
+  applicationId: number;
+  traineeStatus: TraineeStatus;
+  mentorStatus: MentorStatus;
+  result: number;
+}

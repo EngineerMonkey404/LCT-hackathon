@@ -3,6 +3,7 @@ import { IQuestion, ITest } from "~/types/types";
 
 export const useTestStore = defineStore("test_store", () => {
   const creationTest = ref<IQuestion[]>([]);
+  const personalTestResult = ref(-1);
   const currentTest = ref<IQuestion[]>([]);
 
   async function createTest(applicationId: number, questions: IQuestion[]) {
@@ -19,5 +20,22 @@ export const useTestStore = defineStore("test_store", () => {
     if (test.value) currentTest.value = test.value.questions;
   }
 
-  return { creationTest, createTest, getTestByFrameApplicationId, currentTest };
+  async function applyTestResult(
+    applicationId: number,
+    traineeId: number,
+    result: number
+  ) {
+    await useApiFetch(`tests/test-answer/${applicationId}/${traineeId}`, {
+      method: "POST",
+      query: { result: result },
+    });
+  }
+
+  return {
+    creationTest,
+    createTest,
+    getTestByFrameApplicationId,
+    currentTest,
+    personalTestResult,
+  };
 });

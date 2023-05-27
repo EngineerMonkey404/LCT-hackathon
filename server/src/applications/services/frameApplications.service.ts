@@ -88,12 +88,10 @@ export class FrameApplicationsService {
     });
   }
 
-  async getTraineeFrameApplicationIds(traineeId: number) {
-    return (
-      await this.traineeOnFrameApplicationModel.findAll({
-        where: { traineeId },
-      })
-    ).map((obj) => obj.applicationId);
+  async getTraineeFrameApplication(traineeId: number) {
+    return await this.traineeOnFrameApplicationModel.findAll({
+      where: { traineeId: traineeId },
+    });
   }
 
   async getFrameApplications() {
@@ -116,10 +114,16 @@ export class FrameApplicationsService {
     });
   }
 
-  async submitTraineeRespond(applicationId: number, traineeId: number) {
+  async submitTraineeRespond(
+    applicationId: number,
+    traineeId: number,
+    result: number,
+  ) {
+    console.log('SUBMIT', applicationId, traineeId, result);
     await this.traineeOnFrameApplicationModel.create({
       traineeId: traineeId,
       applicationId: applicationId,
+      traineeResult: result ?? null,
     });
   }
 

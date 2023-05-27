@@ -6,6 +6,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Query,
 } from '@nestjs/common';
 import { TestsService } from './tests.service';
 import { IAnswer, IQuestion } from './models/types';
@@ -36,13 +37,13 @@ export class TestsController {
     await this.testService.deleteTest(applicationId);
   }
 
-  @ApiBody({ type: IAnswer, isArray: true })
-  @Post('test-answer/:testId')
-  async applyTest(
-    @Param('testId', ParseIntPipe) testId: number,
-    @Body()
-    answers: IAnswer[],
-  ) {
-    return await this.testService.applyTest(testId, answers);
-  }
+  // @ApiBody({ type: IAnswer, isArray: true })
+  // @Post('test-answer/:application_id/:trainee_id')
+  // async applyTest(
+  //   @Param('application_id', ParseIntPipe) applicationId: number,
+  //   @Param('trainee_id', ParseIntPipe) traineeId: number,
+  //   @Query('result') result: number,
+  // ) {
+  //   return await this.testService.applyTest(applicationId, traineeId, result);
+  // }
 }

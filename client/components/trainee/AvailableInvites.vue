@@ -11,10 +11,20 @@
     >
       <div class="p-10">
         <div class="flex flex-col">
-          <div v-if="application.position" class="text-3xl font-bold mb-4">
-            {{ application.position + " " + application.applicationId }}
+          <div class="mb-4 text-3xl font-bold">
+            {{ application.position }}
           </div>
-          <div class="text-2xl">{{ application.organization.name }}</div>
+          <div class="text-2xl mb-4">{{ application.organization.name }}</div>
+          <div
+            v-if="filter === FrameApplicationFilter.SENDED"
+            class="text-2xl font-semibold"
+          >
+            {{
+              frameApplicationsStore.getApplicationStatus(
+                application.applicationId
+              )
+            }}
+          </div>
         </div>
         <hr class="mt-5 w-full" />
         <div class="font-semibold text-3xl mt-10 mb-3">Описание</div>
@@ -31,7 +41,10 @@
         </div>
       </div>
       <div class="mb-20 mx-10 flex justify-between">
-        <button @click="handleApplication(application.applicationId!)">
+        <button
+          v-if="props.filter === FrameApplicationFilter.AVAILABLE"
+          @click="handleApplication(application.applicationId!)"
+        >
           Оставить заявку
         </button>
         <button @click="handleMap(application)">Посмотреть на карте</button>
@@ -44,7 +57,7 @@
     :application="applicationCurrent"
   />
   <Dialog
-    class="absolute top-0 z-10 w-screen bg-black/40"
+    class="fixed top-0 z-10 w-screen bg-black/40"
     :open="isOpen"
     @close="setIsOpen"
   >
@@ -56,7 +69,7 @@
           Для отклика на эту стажировку Вам необходимо пройти тестовое задание
         </div>
         <div class="flex justify-between mt-10 px-10">
-          <NuxtLink to="/trainee/solve-test">
+          <NuxtLink :to="`/trainee/solve-test/${currentApplicationId}`">
             <button>Пройти</button>
           </NuxtLink>
           <button @click="setIsOpen(false)">Позже</button>
@@ -94,9 +107,13 @@ const map = ref<InstanceType<typeof MapComp> | null>(null);
 
 await frameApplicationsStore.getApprovedFrameApplications();
 if (userStore.user && userStore.user.userId)
-  await frameApplicationsStore.getTraineeFrameApplicationIds(
+  await frameApplicationsStore.getTraineeFrameApplications(
     userStore.user.userId
   );
+
+await frameApplicationsStore.getFilteredFrameApplications(
+  FrameApplicationFilter.SENDED
+);
 //for modal dialog
 const currentApplicationId = ref<number>();
 
@@ -107,13 +124,21 @@ function handleMap(application: IFrameApplication) {
 }
 
 async function handleApplication(applicationId: number) {
+  currentApplicationId.value = applicationId;
   await testStore.getTestByFrameApplicationId(applicationId);
-  if (testStore.currentTest) {
-    console.log(testStore.currentTest);
+  if (testStore.currentTest.length) {
     setIsOpen(true);
+  } else {
+    await traineeStore.submitTraineeRespond(
+      applicationId,
+      userStore.user!.userId!
+    );
+    await frameApplicationsStore.getTraineeFrameApplications(
+      userStore.user!.userId!
+    );
+    testStore.currentTest.length = 0;
   }
 
-  // traineeStore.submitTraineeRespond(applicationId, userStore.user!.userId!);
   // return navigateTo(`/trainee/solve-test/${applicationId}`);
 }
 

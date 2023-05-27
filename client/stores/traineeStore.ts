@@ -13,16 +13,24 @@ export const useTraineeStore = defineStore("traineeStore", () => {
 
   async function submitTraineeRespond(
     applicationId: number,
-    traineeId: number
+    traineeId: number,
+    result?: number
   ) {
-    const { data: newApplication } = await useApiFetch<
-      number,
-      Error,
-      string,
-      "put"
-    >(`applications/frame-application/${applicationId}/submit/${traineeId}`, {
-      method: "PUT",
-    });
+    if (result !== -1) {
+      await useApiFetch<number, Error, string, "put">(
+        `applications/frame-application/${applicationId}/submit/${traineeId}`,
+        {
+          method: "PUT",
+          query: { result: result },
+        }
+      );
+    } else
+      await useApiFetch<number, Error, string, "put">(
+        `applications/frame-application/${applicationId}/submit/${traineeId}`,
+        {
+          method: "PUT",
+        }
+      );
   }
   //need traineesId[] in frameApplication как будет сделаю получение заявок из стора со статусом апрувд
   // и далее геттеры для таких заявок

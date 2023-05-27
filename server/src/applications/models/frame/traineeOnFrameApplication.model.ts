@@ -1,4 +1,5 @@
 import {
+  AllowNull,
   BelongsTo,
   Column,
   DataType,
@@ -29,6 +30,7 @@ export class TraineeOnFrameApplication extends Model {
   @Column(DataType.ENUM(...Object.values(MentorStatus)))
   mentorStatus: string;
 
+  @AllowNull
   @Column
   traineeResult: number;
 }

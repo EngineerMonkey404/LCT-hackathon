@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ answers }}
+    {{ testStore.currentTest }}
     <div
       v-for="(question, i) of testStore.currentTest"
       :key="question.question"
@@ -30,10 +30,25 @@
         </RadioGroupOption>
       </RadioGroup>
     </div>
-    <div class="black-btn mt-20" style="display: block" @click="handleResult">
+    <button
+      v-if="!submitted"
+      class="black-btn mt-20"
+      style="display: block"
+      @click="handleResult"
+    >
       Отправить тест
+    </button>
+    <div v-if="submitted" class="text-center text-2xl mt-10">
+      Результат: {{ result }}%
     </div>
-    <div class="text-center text-2xl mt-10" v-if="submitted">Результат: {{ result }}%</div>
+    <NuxtLink
+      v-if="submitted"
+      class="black-btn"
+      to="/trainee/invites"
+      @click="testStore.currentTest.length = 0"
+    >
+      Вернуться обратно
+    </NuxtLink>
   </div>
 </template>
 
@@ -42,15 +57,17 @@ import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
 import { useTraineeStore } from "~/stores/traineeStore";
 import { useUserStore } from "~/stores/userStore";
 import { useTestStore } from "~/stores/testStore";
-
+const route = useRoute();
 const traineeStore = useTraineeStore();
 const userStore = useUserStore();
 const testStore = useTestStore();
 // из рутов достаем тест
 
-const submitted = ref(false;)
+const submitted = ref(false);
 const answers = ref([]);
 const result = ref(0);
+
+if (!testStore.currentTest.length) navigateTo("/trainee/invites");
 
 function handleResult() {
   //надо отвечать на все вопросы
@@ -63,7 +80,11 @@ function handleResult() {
     (result.value / testStore.currentTest.length) * 100
   );
   submitted.value = true;
-  // traineeStore.submitTraineeRespond(+route.params.id, userStore.user?.userId!);
+  traineeStore.submitTraineeRespond(
+    +route.params.id,
+    userStore.user?.userId!,
+    result.value
+  );
 }
 </script>
 

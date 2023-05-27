@@ -108,7 +108,9 @@
       <span class="ml-3">Добавить требуемый опыт работы</span>
     </button>
     <NuxtLink class="max-sm:w-full" to="/frame/create-test">
-      <button class="black-btn block font-medium max-sm:w-full max-sm:text-lg">Создать тестовое задание</button>
+      <button class="black-btn block font-medium max-sm:w-full max-sm:text-lg">
+        Создать тестовое задание
+      </button>
     </NuxtLink>
 
     <button
@@ -180,7 +182,8 @@ const createApplication = async () => {
     frameApplicationStore.creationApplication
   );
 
-  if (id) await testStore.createTest(id, testStore.creationTest);
+  if (id && testStore.creationTest.length)
+    await testStore.createTest(id, testStore.creationTest);
 
   return navigateTo("/frame/applications");
 };
@@ -192,6 +195,5 @@ const createApplication = async () => {
   /* Убираем влияние padding и border на конечную ширину input */
   box-sizing: border-box;
   /* Обнуляем margin */
-
 }
 </style>

@@ -1,9 +1,12 @@
 import {
-  IUser,
-  IFrameApplication,
-  FrameApplicationStatus,
   Direction,
   FrameApplicationFilter,
+  FrameApplicationStatus,
+  IFrameApplication,
+  IUser,
+  MentorStatus,
+  TraineeOnFrameApplication,
+  TraineeStatus,
 } from "~/types/types";
 import { useUserStore } from "~/stores/userStore";
 
@@ -12,7 +15,10 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
   const personalFrameApplications = ref<IFrameApplication[]>([]);
   const allFrameApplications = ref<IFrameApplication[]>([]);
   const allApprovedFrameApplications = ref<IFrameApplication[]>([]);
+  const currentApplication = ref<IFrameApplication[]>([]);
+  const filteredApplications = ref<IFrameApplication[]>([]);
   const traineeFrameApplicationIds = ref<number[]>([]);
+  const traineeFrameApplications = ref<TraineeOnFrameApplication[]>([]);
   const creationApplication = ref<IFrameApplication>({
     organization: userStore.user?.organization ?? {
       name: "",
@@ -44,16 +50,43 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     }
   }
 
-  async function getTraineeFrameApplicationIds(traineeId: number) {
-    const { data: fetchedIds, error } = await useApiFetch<number[]>(
-      `applications/frame-application/trainee/${traineeId}`,
-      {
-        method: "GET",
-      }
-    );
-    if (fetchedIds.value) {
-      traineeFrameApplicationIds.value = fetchedIds.value;
+  async function getTraineeFrameApplications(traineeId: number) {
+    const { data: fetchedApplications, error } = await useApiFetch<
+      TraineeOnFrameApplication[]
+    >(`applications/frame-application/trainee/${traineeId}`, {
+      method: "GET",
+    });
+    if (fetchedApplications.value) {
+      console.log(fetchedApplications.value);
+      traineeFrameApplicationIds.value = fetchedApplications.value.map(
+        (application) => application.applicationId
+      );
+      traineeFrameApplications.value = fetchedApplications.value;
     }
+  }
+
+  function getApplicationStatus(applicationId: number) {
+    const application = traineeFrameApplications.value.filter(
+      (application) => application.applicationId === applicationId
+    )[0];
+    if (application.mentorStatus === MentorStatus.PENDING) {
+      return "На рассмотрении у наставника";
+    } else if (application.mentorStatus === MentorStatus.DECLINED) {
+      return "Не одобрена наставником";
+    } else if (
+      application.mentorStatus === MentorStatus.APPROVED &&
+      application.traineeStatus === TraineeStatus.PENDING
+    ) {
+      return "На рассмотрении у кадра";
+    } else if (application.traineeStatus === TraineeStatus.APPROVED) {
+      return "Одобрена кадром";
+    } else return "Не одобрена кадром";
+  }
+
+  async function getApplicationResult(applicationId: number) {
+    return traineeFrameApplications.value.filter(
+      (application) => application.applicationId === applicationId
+    )[0].result;
   }
 
   function getFilteredFrameApplications(
@@ -61,10 +94,17 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
   ): IFrameApplication[] {
     if (allApprovedFrameApplications.value) {
       if (filter === FrameApplicationFilter.SENDED) {
-        return approvedFrameApplications.value.filter((application) =>
-          traineeFrameApplicationIds.value.includes(application.applicationId!)
+        currentApplication.value = allApprovedFrameApplications.value.filter(
+          (application) =>
+            traineeFrameApplicationIds.value.includes(
+              application.applicationId!
+            )
         );
-      } else return allApprovedFrameApplications.value;
+        return currentApplication.value;
+      } else
+        return allApprovedFrameApplications.value.filter(
+          (application) => !currentApplication.value.includes(application)
+        );
     }
     return [];
   }
@@ -234,8 +274,11 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     personalApprovedApplications,
     getMentorsByDirection,
     mentors,
-    getTraineeFrameApplicationIds,
+    getTraineeFrameApplications,
     getFilteredFrameApplications,
     creationApplication,
+    traineeFrameApplicationIds,
+    getApplicationStatus,
+    getApplicationResult,
   };
 });
