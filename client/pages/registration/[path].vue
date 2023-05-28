@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center h-full bg-purple">
+  <div class="flex items-center min-h-screen bg-purple">
     <RegistrationForm v-if="role" :role="role" :path="path" />
   </div>
 </template>
