@@ -78,9 +78,11 @@ import { useUserStore } from "~/stores/userStore";
 
 const config = useRuntimeConfig();
 const userStore = useUserStore();
+
 async function handleLogout() {
   await useApiFetch("auth/login", { method: "DELETE" });
   return navigateTo("/auth");
+  
 }
 </script>
 

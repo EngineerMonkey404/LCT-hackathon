@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
     "nuxt-headlessui",
-    
   ],
 
   eslint: {
@@ -18,7 +17,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      baseURL: "http://localhost:5000/api/",
+      baseURL: process.env.BASE_URL || "http://localhost:5000/api/",
     },
   },
 
