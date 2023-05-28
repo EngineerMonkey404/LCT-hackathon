@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center h-screen bg-purple">
+  <div class="flex items-center min-h-screen bg-purple">
     <RegistrationForm />
   </div>
 </template>

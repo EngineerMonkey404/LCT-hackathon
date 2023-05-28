@@ -15,7 +15,7 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
   const personalFrameApplications = ref<IFrameApplication[]>([]);
   const allFrameApplications = ref<IFrameApplication[]>([]);
   const allApprovedFrameApplications = ref<IFrameApplication[]>([]);
-  const currentApplication = ref<IFrameApplication[]>([]);
+  let currentApplication: IFrameApplication[] = [];
   const filteredApplications = ref<IFrameApplication[]>([]);
   const mentorApplications = ref<IFrameApplication[]>([]);
   const traineeFrameApplicationIds = ref<number[]>([]);
@@ -124,16 +124,16 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
   ): IFrameApplication[] {
     if (allApprovedFrameApplications.value) {
       if (filter === FrameApplicationFilter.SENDED) {
-        currentApplication.value = allApprovedFrameApplications.value.filter(
+        currentApplication = allApprovedFrameApplications.value.filter(
           (application) =>
             traineeFrameApplicationIds.value.includes(
               application.applicationId!
             )
         );
-        return currentApplication.value;
+        return currentApplication;
       } else
         return allApprovedFrameApplications.value.filter(
-          (application) => !currentApplication.value.includes(application)
+          (application) => !currentApplication.includes(application)
         );
     }
     return [];
@@ -312,5 +312,6 @@ export const useFrameApplicationsStore = defineStore("applications", () => {
     getMentorApplications,
     mentorApplications,
     frameSubmitApplication,
+    currentApplication,
   };
 });

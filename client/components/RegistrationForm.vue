@@ -33,7 +33,7 @@
           id="addImg"
           class="photoInput"
           type="file"
-          accept="image/png, image/jpeg"
+          accept="image"
           @change="addImageFile($event)"
         />
       </div>
