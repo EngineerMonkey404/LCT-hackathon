@@ -6,7 +6,7 @@
   >
     >
     <div class="p-10 bg-white card-style" @click.stop>
-      <YandexMap :zoom="9" :coordinates="coordinates">
+      <YandexMap :zoom="16" :coordinates="coordinates">
         <YandexMarker :coordinates="coordinates" :marker-id="123">
           <template #component>
             <TraineeApplication :application="application" />

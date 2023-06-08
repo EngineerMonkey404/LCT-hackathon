@@ -115,7 +115,7 @@
 
     <div v-if="empty" class="text-red mt-7 text-2xl">*Заполните все поля</div>
     <button
-      class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover"
+      class="form-auth-input mt-10 bg-black text-white font-semibold black-btn-hover max-lg:mb-20"
       @click="createApplication"
     >
       Создать
